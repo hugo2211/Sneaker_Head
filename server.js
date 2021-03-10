@@ -14,7 +14,7 @@ app.use(cors());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
-// Add routes, both API and view
+// Add routes, both API and view soemthing
 connection.connect(function(err) {
   if (err) {
     console.error('error connecting: ' + err.stack);
