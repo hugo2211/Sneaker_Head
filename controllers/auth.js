@@ -1,4 +1,6 @@
+require('dotenv').config();
 const User = require("../models/User");
+const jwt = require("jsonwebtoken");
 
 exports.register = (req, res) => {
   const { username, password } = req.body;
@@ -26,8 +28,16 @@ exports.login = (req, res, next) => {
       return next(res.status(401).json({ success: false, error: "Invalid Credentials"}));
     } 
 
-    res.status(200).json({ success: true, user: user});
+    //res.status(200).json({ success: true, user: user});
+    sendToken(user, 200, res);
   }, (err) => {
     res.status(500).json({ success: false, error: err})
   })
+}
+
+const sendToken = (user, statusCode, res) => {
+  const token = jwt.sign({ id: user[0].web_id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE,
+  });
+  res.status(statusCode).json({ success: true, token, user: user[0] });
 }
