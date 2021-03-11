@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Header from "../general/Header";
 
-const ProfilePage = () => {
+const ProfilePage = ({ history }) => {
   const [error, setError] = useState("");
   const [userInfo, setUserInfo] = useState("");
 
@@ -14,11 +15,8 @@ const ProfilePage = () => {
     };
 
     try {
-      const { data } = await axios.get(
-        `/api/private`,
-        config
-      );
-  
+      const { data } = await axios.get(`/api/private`, config);
+
       console.log(data);
       setUserInfo(data.data);
     } catch (error) {
@@ -29,15 +27,18 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
-    fetchUserData()
+    fetchUserData();
   }, []);
 
   return (
     <div>
-      <h2 className="text-center">Profile Page</h2>
-      {error && <span className="error-message">{error}</span>}
+      <Header history={history} />
+      <div>
+        <h2 className="text-center">Profile Page</h2>
+        {error && <span className="error-message">{error}</span>}
+      </div>
     </div>
-  )
+  );
 };
 
 export default ProfilePage;
