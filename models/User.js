@@ -9,6 +9,15 @@ const User = {
       (err) => errCb(err)
     );
   },
+
+  login: (username, password, cb, errCb) => {
+    orm.loginUser(
+      username,
+      password,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
 };
 
 module.exports = User;

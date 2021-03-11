@@ -41,6 +41,7 @@ const RegisterPage = ({ history }) => {
       //localStorage.setItem("authToken", data.token);
       history.push("/login");
     } catch (error) {
+      console.log(error);
       setError(error.response.data.error);
       setTimeout(() => {
         setError("");

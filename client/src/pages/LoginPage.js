@@ -1,20 +1,49 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import "./LoginPage.css";
 
-const LoginPage = () => {
+const LoginPage = ({ history }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log(username, password);
-  }
+
+    const config = {
+      header: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const { data } = await axios.post(
+        "/api/auth/login",
+        {
+          username,
+          password,
+        },
+        config
+      );
+
+      console.log(data);
+      //localStorage.setItem("authToken", data.token);
+      history.push("/profile");
+    } catch (error) {
+      console.log(error);
+      setError(error.response.data.error);
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+    }
+  };
 
   return (
     <div>
       <div className="container border pt-5 pb-5 mt-5 login-container">
         <h2 className="text-center">Login</h2>
+        {error && <span className="error-message">{error}</span>}
         <form onSubmit={handleLogin}>
           <div className="form-group">
             <label htmlFor="username">Username:</label>
