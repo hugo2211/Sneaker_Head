@@ -1,6 +1,21 @@
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import PrivateRoute from "./components/routing/PrivateRoute";
+import LandingPage from "./components/pages/LandingPage";
+import LoginPage from "./components/pages/LoginPage";
+import RegisterPage from "./components/pages/RegisterPage";
+import ProfilePage from "./components/pages/ProfilePage";
+
 function App() {
   return (
-    <div className="container">Here is our App</div>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={LandingPage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/register" component={RegisterPage} />
+        <PrivateRoute exact path="/profile" component={ProfilePage} />
+      </Switch>
+  </Router>
   );
 }
 

@@ -24,7 +24,10 @@ connection.connect(function(err) {
   console.log('connected as id ' + connection.threadId);
 });
 
+app.use("/api/auth", require("./routes/auth"));
+app.use("/api/private", require("./routes/private"));
 app.use(routes);
+
 
 // Start the API server
 app.listen(PORT, function() {
