@@ -18,6 +18,14 @@ const User = {
       (err) => errCb(err)
     );
   },
+
+  findById: (id, cb, errCb) => {
+    orm.findById(
+      id,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
 };
 
 module.exports = User;
