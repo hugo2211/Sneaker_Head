@@ -1,21 +1,58 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 import "./RegisterPage.css";
 
-const RegisterPage = () => {
+const RegisterPage = ({ history }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    console.log(username, password, confirmPassword);
-  }
+
+    const config = {
+      header: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    if (password !== confirmPassword) {
+      setPassword("");
+      setConfirmPassword("");
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+      return setError("Passwords do not match");
+    }
+
+    try {
+      const { data } = await axios.post(
+        "/api/auth/register",
+        {
+          username,
+          password,
+        },
+        config
+      );
+
+      console.log(data);
+      //localStorage.setItem("authToken", data.token);
+      history.push("/login");
+    } catch (error) {
+      setError(error.response.data.error);
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+    }
+  };
 
   return (
     <div>
       <div className="container border pt-5 pb-5 mt-5 register-container">
         <h2 className="text-center">Register</h2>
+        {error && <span className="error-message">{error}</span>}
         <form onSubmit={handleRegister}>
           <div className="form-group">
             <label htmlFor="username">Username:</label>
