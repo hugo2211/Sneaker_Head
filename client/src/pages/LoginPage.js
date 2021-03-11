@@ -27,6 +27,8 @@ const LoginPage = ({ history }) => {
         config
       );
 
+      localStorage.setItem("authToken", data.token);
+
       console.log(data);
       //localStorage.setItem("authToken", data.token);
       history.push("/profile");
