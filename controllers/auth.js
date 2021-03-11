@@ -10,7 +10,15 @@ exports.register = (req, res) => {
   User.create(username, password, (data) => {
     res.status(200).json({ success: true, user: data });
   }, (err) => {
-    res.status(500).json({ success: false, error: err });
+
+    console.log('controller error: ', err);
+
+    if (err.errno === 1062) {
+      res.status(500).json({ success: false, error: 'Username already exsists.'});
+    } else {
+      res.status(500).json({ success: false, error: err });
+    }
+    
   })
 };
 
