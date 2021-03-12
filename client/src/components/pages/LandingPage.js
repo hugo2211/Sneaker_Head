@@ -13,10 +13,10 @@ const LandingPage = () => {
           sodales neque sodales ut etiam.
         </p>
         <div>
-          <Link className="btn btn-dark mr-4" to="/login">
+          <Link className="btn btn-light mr-4" to="/login">
             Login
           </Link>
-          <Link className="btn btn-outline-dark" to="/register">
+          <Link className="btn btn-outline-light" to="/register">
             Register
           </Link>
         </div>

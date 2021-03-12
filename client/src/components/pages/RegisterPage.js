@@ -92,8 +92,8 @@ const RegisterPage = ({ history }) => {
               value={confirmPassword}
             />
           </div>
-          <button className="btn btn-dark mr-3" type="submit">Create Account</button>
-          <Link className="btn btn-outline-dark" to="/">Go Back</Link>
+          <button className="btn btn-light mr-3" type="submit">Create Account</button>
+          <Link className="btn btn-outline-light" to="/">Go Back</Link>
         </form>
       </div>
     </div>
