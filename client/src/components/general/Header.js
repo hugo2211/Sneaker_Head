@@ -2,10 +2,10 @@ import React from "react";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import { LinkContainer, IndexLinkContainer } from "react-router-bootstrap";
 
-const Header = (props) => {
+const Header = ({ history }) => {
   const handleLogout = () => {
     localStorage.clear();
-    props.history.push("/login");
+    history.push("/login");
   };
 
   return (

@@ -71,8 +71,8 @@ const LoginPage = ({ history }) => {
               value={password}
             />
           </div>
-          <button className="btn btn-dark mr-3" type="submit">Login</button>
-          <Link className="btn btn-outline-dark" to="/">Go Back</Link>
+          <button className="btn btn-light mr-3" type="submit">Login</button>
+          <Link className="btn btn-outline-light" to="/">Go Back</Link>
         </form>
       </div>
     </div>
