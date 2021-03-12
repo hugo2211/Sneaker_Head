@@ -1,4 +1,4 @@
-DROP DATABASE [IF EXISTS] sneaker_head;
+DROP DATABASE IF EXISTS sneaker_head;
 Create Database sneaker_head;
 
 use sneaker_head;
