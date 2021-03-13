@@ -1,6 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Header from "../general/Header"
-import "./FeedPage.css"; 
+import React from "react";
+import Header from "../general/Header";
+import ShoeSquare from "../shoes/ShoeSquare";
+import airJordan1MidHyperRoyal from "../../images/airJordan1MidHyperRoyal.jpg";
+import "./FeedPage.css";
 
 const FeedPage = ({history, props}) => {
     return ( 
