@@ -18,7 +18,16 @@ const Header = ({ history }) => {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto" activeKey="/">
           <IndexLinkContainer to="/profile">
-            <Nav.Link active={false}>Do Something</Nav.Link>
+            <Nav.Link active={false}>Profile</Nav.Link>
+          </IndexLinkContainer>
+          <IndexLinkContainer to="/feed">
+            <Nav.Link active={false}>Feed</Nav.Link>
+          </IndexLinkContainer>
+          <IndexLinkContainer to="/upload">
+            <Nav.Link active={false}>Upload</Nav.Link>
+          </IndexLinkContainer>
+          <IndexLinkContainer to="/trending">
+            <Nav.Link active={false}>Trending</Nav.Link>
           </IndexLinkContainer>
         </Nav>
         <Nav>
