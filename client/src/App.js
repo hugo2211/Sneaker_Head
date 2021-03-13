@@ -5,7 +5,9 @@ import LandingPage from "./components/pages/LandingPage";
 import LoginPage from "./components/pages/LoginPage";
 import RegisterPage from "./components/pages/RegisterPage";
 import ProfilePage from "./components/pages/ProfilePage";
+import Trending from './components/pages/Trending';
 import FeedPage from './components/pages/FeedPage';
+
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
         <Route exact path="/register" component={RegisterPage} />
         <PrivateRoute exact path="/profile" component={ProfilePage} />
         <PrivateRoute exact path="/feed" component={FeedPage} />
+        <PrivateRoute exact path="/trending" component={Trending} />
       </Switch>
   </Router>
   );
