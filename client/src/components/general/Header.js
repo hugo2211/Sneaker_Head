@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import { LinkContainer, IndexLinkContainer } from "react-router-bootstrap";
+import "./Header.css"
 
 const Header = ({ history }) => {
   const handleLogout = () => {
@@ -11,7 +12,7 @@ const Header = ({ history }) => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <LinkContainer to="/profile">
-        <Navbar.Brand>Sneaker_Head</Navbar.Brand>
+        <Navbar.Brand>Sneakerheads</Navbar.Brand>
       </LinkContainer>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
