@@ -1,3 +1,6 @@
+require('dotenv').config();
+const axios = require('axios');
+
 exports.getPrivateData = (req, res, next) => {
   res
     .status(200)
@@ -8,5 +11,10 @@ exports.getPrivateData = (req, res, next) => {
 };
 
 exports.getChatProjectId = (req, res, next) => {
-  res.status(200).json({ success: true, data: '365fe33f-2342-4d93-abf4-fe0036867e62' });
+  res.status(200).json({ success: true, data: process.env.CHAT_PROJECT_ID });
+  //Need to create new project id
+}
+
+exports.createUser = (req, res, next) => {
+  
 }
