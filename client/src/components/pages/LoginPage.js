@@ -28,6 +28,8 @@ const LoginPage = ({ history }) => {
       );
 
       localStorage.setItem("authToken", data.token);
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
 
       console.log(data);
       //localStorage.setItem("authToken", data.token);

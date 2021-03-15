@@ -43,7 +43,20 @@ const MenuProps = {
   },
 };
 
-const shoeColorList = ["Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Black", "Brown", "Silver", "White"];
+const shoeColorList = [
+  "Red",
+  "Orange",
+  "Yellow",
+  "Green",
+  "Blue",
+  "Purple",
+  "Black",
+  "Brown",
+  "Silver",
+  "White",
+  "Gold",
+  "Mutlicolor"
+];
 
 const UserUploadPage = ({ history }) => {
   const classes = useStyles();

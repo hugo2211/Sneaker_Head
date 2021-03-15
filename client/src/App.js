@@ -28,7 +28,7 @@ function App() {
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/register" component={RegisterPage} />
           <PrivateRoute exact path="/profile" component={ProfilePage} />
-          <PrivateRoute exact path="/feed" newProp="newProps" component={FeedPage} />
+          <PrivateRoute exact path="/feed" component={FeedPage} />
           <PrivateRoute exact path="/chat" component={ChatPage} />
           <PrivateRoute exact path="/upload" component={UserUploadPage} />
           <PrivateRoute exact path="/trending" component={Trending} />

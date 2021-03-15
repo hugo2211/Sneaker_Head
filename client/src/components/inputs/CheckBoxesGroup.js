@@ -21,13 +21,14 @@ const CheckboxesGroup = () => {
   const [state, setState] = React.useState({
     trade: false,
     sell: false,
+    view: false
   });
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-  const { trade, sell } = state;
+  const { trade, sell, view } = state;
 
   return (
     <div className={classes.root}>
@@ -42,8 +43,12 @@ const CheckboxesGroup = () => {
             control={<Checkbox checked={sell} onChange={handleChange} name="sell" />}
             label="Sell"
           />
+          <FormControlLabel
+            control={<Checkbox checked={view} onChange={handleChange} name="view" />}
+            label="View Only"
+          />
         </FormGroup>
-        <FormHelperText>Select one or both options</FormHelperText>
+        <FormHelperText>Select one or more options</FormHelperText>
       </FormControl>
     </div>
   );
