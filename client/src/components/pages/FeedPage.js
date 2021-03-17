@@ -37,27 +37,6 @@ const FeedPage = (props) => {
     <div className="feed-page">
       <Header history={props.history} />
       <h2>Feed</h2>
-
-      {feed.map((post => {
-        return <div className="card">
-          <div className="img-container">
-            <img alt={} src={post.image} />
-          </div>
-          <div className="content">
-            <ul>
-              <li>
-                <strong>Name:</strong> {post.shoe}
-              </li>
-              <li>
-                <strong>Occupation:</strong>  {}
-              </li>
-              <li>
-                <strong>Location:</strong> 
-              </li>
-            </ul>
-          </div>
-        </div>
-      }))}
     </div>
   );
 };
