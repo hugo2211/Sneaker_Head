@@ -1,63 +1,67 @@
+import { faBlackTie } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
 import Header from "../general/Header";
-import ShoeSquare from "../shoes/ShoeSquare";
-import airJordan1MidHyperRoyal from "../../images/airJordan1MidHyperRoyal.jpg";
 import "./FeedPage.css";
 
+const feed = [
+  {
+    id: 1,
+    shoe: "adidas",
+    image:
+      "https://vignette.wikia.nocookie.net/spongebobgalaxy/images/0/07/SpongeBob_SquarePants.png/revision/latest?cb=20171228024014",
+    likes: 1110,
+    comment: "Check out my new retro kicks",
+  },
+  {
+    id: 2,
+    shoe: "Reebok",
+    image:
+      "https://vignette3.wikia.nocookie.net/vsbattles/images/8/80/Mr._Krabs.png/revision/latest?cb=20150919162131",
+    likes: 700,
+    comment: "Found these classics in the back of my closet!",
+  },
+  {
+    id: 3,
+    shoe: "Air Jordans",
+    image:
+      "https://vignette2.wikia.nocookie.net/fictionalcharacters/images/a/ac/Squidward.png/revision/latest?cb=20131121012626",
+    likes: 1200,
+    comment: "Finally checking these off my wishlist",
+  },
+];
 
-const feed = [{
-  "id":1,
-  "shoe": "adidas",
-  "image": "https://vignette.wikia.nocookie.net/spongebobgalaxy/images/0/07/SpongeBob_SquarePants.png/revision/latest?cb=20171228024014",
-  "likes": 1110, 
-  "comment": "Check out my new retro kicks" 
-},
-{
-  "id":2,
-  "shoe": "Reebok",
-  "image": "https://vignette.wikia.nocookie.net/spongebobgalaxy/images/0/07/SpongeBob_SquarePants.png/revision/latest?cb=20171228024014",
-  "likes": 700, 
-  "comment": "Found these classics in the back of my closet!" 
-}, 
-{
-  "id":3,
-  "shoe": "Air Jordans",
-  "image": "https://vignette.wikia.nocookie.net/spongebobgalaxy/images/0/07/SpongeBob_SquarePants.png/revision/latest?cb=20171228024014",
-  "likes": 1200, 
-  "comment": "Finally checking these off my wishlist" 
-}]
+const style = {
+    card: {
+        margin: 50,
+        color: "black"
+    },
+    img: {
+        marginLeft: 200
+    },
+    h5: {
+        textAlign: "left"
+    }
+}
 
-const FeedPage = (props) => {
-  //const [feedData, setFeedData] = useState([]);
-
-  console.log(props);
+const FeedPage = ({ history }) => {
+  console.log(history);
 
   return (
     <div className="feed-page">
-      <Header history={props.history} />
+      <Header history={history} />
       <h2>Feed</h2>
 
-      {feed.map((post => {
-        return <div className="card">
+      {feed.map((post) => (
+        <div className="card mb-5" style={style.card} >
           <div className="img-container">
-            <img alt={} src={post.image} />
+           <h2>{post.comment}</h2> 
+            <img alt={post.shoe} src={post.image} style= {style.img} />
           </div>
           <div className="content">
-            <ul>
-              <li>
-                <strong>Name:</strong> {post.shoe}
-              </li>
-              <li>
-                <strong>Occupation:</strong>  {}
-              </li>
-              <li>
-                <strong>Location:</strong> 
-              </li>
-            </ul>
+              <h5>Likes: {post.likes} </h5>
           </div>
         </div>
-      }))}
+      ))}
     </div>
   );
 };
