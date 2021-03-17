@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { ChatEngine } from "react-chat-engine";
 import axios from "axios";
+import './ChatPage.css';
+
+const ChatLeftPanel = (props) => {
+  console.log(props);
+
+  return <div className="chat-left-panel">Chat Left Panel</div>
+}
 
 const ChatPage = () => {
   const [error, setError] = useState("");
@@ -33,7 +40,7 @@ const ChatPage = () => {
   };
 
   return (
-    <div>
+    <div className="chat-page">
       {projectId ? (
         <ChatEngine
           projectID={projectId}

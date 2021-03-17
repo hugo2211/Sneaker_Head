@@ -9,6 +9,7 @@ import Trending from './components/pages/Trending';
 import FeedPage from "./components/pages/FeedPage";
 import ChatPage from "./components/pages/ChatPage";
 import UserUploadPage from "./components/pages/UserUploadPage";
+import NavbarPage from "./components/pages/NavbarPage";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
 
@@ -32,6 +33,7 @@ function App() {
           <PrivateRoute exact path="/chat" component={ChatPage} />
           <PrivateRoute exact path="/upload" component={UserUploadPage} />
           <PrivateRoute exact path="/trending" component={Trending} />
+          <PrivateRoute exact path="/navbar" component={NavbarPage} />
         </Switch>
       </Router>
     </ThemeProvider>

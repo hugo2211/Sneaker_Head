@@ -1,0 +1,76 @@
+.ce-chat-list {
+  background-color: rgb(20, 20, 20) !important;
+}
+
+.ce-chats-container {
+  background-color: rgba(50, 50, 50) !important;
+}
+
+.ce-active-chat-card {
+  background-color: rgb(80, 80, 80) !important;
+  border: 4px solid rgb(100, 100, 100) !important;
+}
+
+.ce-chat-form-container {
+  background-color: rgba(20, 20, 20) !important;
+}
+
+.ce-input {
+  background-color: rgb(100, 100, 100) !important;
+  border: none !important;
+  color: rgb(220, 220, 220) !important;
+}
+
+.ce-input::placeholder {
+  color: rgb(210, 210, 210) !important;
+}
+
+.ce-chat-feed-container {
+  background-color: rgba(20, 20, 20) !important;
+}
+
+.ce-chat-title-container {
+  background-color: rgba(20, 20, 20) !important;
+  color: rgb(220, 220, 220) !important; 
+}
+
+.ce-message-and-date {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.ce-message-date-text {
+  color: rgb(220, 220, 220) !important; 
+}
+
+.ce-their-message-sender {
+  color: rgb(220, 220, 220) !important;
+}
+
+.ce-message-form {
+  background-color: rgb(100, 100, 100) !important;
+}
+
+.ce-settings {
+  background-color: rgba(20, 20, 20) !important;
+}
+
+.ce-primary-button {
+  background-color: rgb(220, 220, 220) !important;
+  color: black !important;
+}
+
+.ce-danger-button {
+  border: none !important;
+}
+
+.anticon-paper-clip {
+  color: rgb(220, 220, 220) !important;
+}
+
+.ce-section-title-container:hover {
+  background-color: rgb(50, 50, 50) !important;
+}
+
+.ce-photo-section+div > div > div:hover {
+  background-color: rgb(50, 50, 50) !important;
+}
