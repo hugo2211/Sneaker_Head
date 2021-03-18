@@ -1,6 +1,5 @@
 import { faBlackTie } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Header from "../general/Header";
 import "./FeedPage.css";
 
 const feed = [
@@ -48,7 +47,6 @@ const FeedPage = ({ history }) => {
 
   return (
     <div className="feed-page">
-      <Header history={history} />
       <h2>Feed</h2>
 
       {feed.map((post) => (

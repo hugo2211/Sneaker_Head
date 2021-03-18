@@ -9,7 +9,6 @@ import {
   Input,
   Chip,
 } from "@material-ui/core";
-import Header from "../general/Header";
 import CheckboxesGroup from "../inputs/CheckBoxesGroup";
 
 const useStyles = makeStyles((theme) => ({
@@ -58,7 +57,7 @@ const shoeColorList = [
   "Mutlicolor"
 ];
 
-const UserUploadPage = ({ history }) => {
+const UserUploadPage = () => {
   const classes = useStyles();
   const [shoeBrand, setShoeBrand] = useState("");
   const [shoeModel, setShoeModel] = useState("");
@@ -69,7 +68,6 @@ const UserUploadPage = ({ history }) => {
 
   return (
     <div>
-      <Header history={history} />
       <div className="mt-4">
         <h2 className="text-center">Upload</h2>
 
