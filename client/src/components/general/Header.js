@@ -6,7 +6,7 @@ import "./Header.css"
 const Header = ({ history }) => {
   const handleLogout = () => {
     localStorage.clear();
-    history.push("/login");
+    history.push("/");
   };
 
   return (

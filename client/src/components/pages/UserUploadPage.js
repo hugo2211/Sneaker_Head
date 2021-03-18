@@ -65,6 +65,8 @@ const UserUploadPage = ({ history }) => {
   const [shoeColor, setShoeColor] = useState([]);
   const [shoeYear, setShoeYear] = useState("");
 
+ 
+
   return (
     <div>
       <Header history={history} />
