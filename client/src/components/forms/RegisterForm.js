@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 import { TextField } from "@material-ui/core";
 
-const RegisterForm = ({ handleCancelClick, goToLogin, closeRegisterForm, handleSuccess }) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const RegisterForm = ({
+  handleCancelClick,
+  goToLogin,
+  closeRegisterForm,
+  handleSuccess,
+}) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -40,7 +45,7 @@ const RegisterForm = ({ handleCancelClick, goToLogin, closeRegisterForm, handleS
 
       console.log(data);
       closeRegisterForm();
-      handleSuccess('User Create! Please Login in.')
+      handleSuccess("User Create! Please Login in.");
       goToLogin();
     } catch (error) {
       console.log(error.response);
@@ -58,29 +63,32 @@ const RegisterForm = ({ handleCancelClick, goToLogin, closeRegisterForm, handleS
       <div className="container-fluid mb-4">
         <div className="row">
           <div className="col">
-          <TextField
-          fullWidth
-          id="firstName-input"
-          label="First Name"
-          variant="outlined"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
+            <TextField
+              required
+              fullWidth
+              id="firstName-input"
+              label="First Name"
+              variant="outlined"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
           </div>
           <div className="col">
-          <TextField
-          fullWidth
-          id="lastName-input"
-          label="Last Name"
-          variant="outlined"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
+            <TextField
+              required
+              fullWidth
+              id="lastName-input"
+              label="Last Name"
+              variant="outlined"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
           </div>
         </div>
       </div>
       <div className="pl-3 pr-3 mb-4">
         <TextField
+          required
           fullWidth
           id="username-input"
           label="Username"
@@ -91,6 +99,7 @@ const RegisterForm = ({ handleCancelClick, goToLogin, closeRegisterForm, handleS
       </div>
       <div className="pl-3 pr-3 mb-4">
         <TextField
+          required
           fullWidth
           type="password"
           id="password-input"
@@ -102,6 +111,7 @@ const RegisterForm = ({ handleCancelClick, goToLogin, closeRegisterForm, handleS
       </div>
       <div className="pl-3 pr-3 mb-4">
         <TextField
+          required
           fullWidth
           type="password"
           id="confirm-password-input"
