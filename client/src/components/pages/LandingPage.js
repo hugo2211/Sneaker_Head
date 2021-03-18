@@ -11,8 +11,6 @@ const LandingPage = ({ history }) => {
   const [isRegister, setIsRegister] = useState(false);
   const [message, setMessage] = useState('');
 
-
-
   return (
     <div className="landing-page-background">
       <div className="landing-page-content-container text-center">

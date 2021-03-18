@@ -48,6 +48,7 @@ const LoginForm = ({ handleCancelClick, history, message }) => {
       {error && <span className="error-message">{error}</span>}
       <div className="pl-3 pr-3 mb-4">
         <TextField
+          required
           fullWidth
           id="username-input"
           label="Username"
@@ -58,6 +59,7 @@ const LoginForm = ({ handleCancelClick, history, message }) => {
       </div>
       <div className="pl-3 pr-3 mb-4">
         <TextField
+          required
           fullWidth
           type="password"
           id="password-input"
