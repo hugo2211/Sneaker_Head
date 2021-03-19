@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../general/Header";
 import ShoeSquare from "../shoes/ShoeSquare";
 import ShoeCard from "../shoes/ShoeCard"
 import airJordan1MidHyperRoyal from "../../images/airJordan1MidHyperRoyal.jpg";
@@ -7,7 +6,7 @@ import nikeDunkHighSpSyracuse from "../../images/nikeDunkHighSpSyracuse.webp";
 import "./Trending.css";
 //import Image from "../../../public/images/airJordan1MidHyperRoyal.jpg"
 
-const Trending = ({ history }) => {
+const Trending = () => {
   return (
     <div className="trending-page">
       <Header history={history} />
@@ -61,6 +60,7 @@ const Trending = ({ history }) => {
       </div>
 
       <h3>Classics</h3>
+
       <div className="shoe-carosel">
         
       <ShoeSquare userName="hugo2211" image={airJordan1MidHyperRoyal} product="Jordan 1 Mid Hyper Royal" price="$132" />

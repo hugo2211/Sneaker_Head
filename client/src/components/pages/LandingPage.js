@@ -1,24 +1,56 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import LoginForm from "../forms/LoginForm";
+import RegisterForm from "../forms/RegisterForm";
+import "./LandingPage.css";
+import sneaker from "../../images/SneakerLogoFinal.png";
+import head from "../../images/HeadLogoFinal.png";
+import TwoBlockButtonGroup from "../buttons/TwoBlockBtnGroup";
 
-const LandingPage = () => {
+const LandingPage = ({ history }) => {
+  const [isLogin, setIsLogin] = useState(false);
+  const [isRegister, setIsRegister] = useState(false);
+  const [message, setMessage] = useState('');
+
   return (
-    <div>
-      <div className="border pt-5 pb-5 container mt-5 text-center">
-        <h1>Sneaker Head</h1>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Vulputate
-          odio ut enim blandit volutpat. Donec ultrices tincidunt arcu non
-          sodales neque sodales ut etiam.
-        </p>
-        <div>
-          <Link className="btn btn-light mr-4" to="/login">
-            Login
-          </Link>
-          <Link className="btn btn-outline-light" to="/register">
-            Register
-          </Link>
+    <div className="landing-page-background">
+      <div className="landing-page-content-container text-center">
+        <div className="">
+          <img
+            src={sneaker}
+            alt="website-logo"
+            className="landing-page-sneaker img-fluid"
+          />
+          <img
+            src={head}
+            alt="website-logo"
+            className="landing-page-head img-fluid"
+          />
+
+          {isLogin && (
+            <LoginForm
+              handleCancelClick={() => setIsLogin(false)}
+              history={history}
+              message={message}
+            />
+          )}
+          {isRegister && (
+            <RegisterForm
+              goToLogin={() => setIsLogin(true)}
+              closeRegisterForm={() => setIsRegister(false)}
+              handleCancelClick={() => setIsRegister(false)}
+              handleSuccess={(registerMessage) => setMessage(registerMessage)}
+            />
+          )}
+          {!isLogin && !isRegister && (
+            <div className="mt-5">
+              <TwoBlockButtonGroup
+                btnOneName="Login"
+                btnTwoName="Register"
+                handleBtnOneClick={() => setIsLogin(true)}
+                handleBtnTwoClick={() => setIsRegister(true)}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

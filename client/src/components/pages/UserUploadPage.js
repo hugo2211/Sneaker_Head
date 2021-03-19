@@ -8,9 +8,10 @@ import {
   MenuItem,
   Input,
   Chip,
+  RaisedButton
 } from "@material-ui/core";
-import Header from "../general/Header";
 import CheckboxesGroup from "../inputs/CheckBoxesGroup";
+import FileUpload from "../inputs/FileUpload";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -55,10 +56,10 @@ const shoeColorList = [
   "Silver",
   "White",
   "Gold",
-  "Mutlicolor"
+  "Mutlicolor",
 ];
 
-const UserUploadPage = ({ history }) => {
+const UserUploadPage = () => {
   const classes = useStyles();
   const [shoeBrand, setShoeBrand] = useState("");
   const [shoeModel, setShoeModel] = useState("");
@@ -67,7 +68,6 @@ const UserUploadPage = ({ history }) => {
 
   return (
     <div>
-      <Header history={history} />
       <div className="mt-4">
         <h2 className="text-center">Upload</h2>
 
@@ -155,7 +155,7 @@ const UserUploadPage = ({ history }) => {
               </FormControl>
             </div>
             <div className="col-lg-4 col-md-6 col-12 mb-4">
-              <h2 className="text-center">Image Upload</h2>
+              <FileUpload />
             </div>
             <div className="col-lg-4 col-md-6 col-12 mb-4">
               <CheckboxesGroup />

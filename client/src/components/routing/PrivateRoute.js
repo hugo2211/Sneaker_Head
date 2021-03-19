@@ -1,4 +1,5 @@
 import { Redirect, Route } from "react-router-dom";
+import Navbar from "../nav/Navbar";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
@@ -6,9 +7,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={(props) =>
         localStorage.getItem("authToken") ? (
-          <Component {...props} />
+          <div>
+            <Navbar {...props} />
+            <Component {...props} />
+          </div>
+          
         ) : (
-          <Redirect to="/login" />
+          <Redirect to="/" />
         )
       }
     />
