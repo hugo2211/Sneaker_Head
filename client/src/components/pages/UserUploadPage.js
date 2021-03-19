@@ -8,9 +8,10 @@ import {
   MenuItem,
   Input,
   Chip,
+  RaisedButton,
 } from "@material-ui/core";
-import Header from "../general/Header";
 import CheckboxesGroup from "../inputs/CheckBoxesGroup";
+import FileUpload from "../inputs/FileUpload";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -55,113 +56,129 @@ const shoeColorList = [
   "Silver",
   "White",
   "Gold",
-  "Mutlicolor"
+  "Mutlicolor",
 ];
 
-const UserUploadPage = ({ history }) => {
+const UserUploadPage = () => {
   const classes = useStyles();
   const [shoeBrand, setShoeBrand] = useState("");
   const [shoeModel, setShoeModel] = useState("");
   const [shoeColor, setShoeColor] = useState([]);
   const [shoeYear, setShoeYear] = useState("");
+  const [fileUpload, setFileUpload] = useState("");
+
+  const handleFileUpload = (event) => {
+    setFileUpload(event.target.files[0]);
+  };
+
+  const handleUploadSubmit = (event) => {
+    event.preventDefault();
+    console.log(shoeBrand, shoeModel, shoeColor, shoeYear, fileUpload)
+  };
 
   return (
     <div>
-      <Header history={history} />
       <div className="mt-4">
         <h2 className="text-center">Upload</h2>
 
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-4 col-md-6 col-12 mb-4">
-              <FormControl
-                fullWidth
-                variant="outlined"
-                className={classes.formControl}
-              >
-                <InputLabel id="shoe-brand-label">Brand</InputLabel>
-                <Select
-                  labelId="shoe-brand-label"
-                  id="shoe-brand-select"
-                  value={shoeBrand}
-                  onChange={(e) => setShoeBrand(e.target.value)}
-                  label="Age"
+        <form onSubmit={handleUploadSubmit}>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-4 col-md-6 col-12 mb-4">
+                <FormControl
+                  fullWidth
+                  variant="outlined"
+                  className={classes.formControl}
                 >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={10}>Nike</MenuItem>
-                  <MenuItem value={20}>Adiddas</MenuItem>
-                  <MenuItem value={30}>Jordan</MenuItem>
-                </Select>
-              </FormControl>
-            </div>
-            <div className="col-lg-4 col-md-6 col-12 mb-4">
-              <TextField
-                className={classes.formControl}
-                fullWidth
-                id="shoe-model-input"
-                label="Model"
-                variant="outlined"
-                value={shoeModel}
-                onChange={(e) => setShoeModel(e.target.value)}
-              />
-            </div>
-            <div className="col-lg-4 col-md-6 col-12 mb-4">
-              <TextField
-                className={classes.formControl}
-                fullWidth
-                type="number"
-                id="shoe-year-input"
-                label="Year"
-                variant="outlined"
-                value={shoeYear}
-                onChange={(e) => setShoeYear(e.target.value)}
-              />
-            </div>
-            <div className="col-lg-4 col-md-6 col-12 mb-4">
-              <FormControl
-                variant="outlined"
-                className={classes.formControl}
-                fullWidth
-              >
-                <InputLabel id="shoe-color-label">Color</InputLabel>
-                <Select
-                  labelId="shoe-color-label"
-                  id="shoe-color-select"
-                  multiple
-                  value={shoeColor}
-                  onChange={(e) => setShoeColor(e.target.value)}
-                  input={<Input id="shoe-color-chip" />}
-                  renderValue={(selected) => (
-                    <div className={classes.chips}>
-                      {selected.map((value) => (
-                        <Chip
-                          key={value}
-                          label={value}
-                          className={classes.chip}
-                        />
-                      ))}
-                    </div>
-                  )}
-                  MenuProps={MenuProps}
-                >
-                  {shoeColorList.map((color) => (
-                    <MenuItem key={color} value={color}>
-                      {color}
+                  <InputLabel id="shoe-brand-label">Brand</InputLabel>
+                  <Select
+                    labelId="shoe-brand-label"
+                    id="shoe-brand-select"
+                    value={shoeBrand}
+                    onChange={(e) => setShoeBrand(e.target.value)}
+                    label="Age"
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
                     </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
-            <div className="col-lg-4 col-md-6 col-12 mb-4">
-              <h2 className="text-center">Image Upload</h2>
-            </div>
-            <div className="col-lg-4 col-md-6 col-12 mb-4">
-              <CheckboxesGroup />
+                    <MenuItem value={10}>Nike</MenuItem>
+                    <MenuItem value={20}>Adiddas</MenuItem>
+                    <MenuItem value={30}>Jordan</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
+              <div className="col-lg-4 col-md-6 col-12 mb-4">
+                <TextField
+                  className={classes.formControl}
+                  fullWidth
+                  id="shoe-model-input"
+                  label="Model"
+                  variant="outlined"
+                  value={shoeModel}
+                  onChange={(e) => setShoeModel(e.target.value)}
+                />
+              </div>
+              <div className="col-lg-4 col-md-6 col-12 mb-4">
+                <TextField
+                  className={classes.formControl}
+                  fullWidth
+                  type="number"
+                  id="shoe-year-input"
+                  label="Year"
+                  variant="outlined"
+                  value={shoeYear}
+                  onChange={(e) => setShoeYear(e.target.value)}
+                />
+              </div>
+              <div className="col-lg-4 col-md-6 col-12 mb-4">
+                <FormControl
+                  variant="outlined"
+                  className={classes.formControl}
+                  fullWidth
+                >
+                  <InputLabel id="shoe-color-label">Color</InputLabel>
+                  <Select
+                    labelId="shoe-color-label"
+                    id="shoe-color-select"
+                    multiple
+                    value={shoeColor}
+                    onChange={(e) => setShoeColor(e.target.value)}
+                    input={<Input id="shoe-color-chip" />}
+                    renderValue={(selected) => (
+                      <div className={classes.chips}>
+                        {selected.map((value) => (
+                          <Chip
+                            key={value}
+                            label={value}
+                            className={classes.chip}
+                          />
+                        ))}
+                      </div>
+                    )}
+                    MenuProps={MenuProps}
+                  >
+                    {shoeColorList.map((color) => (
+                      <MenuItem key={color} value={color}>
+                        {color}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+              <div className="col-lg-4 col-md-6 col-12 mb-4">
+                <FileUpload handleFileUpload={handleFileUpload} />
+                <p>File: {fileUpload.name}</p>
+                <p>Type: {fileUpload.type}</p>
+              </div>
+              <div className="col-lg-4 col-md-6 col-12 mb-4">
+                <CheckboxesGroup />
+              </div>
+              <div className="container-fluid text-center">
+                <button type="submit" className="btn btn-light">Create Post</button>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

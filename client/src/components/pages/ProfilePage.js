@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Header from "../general/Header";
 
 
 const style = {
@@ -16,7 +15,9 @@ const style = {
     }
 }
 
-const ProfilePage = ({ history }) => {
+
+const ProfilePage = () => {
+
   const [error, setError] = useState("");
   const [userInfo, setUserInfo] = useState("");
   const [userShoeCollection, setUserShoeCollecton] = useState([]);
@@ -62,7 +63,6 @@ const ProfilePage = ({ history }) => {
 
   return (
     <div>
-      <Header history={history} />
       <div>
         <h2 className="text-center">My Kicks</h2>
         {error && <span className="error-message">{error}</span>}
