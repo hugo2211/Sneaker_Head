@@ -2,6 +2,20 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../general/Header";
 
+
+const style = {
+    card: {
+        margin: 50,
+        color: "black"
+    },
+    img: {
+        marginLeft: 200
+    },
+    h5: {
+        textAlign: "left"
+    }
+}
+
 const ProfilePage = ({ history }) => {
   const [error, setError] = useState("");
   const [userInfo, setUserInfo] = useState("");
@@ -50,49 +64,31 @@ const ProfilePage = ({ history }) => {
     <div>
       <Header history={history} />
       <div>
-        <h2 className="text-center">Profile Page</h2>
+        <h2 className="text-center">My Kicks</h2>
         {error && <span className="error-message">{error}</span>}
       </div>
 
-      <div id="carouselExampleIndicators" className="carousel slide align-self-center" data-ride="carousel">
+      <div className="collection">  
   
-          <div className="carousel-inner">
+            {userShoeCollection.map((shoe) => {
+               return(<div className="card mb-5" style={style.card} >
+               <div className="img-container">
+                <h2>{shoe.comment}</h2> 
+                 <img alt={shoe.shoe} src={shoe.image} style= {style.img} />
+               </div>
+               <div className="content">
+                   <h5>Likes: {shoe.likes} </h5>
+               </div>
+             </div>)
   
-            {userShoeCollection.map((shoe, i) => {
-  
-              var active = i === 0 ? 'carousel-item active' : 'carousel-item';
-              return (<div className={active}>
-                <img className="d-block w-50"
-                  src={shoe.image}
-                  style={{ height:'50px' }}
-                  alt="Coding Quiz Screenshot"></img>
-  
-                <a href="https://glove1911.github.io/Code-Quiz-Assignment/">
-                 
-                </a>
-  
-                <a href="https://github.com/Glove1911/Code-Quiz-Assignment">
-                  {/* <button type="button" className="btn btn-outline-primary"
-                    style={styles.button40Style}>Github Repository</button> */}
-                </a>
-  
-              </div>)
+             
             })}
   
   
           </div>
-          <a className="carousel-control-prev " href="#carouselExampleIndicators" role="button"
-            data-slide="prev">
-            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span className="sr-only">Previous</span>
-          </a>
-          <a className="carousel-control-next" href="#carouselExampleIndicators" role="button"
-            data-slide="next">
-            <span className="carousel-control-next-icon" aria-hidden="true"></span>
-            <span className="sr-only">Next</span>
-          </a>
+          
         </div>
-    </div>
+
   );
 };
 
