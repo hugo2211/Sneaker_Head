@@ -16,19 +16,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CheckboxesGroup = () => {
+const CheckboxesGroup = ({ postAction, handleCheckboxSelect}) => {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    trade: false,
-    sell: false,
-    view: false
-  });
 
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
-
-  const { trade, sell, view } = state;
+  const { trade, sell, view } = postAction;
 
   return (
     <div className={classes.root}>
@@ -36,15 +27,15 @@ const CheckboxesGroup = () => {
         <FormLabel component="legend">Are you looking to: </FormLabel>
         <FormGroup>
           <FormControlLabel
-            control={<Checkbox checked={trade} onChange={handleChange} name="trade" />}
+            control={<Checkbox checked={trade} onChange={handleCheckboxSelect} name="trade" />}
             label="Trade"
           />
           <FormControlLabel
-            control={<Checkbox checked={sell} onChange={handleChange} name="sell" />}
+            control={<Checkbox checked={sell} onChange={handleCheckboxSelect} name="sell" />}
             label="Sell"
           />
           <FormControlLabel
-            control={<Checkbox checked={view} onChange={handleChange} name="view" />}
+            control={<Checkbox checked={view} onChange={handleCheckboxSelect} name="view" />}
             label="View Only"
           />
         </FormGroup>
