@@ -9,7 +9,6 @@ import "./Trending.css";
 const Trending = () => {
   return (
     <div className="trending-page">
-      <Header history={history} />
       <h1>Trending</h1>
       <br/>
       <h2>Shoe of the Day!</h2>
