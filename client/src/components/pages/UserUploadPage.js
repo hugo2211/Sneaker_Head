@@ -8,7 +8,6 @@ import {
   MenuItem,
   Input,
   Chip,
-  RaisedButton,
 } from "@material-ui/core";
 import CheckboxesGroup from "../inputs/CheckBoxesGroup";
 import FileUpload from "../inputs/FileUpload";
@@ -66,6 +65,15 @@ const UserUploadPage = () => {
   const [shoeColor, setShoeColor] = useState([]);
   const [shoeYear, setShoeYear] = useState("");
   const [fileUpload, setFileUpload] = useState("");
+  const [postAction, setPostAction] = React.useState({
+    trade: false,
+    sell: false,
+    view: false
+  });
+
+  const handleCheckboxSelect = (event) => {
+    setPostAction({ ...postAction, [event.target.name]: event.target.checked });
+  };
 
   const handleFileUpload = (event) => {
     setFileUpload(event.target.files[0]);
@@ -73,7 +81,7 @@ const UserUploadPage = () => {
 
   const handleUploadSubmit = (event) => {
     event.preventDefault();
-    console.log(shoeBrand, shoeModel, shoeColor, shoeYear, fileUpload)
+    console.log(shoeBrand, shoeModel, shoeColor, shoeYear, fileUpload, postAction)
   };
 
   return (
@@ -171,7 +179,7 @@ const UserUploadPage = () => {
                 <p>Type: {fileUpload.type}</p>
               </div>
               <div className="col-lg-4 col-md-6 col-12 mb-4">
-                <CheckboxesGroup />
+                <CheckboxesGroup handleCheckboxSelect={handleCheckboxSelect} postAction={postAction} />
               </div>
               <div className="container-fluid text-center">
                 <button type="submit" className="btn btn-light">Create Post</button>

@@ -1,7 +1,27 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import LikeButton from "../inputs/Like";
+
+
+const style = {
+    card: {
+        margin: "auto",
+        color: "black",
+        // width: "auto"
+        // display: "flex",
+        // position: "relative"
+    },
+    // img: {
+  
+    // },
+    h5: {
+        textAlign: "left"
+    }
+}
+
 
 const ProfilePage = () => {
+
   const [error, setError] = useState("");
   const [userInfo, setUserInfo] = useState("");
   const [userShoeCollection, setUserShoeCollecton] = useState([]);
@@ -48,49 +68,32 @@ const ProfilePage = () => {
   return (
     <div>
       <div>
-        <h2 className="text-center">Profile Page</h2>
+        <h2 className="text-center">My Kicks</h2>
         {error && <span className="error-message">{error}</span>}
       </div>
 
-      <div id="carouselExampleIndicators" className="carousel slide align-self-center" data-ride="carousel">
+      <div className="collection">  
   
-          <div className="carousel-inner">
+            {userShoeCollection.map((shoe) => {
+               return(<div className="card mb-5 shoe-card" key = {shoe.id}style={style.card} >
+               <div className="img-container">
+                <h5>{shoe.shoe}</h5> 
+                 <img alt={shoe.shoe} src={shoe.image} style= {style.img} />
+               </div>
+               <div className="content">
+                   <h5>Likes: {shoe.likes} </h5>
+                   <div> <LikeButton/></div>
+               </div>
+             </div>)
   
-            {userShoeCollection.map((shoe, i) => {
-  
-              var active = i === 0 ? 'carousel-item active' : 'carousel-item';
-              return (<div className={active}>
-                <img className="d-block w-50"
-                  src={shoe.image}
-                  style={{ height:'50px' }}
-                  alt="Coding Quiz Screenshot"></img>
-  
-                <a href="https://glove1911.github.io/Code-Quiz-Assignment/">
-                 
-                </a>
-  
-                <a href="https://github.com/Glove1911/Code-Quiz-Assignment">
-                  {/* <button type="button" className="btn btn-outline-primary"
-                    style={styles.button40Style}>Github Repository</button> */}
-                </a>
-  
-              </div>)
+             
             })}
   
   
           </div>
-          <a className="carousel-control-prev " href="#carouselExampleIndicators" role="button"
-            data-slide="prev">
-            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span className="sr-only">Previous</span>
-          </a>
-          <a className="carousel-control-next" href="#carouselExampleIndicators" role="button"
-            data-slide="next">
-            <span className="carousel-control-next-icon" aria-hidden="true"></span>
-            <span className="sr-only">Next</span>
-          </a>
+          
         </div>
-    </div>
+
   );
 };
 
