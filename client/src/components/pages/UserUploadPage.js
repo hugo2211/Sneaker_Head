@@ -60,6 +60,14 @@ const shoeColorList = [
   "Mutlicolor",
 ];
 
+const toBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+
 const UserUploadPage = () => {
   const classes = useStyles();
   const [error, setError] = useState("");
@@ -78,8 +86,10 @@ const UserUploadPage = () => {
     setPostAction({ ...postAction, [event.target.name]: event.target.checked });
   };
 
-  const handleFileUpload = (event) => {
-    setFileUpload(event.target.files[0]);
+  const handleFileUpload = async (event) => {
+    const base64Img = await toBase64(event.target.files[0]);
+    console.log("base 64 string", base64Img);
+    setFileUpload(base64Img);
   };
 
   const handleUploadSubmit = (event) => {
@@ -97,6 +107,8 @@ const UserUploadPage = () => {
   };
 
   const uploadPostInfo = async () => {
+    console.log("logged before axios call", fileUpload);
+
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -104,11 +116,33 @@ const UserUploadPage = () => {
       },
     };
 
+    /* const toBase64 = file => new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+
+    async function Main() {
+     const file = document.querySelector('#myfile').files[0]; */
+
+    /* var fd = new FormData();
+    fd.append('image', fileUpload) 
+
+    for (var key of fd.entries()) {
+      console.log(key[0] + ', ' + key[1]);
+    } */
+
     try {
       const { data } = await axios.post(
         "/api/private/post",
         {
-          shoeBrand, shoeModel, shoeColor, shoeYear, fileUpload, postAction
+          image: fileUpload,
+          shoeBrand,
+          shoeModel,
+          shoeColor,
+          shoeYear,
+          postAction,
         },
         config
       );
@@ -127,6 +161,8 @@ const UserUploadPage = () => {
     <div>
       <div className="mt-4">
         <h2 className="text-center">Upload</h2>
+
+        <img src={fileUpload} style={{ height: 200, width: 200 }} />
 
         <form onSubmit={handleUploadSubmit}>
           <div className="container">
