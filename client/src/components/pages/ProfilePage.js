@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import LikeButton from "../inputs/Like";
 
 
 const style = {
     card: {
-        margin: 50,
-        color: "black"
+        margin: "auto",
+        color: "black",
+        // width: "auto"
+        // display: "flex",
+        // position: "relative"
     },
-    img: {
-        marginLeft: 200
-    },
+    // img: {
+  
+    // },
     h5: {
         textAlign: "left"
     }
@@ -71,13 +75,14 @@ const ProfilePage = () => {
       <div className="collection">  
   
             {userShoeCollection.map((shoe) => {
-               return(<div className="card mb-5" style={style.card} >
+               return(<div className="card mb-5 shoe-card" key = {shoe.id}style={style.card} >
                <div className="img-container">
-                <h2>{shoe.comment}</h2> 
+                <h5>{shoe.shoe}</h5> 
                  <img alt={shoe.shoe} src={shoe.image} style= {style.img} />
                </div>
                <div className="content">
                    <h5>Likes: {shoe.likes} </h5>
+                   <div> <LikeButton/></div>
                </div>
              </div>)
   
