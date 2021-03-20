@@ -9,6 +9,8 @@ import {
   Input,
   Chip,
 } from "@material-ui/core";
+import axios from "axios";
+
 import CheckboxesGroup from "../inputs/CheckBoxesGroup";
 import FileUpload from "../inputs/FileUpload";
 
@@ -60,15 +62,16 @@ const shoeColorList = [
 
 const UserUploadPage = () => {
   const classes = useStyles();
+  const [error, setError] = useState("");
   const [shoeBrand, setShoeBrand] = useState("");
   const [shoeModel, setShoeModel] = useState("");
   const [shoeColor, setShoeColor] = useState([]);
   const [shoeYear, setShoeYear] = useState("");
   const [fileUpload, setFileUpload] = useState("");
-  const [postAction, setPostAction] = React.useState({
+  const [postAction, setPostAction] = useState({
     trade: false,
     sell: false,
-    view: false
+    view: false,
   });
 
   const handleCheckboxSelect = (event) => {
@@ -81,7 +84,43 @@ const UserUploadPage = () => {
 
   const handleUploadSubmit = (event) => {
     event.preventDefault();
-    console.log(shoeBrand, shoeModel, shoeColor, shoeYear, fileUpload, postAction)
+
+    console.log(
+      shoeBrand,
+      shoeModel,
+      shoeColor,
+      shoeYear,
+      fileUpload,
+      postAction
+    );
+    uploadPostInfo();
+  };
+
+  const uploadPostInfo = async () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    };
+
+    try {
+      const { data } = await axios.post(
+        "/api/private/post",
+        {
+          shoeBrand, shoeModel, shoeColor, shoeYear, fileUpload, postAction
+        },
+        config
+      );
+
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+      setError(error.response.data.error);
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+    }
   };
 
   return (
@@ -179,11 +218,18 @@ const UserUploadPage = () => {
                 <p>Type: {fileUpload.type}</p>
               </div>
               <div className="col-lg-4 col-md-6 col-12 mb-4">
-                <CheckboxesGroup handleCheckboxSelect={handleCheckboxSelect} postAction={postAction} />
+                <CheckboxesGroup
+                  handleCheckboxSelect={handleCheckboxSelect}
+                  postAction={postAction}
+                />
               </div>
               <div className="container-fluid text-center">
-                <button type="submit" className="btn btn-light">Create Post</button>
+                <button type="submit" className="btn btn-light">
+                  Create Post
+                </button>
               </div>
+
+              {error && <span className="error-message">{error}</span>}
             </div>
           </div>
         </form>
