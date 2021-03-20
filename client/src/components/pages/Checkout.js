@@ -1,3 +1,6 @@
+const stripe = require('stripe')('pk_test_51IX6VIAfExOBYstVZkqhs76wY1xMrZ5Hwh0SgLZDOvYwDgFHRrnMKh8cNfRVtNVIounGjq9Wejc5oGj23B9IKw5m00hbsBcph6');
+
+
 const Checkout = () => {
     return ( 
         <div className="container">
@@ -21,9 +24,9 @@ const Checkout = () => {
 export default Checkout;
 
     
-    var stripe = Stripe("pk_test_51IX6VIAfExOBYstVZkqhs76wY1xMrZ5Hwh0SgLZDOvYwDgFHRrnMKh8cNfRVtNVIounGjq9Wejc5oGj23B9IKw5m00hbsBcph6");
+    // var stripe = Stripe("pk_test_51IX6VIAfExOBYstVZkqhs76wY1xMrZ5Hwh0SgLZDOvYwDgFHRrnMKh8cNfRVtNVIounGjq9Wejc5oGj23B9IKw5m00hbsBcph6");
     var checkoutButton = document.getElementById("checkout-button");
-    checkoutButton.addEventListener("click", function () {
+    const handleClick = ("click", function () {
       fetch("/create-checkout-session", {
         method: "POST",
       })
