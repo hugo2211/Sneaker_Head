@@ -6,9 +6,13 @@ import ProfilePage from "./components/pages/ProfilePage";
 import Trending from './components/pages/Trending';
 import FeedPage from "./components/pages/FeedPage";
 import ChatPage from "./components/pages/ChatPage";
+import Checkout from "./components/pages/Checkout";
+import Success from "./components/pages/Success";
+import Cancel from "./components/pages/Cancel";
 import UserUploadPage from "./components/pages/UserUploadPage";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
+
 
 const theme = createMuiTheme({
   palette: {
@@ -27,6 +31,9 @@ function App() {
           <PrivateRoute exact path="/chat" component={ChatPage} />
           <PrivateRoute exact path="/upload" component={UserUploadPage} />
           <PrivateRoute exact path="/trending" component={Trending} />
+          <PrivateRoute exact path="/checkout" component={Checkout} />
+          <PrivateRoute exact path="/success" component={Success} />
+          <PrivateRoute exact path="/cancel" component={Cancel} />
         </Switch>
       </Router>
     </ThemeProvider>
