@@ -29,6 +29,7 @@ const LoginForm = ({ handleCancelClick, history, message }) => {
       localStorage.setItem("authToken", data.token);
       localStorage.setItem("username", username);
       localStorage.setItem("password", password);
+      localStorage.setItem("web_id", data.user.web_id);
 
       console.log(data);
       //localStorage.setItem("authToken", data.token);

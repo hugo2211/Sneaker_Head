@@ -12,6 +12,7 @@ const RegisterForm = ({
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -37,6 +38,9 @@ const RegisterForm = ({
       const { data } = await axios.post(
         "/api/auth/register",
         {
+          firstName,
+          lastName,
+          email,
           username,
           password,
         },
@@ -95,6 +99,17 @@ const RegisterForm = ({
           variant="outlined"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+        />
+      </div>
+      <div className="pl-3 pr-3 mb-4">
+        <TextField
+          required
+          fullWidth
+          id="email-input"
+          label="Email"
+          variant="outlined"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div className="pl-3 pr-3 mb-4">

@@ -71,44 +71,32 @@ const toBase64 = (file) =>
 const UserUploadPage = () => {
   const classes = useStyles();
   const [error, setError] = useState("");
-  const [shoeBrand, setShoeBrand] = useState("");
-  const [shoeModel, setShoeModel] = useState("");
-  const [shoeColor, setShoeColor] = useState([]);
-  const [shoeYear, setShoeYear] = useState("");
-  const [fileUpload, setFileUpload] = useState("");
-  const [postAction, setPostAction] = useState({
+  const [brand_name, set_brand_name] = useState("");
+  const [shoe_model, set_shoe_model] = useState("");
+  const [color, set_color] = useState([]);
+  const [year, set_year] = useState("");
+  const [fileUpload, set_file_upload] = useState("");
+  const [post_action, set_post_action] = useState({
     trade: false,
     sell: false,
     view: false,
   });
 
   const handleCheckboxSelect = (event) => {
-    setPostAction({ ...postAction, [event.target.name]: event.target.checked });
+    set_post_action({ ...post_action, [event.target.name]: event.target.checked });
   };
 
   const handleFileUpload = async (event) => {
     const base64Img = await toBase64(event.target.files[0]);
-    console.log("base 64 string", base64Img);
-    setFileUpload(base64Img);
+    set_file_upload(base64Img);
   };
 
   const handleUploadSubmit = (event) => {
     event.preventDefault();
-
-    console.log(
-      shoeBrand,
-      shoeModel,
-      shoeColor,
-      shoeYear,
-      fileUpload,
-      postAction
-    );
     uploadPostInfo();
   };
 
   const uploadPostInfo = async () => {
-    console.log("logged before axios call", fileUpload);
-
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -116,33 +104,17 @@ const UserUploadPage = () => {
       },
     };
 
-    /* const toBase64 = file => new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
-    });
-
-    async function Main() {
-     const file = document.querySelector('#myfile').files[0]; */
-
-    /* var fd = new FormData();
-    fd.append('image', fileUpload) 
-
-    for (var key of fd.entries()) {
-      console.log(key[0] + ', ' + key[1]);
-    } */
-
     try {
       const { data } = await axios.post(
         "/api/private/post",
         {
+          web_id: localStorage.getItem("web_id"),
           image: fileUpload,
-          shoeBrand,
-          shoeModel,
-          shoeColor,
-          shoeYear,
-          postAction,
+          brand_name,
+          shoe_model,
+          color,
+          year,
+          post_action,
         },
         config
       );
@@ -177,16 +149,16 @@ const UserUploadPage = () => {
                   <Select
                     labelId="shoe-brand-label"
                     id="shoe-brand-select"
-                    value={shoeBrand}
-                    onChange={(e) => setShoeBrand(e.target.value)}
+                    value={brand_name}
+                    onChange={(e) => set_brand_name(e.target.value)}
                     label="Age"
                   >
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    <MenuItem value={10}>Nike</MenuItem>
-                    <MenuItem value={20}>Adiddas</MenuItem>
-                    <MenuItem value={30}>Jordan</MenuItem>
+                    <MenuItem value={'nike'}>Nike</MenuItem>
+                    <MenuItem value={'adiddas'}>Adiddas</MenuItem>
+                    <MenuItem value={'jordan'}>Jordan</MenuItem>
                   </Select>
                 </FormControl>
               </div>
@@ -197,8 +169,8 @@ const UserUploadPage = () => {
                   id="shoe-model-input"
                   label="Model"
                   variant="outlined"
-                  value={shoeModel}
-                  onChange={(e) => setShoeModel(e.target.value)}
+                  value={shoe_model}
+                  onChange={(e) => set_shoe_model(e.target.value)}
                 />
               </div>
               <div className="col-lg-4 col-md-6 col-12 mb-4">
@@ -209,8 +181,8 @@ const UserUploadPage = () => {
                   id="shoe-year-input"
                   label="Year"
                   variant="outlined"
-                  value={shoeYear}
-                  onChange={(e) => setShoeYear(e.target.value)}
+                  value={year}
+                  onChange={(e) => set_year(e.target.value)}
                 />
               </div>
               <div className="col-lg-4 col-md-6 col-12 mb-4">
@@ -224,8 +196,8 @@ const UserUploadPage = () => {
                     labelId="shoe-color-label"
                     id="shoe-color-select"
                     multiple
-                    value={shoeColor}
-                    onChange={(e) => setShoeColor(e.target.value)}
+                    value={color}
+                    onChange={(e) => set_color(e.target.value)}
                     input={<Input id="shoe-color-chip" />}
                     renderValue={(selected) => (
                       <div className={classes.chips}>
@@ -256,7 +228,7 @@ const UserUploadPage = () => {
               <div className="col-lg-4 col-md-6 col-12 mb-4">
                 <CheckboxesGroup
                   handleCheckboxSelect={handleCheckboxSelect}
-                  postAction={postAction}
+                  postAction={post_action}
                 />
               </div>
               <div className="container-fluid text-center">

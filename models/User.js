@@ -1,10 +1,13 @@
 const orm = require("../config/orm");
 
 const User = {
-  create: (username, password, cb, errCb) => {
+  create: (username, password, email, first_name, last_name, cb, errCb) => {
     orm.createUser(
       username,
       password,
+      email,
+      first_name,
+      last_name,
       (response) => cb(response),
       (err) => errCb(err)
     );
@@ -22,6 +25,20 @@ const User = {
   findById: (id, cb, errCb) => {
     orm.findById(
       id,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
+
+  createPost: (brand_name, shoe_model, color, year, status_name, web_id, url, cb, errCb) => {
+    orm.createPost(
+      brand_name,
+      shoe_model,
+      color,
+      year,
+      status_name,
+      web_id,
+      url,
       (response) => cb(response),
       (err) => errCb(err)
     );
