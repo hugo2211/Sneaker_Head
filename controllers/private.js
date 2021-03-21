@@ -78,7 +78,6 @@ exports.createPost = async (req, res) => {
       }
     );
 
-    //res.status(200).json({ success: true, data: "You Made this work" });
   } catch (error) {
     console.log(error.response.data);
     console.log(error.response.status);
@@ -86,26 +85,6 @@ exports.createPost = async (req, res) => {
     res.status(500).json({ success: false, error: error });
   }
 };
-
-/* function fileChange(){
-  var file = document.getElementById('input_img');
-  var form = new FormData();
-  form.append("image", file.files[0])
-  var settings = {
-    "url": "https://api.imgbb.com/1/upload?key=2e66a31ff52bfeb6857a826c3779a43f",
-    "method": "POST",
-    "timeout": 0,
-    "processData": false,
-    "mimeType": "multipart/form-data",
-    "contentType": false,
-    "data": form
-  };
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-    var jx = JSON.parse(response);
-    console.log(jx.data.url);
-  });
-}  */
 
 exports.getUserShoes = (req, res, next) => {
   res.status(200).json({
