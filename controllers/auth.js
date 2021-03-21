@@ -4,7 +4,9 @@ const jwt = require("jsonwebtoken");
 const axios = require("axios");
 
 exports.register = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, email, firstName, lastName } = req.body;
+
+  console.log(req.body);
 
   const authObject = {
     "PRIVATE-KEY": process.env.CHAT_PRIVATE_KEY,
@@ -26,7 +28,7 @@ exports.register = async (req, res) => {
     console.log("chat api data: ", data);
     
     //Pass in usernmae, password, and res to create user
-    createUser(username, password, res);
+    createUser(username, password, email, firstName, lastName, res);
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, error: error });
@@ -72,10 +74,13 @@ const sendToken = (user, statusCode, res) => {
   res.status(statusCode).json({ success: true, token, user: user[0] });
 };
 
-const createUser = (username, password, response) => {
+const createUser = (username, password, email, first_name, last_name, response) => {
   User.create(
     username,
     password,
+    email,
+    first_name,
+    last_name,
     (data) => {
       response.status(200).json({ success: true, user: data });
     },
