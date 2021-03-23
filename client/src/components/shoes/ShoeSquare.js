@@ -1,5 +1,5 @@
 import React from "react";
-import LikeButton from "../inputs/Like";
+import LikeButton from "../buttons/Like";
 import "./ShoeSquare.css";
 
 const ShoeSquare = ({ userName, product, price, image}) => {
