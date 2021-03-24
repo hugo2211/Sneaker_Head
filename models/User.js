@@ -30,7 +30,17 @@ const User = {
     );
   },
 
-  createPost: (brand_name, shoe_model, color, year, status_name, web_id, url, cb, errCb) => {
+  createPost: (
+    brand_name,
+    shoe_model,
+    color,
+    year,
+    status_name,
+    web_id,
+    url,
+    cb,
+    errCb
+  ) => {
     orm.createPost(
       brand_name,
       shoe_model,
@@ -39,6 +49,14 @@ const User = {
       status_name,
       web_id,
       url,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
+
+  getShoes: (web_id, cb, errCb) => {
+    orm.getUserShoes(
+      web_id,
       (response) => cb(response),
       (err) => errCb(err)
     );
