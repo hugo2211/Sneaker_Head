@@ -1,31 +1,18 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   FormControl,
   TextField,
   InputLabel,
   Select,
   MenuItem,
+  OutlinedInput,
+  InputAdornment,
 } from "@material-ui/core";
 import axios from "axios";
 
 import FileUpload from "../inputs/FileUpload";
 import RadioButtons from "../inputs/RadioButtons";
 import MultiSelect from "../inputs/MultiSelect";
-
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  noLabel: {
-    marginTop: theme.spacing(2),
-  },
-}));
-
 
 const toBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -36,7 +23,6 @@ const toBase64 = (file) =>
   });
 
 const UserUploadPage = () => {
-  const classes = useStyles();
   const [error, setError] = useState("");
   const [brand_name, set_brand_name] = useState("");
   const [shoe_model, set_shoe_model] = useState("");
@@ -45,6 +31,8 @@ const UserUploadPage = () => {
   const [fileUpload, set_file_upload] = useState("");
   const [picture_info, set_picture_info] = useState([]);
   const [post_action, set_post_action] = useState("");
+  const [price, set_price] = useState(0);
+  const [condition, set_condition] = useState("");
 
   const handleRadioSelect = (event) => {
     set_post_action(event.target.value);
@@ -52,7 +40,7 @@ const UserUploadPage = () => {
 
   const handleMultiSelect = (event) => {
     set_color(event.target.value);
-  }
+  };
 
   const handleFileUpload = async (event) => {
     const base64Img = await toBase64(event.target.files[0]);
@@ -99,19 +87,84 @@ const UserUploadPage = () => {
     }
   };
 
+  const renderAskingPrice = () => {
+    if (post_action === "Sell") {
+      return (
+        <div className="col-lg-4 col-md-6 col-12 mb-5">
+          <FormControl fullWidth variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-price">
+              Asking Price
+            </InputLabel>
+            <OutlinedInput
+              type="number"
+              id="outlined-adornment-price"
+              value={price}
+              onChange={(e) => set_price(e.target.value)}
+              startAdornment={
+                <InputAdornment position="start">$</InputAdornment>
+              }
+              labelWidth={90}
+            />
+          </FormControl>
+        </div>
+      );
+    }
+  };
+
+  const renderShoeCondition = () => {
+    if (post_action === "Sell" || post_action === "Trade") {
+      return (
+        <div className="col-lg-4 col-md-6 col-12 mb-5">
+          <FormControl fullWidth variant="outlined">
+            <InputLabel id="shoe-condition-label">Condition</InputLabel>
+            <Select
+              labelId="shoe-condition-label"
+              id="shoe-condition-select"
+              value={condition}
+              onChange={(e) => set_condition(e.target.value)}
+              label="Condition"
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={"New"}>New</MenuItem>
+              <MenuItem value={"Like New"}>Like New</MenuItem>
+              <MenuItem value={"Used"}>Used</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+      );
+    }
+  };
+
   return (
     <div>
       <div className="mt-4">
-        <h2 className="text-center">Upload</h2>
+        <h2 className="text-center">New Post</h2>
         <form onSubmit={handleUploadSubmit}>
-          <div className="container">
+          <div className="container mt-5">
             <div className="row">
-              <div className="col-lg-4 col-md-6 col-12 mb-4">
-                <FormControl
-                  fullWidth
-                  variant="outlined"
-                  className={classes.formControl}
-                >
+              <div className="col-lg-4 col-md-6 col-12 mb-3">
+                <RadioButtons
+                  handleRadioSelect={handleRadioSelect}
+                  postAction={post_action}
+                />
+              </div>
+              <div className="col-lg-4 col-md-6 col-12 mb-3">
+                <div>
+                  <FileUpload handleFileUpload={handleFileUpload} />
+                  <p>File: {picture_info.name}</p>
+                  <p>Type: {picture_info.type}</p>
+                </div>
+              </div>
+              <div className="col-lg-4 col-md-6 col-12 mb-5">
+                <MultiSelect
+                  selectValue={color}
+                  handleMultiSelect={handleMultiSelect}
+                />
+              </div>
+              <div className="col-lg-4 col-md-6 col-12 mb-5">
+                <FormControl fullWidth variant="outlined">
                   <InputLabel id="shoe-brand-label">Brand</InputLabel>
                   <Select
                     labelId="shoe-brand-label"
@@ -123,15 +176,14 @@ const UserUploadPage = () => {
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    <MenuItem value={'Nike'}>Nike</MenuItem>
-                    <MenuItem value={'Adiddas'}>Adiddas</MenuItem>
-                    <MenuItem value={'Jordan'}>Jordan</MenuItem>
+                    <MenuItem value={"Nike"}>Nike</MenuItem>
+                    <MenuItem value={"Adiddas"}>Adiddas</MenuItem>
+                    <MenuItem value={"Jordan"}>Jordan</MenuItem>
                   </Select>
                 </FormControl>
               </div>
-              <div className="col-lg-4 col-md-6 col-12 mb-4">
+              <div className="col-lg-4 col-md-6 col-12 mb-5">
                 <TextField
-                  className={classes.formControl}
                   fullWidth
                   id="shoe-model-input"
                   label="Model"
@@ -140,9 +192,8 @@ const UserUploadPage = () => {
                   onChange={(e) => set_shoe_model(e.target.value)}
                 />
               </div>
-              <div className="col-lg-4 col-md-6 col-12 mb-4">
+              <div className="col-lg-4 col-md-6 col-12 mb-5">
                 <TextField
-                  className={classes.formControl}
                   fullWidth
                   type="number"
                   id="shoe-year-input"
@@ -152,32 +203,32 @@ const UserUploadPage = () => {
                   onChange={(e) => set_year(e.target.value)}
                 />
               </div>
-              <div className="col-lg-4 col-md-6 col-12 mb-4">
-                <MultiSelect 
-                  selectValue={color}
-                  handleMultiSelect={handleMultiSelect}
-                />
-              </div>
-              <div className="col-lg-4 col-md-6 col-12 mb-4">
-                <FileUpload handleFileUpload={handleFileUpload} />
-                <p>File: {picture_info.name}</p>
-                <p>Type: {picture_info.type}</p>
-                {fileUpload && <img src={fileUpload} style={{ height: 200, width: 200 }} />}
-              </div>
-              <div className="col-lg-4 col-md-6 col-12 mb-4">
-                <RadioButtons 
-                  handleRadioSelect={handleRadioSelect}
-                  postAction={post_action}
-                />
-              </div>
-              <div className="container-fluid text-center">
-                <button type="submit" className="btn btn-light">
-                  Create Post
-                </button>
-              </div>
-
-              {error && <span className="error-message">{error}</span>}
+              {renderAskingPrice()}
+              {renderShoeCondition()}
             </div>
+
+            <div className="row justify-content-md-center">
+              <div className="col-lg-6 col-md-8 col-12 mb-5">
+                <TextField
+                  variant="outlined"
+                  id="post-input"
+                  label="Description/Status"
+                  fullWidth
+                  placeholder="Write status here"
+                  multiline
+                  rows={2}
+                  rowsMax={4}
+                />
+              </div>
+            </div>
+
+            <div className="container-fluid text-center">
+              <button type="submit" className="btn btn-light">
+                Create Post
+              </button>
+            </div>
+
+            {error && <span className="error-message">{error}</span>}
           </div>
         </form>
       </div>

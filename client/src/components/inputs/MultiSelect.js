@@ -29,10 +29,6 @@ const MenuProps = {
 };
 
 const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
   chips: {
     display: "flex",
     flexWrap: "wrap",
@@ -46,7 +42,7 @@ const MultiSelect = ({ selectValue, handleMultiSelect }) => {
   const classes = useStyles();
 
   return (
-    <FormControl variant="outlined" className={classes.formControl} fullWidth>
+    <FormControl variant="outlined" fullWidth>
       <InputLabel id="shoe-color-label">Color</InputLabel>
       <Select
         labelId="shoe-color-label"
