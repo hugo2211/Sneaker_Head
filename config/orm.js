@@ -44,8 +44,29 @@ const orm = {
         return cb(result);
       }
     })
-  }
+  },
 
+  getAllPosts: (cb, errCb) => {
+    const queryString = 'Call pull_shoes;'
+    connection.query(queryString, (err, result) => {
+      if (err) {
+        return errCb(err)
+      } else {
+        return cb(result);
+      }
+    })
+  },
+
+  getUserShoes: (web_id, cb, errCb) => {
+    const queryString = 'Call pull_user_shoes (?);';
+    connection.query(queryString, [web_id], (err, result) => {
+      if (err) {
+        return errCb(err);
+      } else {
+        return cb(result);
+      }
+    })
+  }
 };
 
 /* image: fileUpload,

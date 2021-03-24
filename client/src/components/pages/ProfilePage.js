@@ -44,6 +44,7 @@ const ProfilePage = () => {
       setError("You are not authorized please login");
     }
   };
+
   const getShoes = () => {
   
     const config = {
@@ -53,10 +54,11 @@ const ProfilePage = () => {
       },
     };
 
-    axios.get('/api/private/shoes', config).then(function (response) {
-      console.log('shoes form backedn!!', response)
-      setUserShoeCollecton(response.data.data)
+    const userId = localStorage.getItem("web_id");
 
+    axios.get(`/api/private/shoes?userid=${userId}`, config).then(function (response) {
+      console.log('shoes form backedn!!', response.data.data[0])
+      setUserShoeCollecton(response.data.data[0])
     })
   }
 
