@@ -25,13 +25,7 @@ exports.createPost = async (req, res) => {
   web_id = Number(web_id);
   year = Number(year);
   color = JSON.stringify(color);
-
-  let status_name = "";
-  for (const property in post_action) {
-    if (post_action[property] === true) {
-      status_name = property;
-    }
-  }
+  let status_name = post_action;
 
   console.log("web_id", web_id, typeof web_id); //Need to be Number
   console.log("brand_name:", brand_name, typeof brand_name); //Need to be String
@@ -97,3 +91,16 @@ exports.getUserShoes = (req, res, next) => {
     res.status(500).json({ success: false, error: err });
   })
 };
+
+exports.getFeedShoes = (req, res) => {
+  const web_id = req.query.userid;
+  console.log(web_id);
+
+  User.getFeed(web_id, data => {
+    res.status(200).json({ success: true, data: data });
+  }, err => {
+    console.log("get feed shoes", err);
+    res.status(500).json({ success: false, error: err });
+  })
+};
+

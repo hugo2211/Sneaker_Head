@@ -66,8 +66,22 @@ const orm = {
         return cb(result);
       }
     })
+  },
+
+  getFeedShoes: (web_id, cb, errCb) => {
+    const queryString = `Call feed_shoes (?);`;
+    connection.query(queryString, [web_id], (err, result) => {
+      if (err) {
+        return errCb(err);
+      } else {
+        return cb(result);
+      }
+    })
   }
 };
+
+
+
 
 /* image: fileUpload,
           shoeBrand,

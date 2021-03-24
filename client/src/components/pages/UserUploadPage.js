@@ -6,13 +6,12 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Input,
-  Chip,
 } from "@material-ui/core";
 import axios from "axios";
 
-import CheckboxesGroup from "../inputs/CheckBoxesGroup";
 import FileUpload from "../inputs/FileUpload";
+import RadioButtons from "../inputs/RadioButtons";
+import MultiSelect from "../inputs/MultiSelect";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -22,43 +21,11 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
-  chips: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  chip: {
-    margin: 2,
-  },
   noLabel: {
     marginTop: theme.spacing(2),
   },
 }));
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-const shoeColorList = [
-  "Red",
-  "Orange",
-  "Yellow",
-  "Green",
-  "Blue",
-  "Purple",
-  "Black",
-  "Brown",
-  "Silver",
-  "White",
-  "Gold",
-  "Mutlicolor",
-];
 
 const toBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -77,15 +44,15 @@ const UserUploadPage = () => {
   const [year, set_year] = useState("");
   const [fileUpload, set_file_upload] = useState("");
   const [picture_info, set_picture_info] = useState([]);
-  const [post_action, set_post_action] = useState({
-    trade: false,
-    sell: false,
-    view: false,
-  });
+  const [post_action, set_post_action] = useState("");
 
-  const handleCheckboxSelect = (event) => {
-    set_post_action({ ...post_action, [event.target.name]: event.target.checked });
+  const handleRadioSelect = (event) => {
+    set_post_action(event.target.value);
   };
+
+  const handleMultiSelect = (event) => {
+    set_color(event.target.value);
+  }
 
   const handleFileUpload = async (event) => {
     const base64Img = await toBase64(event.target.files[0]);
@@ -95,7 +62,8 @@ const UserUploadPage = () => {
 
   const handleUploadSubmit = (event) => {
     event.preventDefault();
-    uploadPostInfo();
+    console.log(color, post_action);
+    //uploadPostInfo();
   };
 
   const uploadPostInfo = async () => {
@@ -155,9 +123,9 @@ const UserUploadPage = () => {
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    <MenuItem value={'nike'}>Nike</MenuItem>
-                    <MenuItem value={'adiddas'}>Adiddas</MenuItem>
-                    <MenuItem value={'jordan'}>Jordan</MenuItem>
+                    <MenuItem value={'Nike'}>Nike</MenuItem>
+                    <MenuItem value={'Adiddas'}>Adiddas</MenuItem>
+                    <MenuItem value={'Jordan'}>Jordan</MenuItem>
                   </Select>
                 </FormControl>
               </div>
@@ -185,39 +153,10 @@ const UserUploadPage = () => {
                 />
               </div>
               <div className="col-lg-4 col-md-6 col-12 mb-4">
-                <FormControl
-                  variant="outlined"
-                  className={classes.formControl}
-                  fullWidth
-                >
-                  <InputLabel id="shoe-color-label">Color</InputLabel>
-                  <Select
-                    labelId="shoe-color-label"
-                    id="shoe-color-select"
-                    multiple
-                    value={color}
-                    onChange={(e) => set_color(e.target.value)}
-                    input={<Input id="shoe-color-chip" />}
-                    renderValue={(selected) => (
-                      <div className={classes.chips}>
-                        {selected.map((value) => (
-                          <Chip
-                            key={value}
-                            label={value}
-                            className={classes.chip}
-                          />
-                        ))}
-                      </div>
-                    )}
-                    MenuProps={MenuProps}
-                  >
-                    {shoeColorList.map((color) => (
-                      <MenuItem key={color} value={color}>
-                        {color}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                <MultiSelect 
+                  selectValue={color}
+                  handleMultiSelect={handleMultiSelect}
+                />
               </div>
               <div className="col-lg-4 col-md-6 col-12 mb-4">
                 <FileUpload handleFileUpload={handleFileUpload} />
@@ -226,8 +165,8 @@ const UserUploadPage = () => {
                 {fileUpload && <img src={fileUpload} style={{ height: 200, width: 200 }} />}
               </div>
               <div className="col-lg-4 col-md-6 col-12 mb-4">
-                <CheckboxesGroup
-                  handleCheckboxSelect={handleCheckboxSelect}
+                <RadioButtons 
+                  handleRadioSelect={handleRadioSelect}
                   postAction={post_action}
                 />
               </div>

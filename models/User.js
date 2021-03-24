@@ -61,6 +61,10 @@ const User = {
       (err) => errCb(err)
     );
   },
+
+  getFeed: (web_id, cb, errCb) => {
+    orm.getFeedShoes(web_id, (response) => cb(response), (err) => errCb(err));
+  },
 };
 
 module.exports = User;

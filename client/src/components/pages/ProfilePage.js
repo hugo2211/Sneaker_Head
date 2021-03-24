@@ -21,7 +21,6 @@ const style = {
 
 
 const ProfilePage = () => {
-
   const [error, setError] = useState("");
   const [userInfo, setUserInfo] = useState("");
   const [userShoeCollection, setUserShoeCollecton] = useState([]);
@@ -46,7 +45,6 @@ const ProfilePage = () => {
   };
 
   const getShoes = () => {
-  
     const config = {
       headers: {
         "Content-Type": "application/json",
