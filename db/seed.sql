@@ -12,6 +12,7 @@ last_name VARCHAR(45) NOT NULL,
 PRIMARY KEY (web_id),
 UNIQUE KEY unique_username (username)
 );
+
 CREATE TABLE myshoes (
 shoe_id INT AUTO_INCREMENT,
 brand_name VARCHAR(35) NOT NULL,
@@ -25,6 +26,7 @@ shoe_likes INT DEFAULT 0 ,
 PRIMARY KEY (shoe_id),
 FOREIGN KEY (web_id) REFERENCES webusers (web_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000;
+
 create table shoeimage (
 id INT AUTO_INCREMENT,
 shoe_id INT NOT NULL,
