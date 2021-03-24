@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import LikeButton from "../inputs/Like";
+import LikeButton from "../buttons/Like";
 
 
 const style = {
