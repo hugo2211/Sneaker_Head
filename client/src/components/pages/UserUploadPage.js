@@ -76,6 +76,7 @@ const UserUploadPage = () => {
   const [color, set_color] = useState([]);
   const [year, set_year] = useState("");
   const [fileUpload, set_file_upload] = useState("");
+  const [picture_info, set_picture_info] = useState([]);
   const [post_action, set_post_action] = useState({
     trade: false,
     sell: false,
@@ -89,6 +90,7 @@ const UserUploadPage = () => {
   const handleFileUpload = async (event) => {
     const base64Img = await toBase64(event.target.files[0]);
     set_file_upload(base64Img);
+    set_picture_info(event.target.files[0]);
   };
 
   const handleUploadSubmit = (event) => {
@@ -133,9 +135,6 @@ const UserUploadPage = () => {
     <div>
       <div className="mt-4">
         <h2 className="text-center">Upload</h2>
-
-        <img src={fileUpload} style={{ height: 200, width: 200 }} />
-
         <form onSubmit={handleUploadSubmit}>
           <div className="container">
             <div className="row">
@@ -222,8 +221,9 @@ const UserUploadPage = () => {
               </div>
               <div className="col-lg-4 col-md-6 col-12 mb-4">
                 <FileUpload handleFileUpload={handleFileUpload} />
-                <p>File: {fileUpload.name}</p>
-                <p>Type: {fileUpload.type}</p>
+                <p>File: {picture_info.name}</p>
+                <p>Type: {picture_info.type}</p>
+                {fileUpload && <img src={fileUpload} style={{ height: 200, width: 200 }} />}
               </div>
               <div className="col-lg-4 col-md-6 col-12 mb-4">
                 <CheckboxesGroup
