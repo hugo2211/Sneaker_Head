@@ -30,9 +30,10 @@ const UserUploadPage = () => {
   const [year, set_year] = useState("");
   const [fileUpload, set_file_upload] = useState("");
   const [picture_info, set_picture_info] = useState([]);
-  const [post_action, set_post_action] = useState("");
-  const [price, set_price] = useState(0);
+  const [post_action, set_post_action] = useState();
+  const [price, set_price] = useState('');
   const [condition, set_condition] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleRadioSelect = (event) => {
     set_post_action(event.target.value);
@@ -50,8 +51,14 @@ const UserUploadPage = () => {
 
   const handleUploadSubmit = (event) => {
     event.preventDefault();
-    console.log(color, post_action);
-    //uploadPostInfo();
+    console.log(brand_name,
+      shoe_model,
+      color,
+      year,
+      post_action,
+      price,
+      condition);
+    uploadPostInfo();
   };
 
   const uploadPostInfo = async () => {
@@ -73,6 +80,9 @@ const UserUploadPage = () => {
           color,
           year,
           post_action,
+          price,
+          condition,
+          description
         },
         config
       );
@@ -96,6 +106,7 @@ const UserUploadPage = () => {
               Asking Price
             </InputLabel>
             <OutlinedInput
+              required
               type="number"
               id="outlined-adornment-price"
               value={price}
@@ -118,6 +129,7 @@ const UserUploadPage = () => {
           <FormControl fullWidth variant="outlined">
             <InputLabel id="shoe-condition-label">Condition</InputLabel>
             <Select
+              required
               labelId="shoe-condition-label"
               id="shoe-condition-select"
               value={condition}
@@ -167,6 +179,7 @@ const UserUploadPage = () => {
                 <FormControl fullWidth variant="outlined">
                   <InputLabel id="shoe-brand-label">Brand</InputLabel>
                   <Select
+                    required
                     labelId="shoe-brand-label"
                     id="shoe-brand-select"
                     value={brand_name}
@@ -184,6 +197,7 @@ const UserUploadPage = () => {
               </div>
               <div className="col-lg-4 col-md-6 col-12 mb-5">
                 <TextField
+                  required
                   fullWidth
                   id="shoe-model-input"
                   label="Model"
@@ -194,6 +208,7 @@ const UserUploadPage = () => {
               </div>
               <div className="col-lg-4 col-md-6 col-12 mb-5">
                 <TextField
+                  required
                   fullWidth
                   type="number"
                   id="shoe-year-input"
@@ -210,6 +225,9 @@ const UserUploadPage = () => {
             <div className="row justify-content-md-center">
               <div className="col-lg-6 col-md-8 col-12 mb-5">
                 <TextField
+                  value={description}
+                  onChange={e => setDescription(e.target.value)}
+                  required
                   variant="outlined"
                   id="post-input"
                   label="Description/Status"

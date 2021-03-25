@@ -4,13 +4,17 @@ const orm = {
   createUser: (username, password, email, first_name, last_name, cb, errCb) => {
     const queryString = `Insert into webusers (username, userpws, email, first_name, last_name)
     values (?, (SHA1(?)), ?, ?, ?);`;
-    connection.query(queryString, [username, password, email, first_name, last_name], (err, result) => {
-      if (err) {
-        return errCb(err);
-      } else {
-        return cb(result);
+    connection.query(
+      queryString,
+      [username, password, email, first_name, last_name],
+      (err, result) => {
+        if (err) {
+          return errCb(err);
+        } else {
+          return cb(result);
+        }
       }
-    });
+    );
   },
 
   loginUser: (username, password, cb, errCb) => {
@@ -21,7 +25,7 @@ const orm = {
       } else {
         return cb(result);
       }
-    })
+    });
   },
 
   findById: (id, cb, errCb) => {
@@ -32,40 +36,73 @@ const orm = {
       } else {
         return cb(result);
       }
-    })
+    });
   },
 
-  createPost: (brand_name, shoe_model, color, year, status_name, web_id, url, cb, errCb) => {
-    const queryString = `Call add_shoe (?, ?, ?, ?, ?, ?, ?);`;
-    connection.query(queryString, [brand_name, shoe_model, color, year, status_name, web_id, url], (err, result) => {
+  createPost: (postInfoObj, cb, errCb) => {
+    console.log("postInfoObj", postInfoObj);
+    let {
+      brand_name,
+      shoe_model,
+      color,
+      year,
+      status_name,
+      web_id,
+      url,
+      price,
+      condition,
+      description,
+    } = postInfoObj;
+
+    if (price === '') {
+      price = 0;
+    }
+
+    const queryString = `Call add_shoe (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+    connection.query(
+      queryString,
+      [
+        brand_name,
+        shoe_model,
+        color,
+        year,
+        status_name,
+        web_id,
+        url,
+        price,
+        condition,
+        description,
+      ],
+      (err, result) => {
+        if (err) {
+          return errCb(err);
+        } else {
+          return cb(result);
+        }
+      }
+    );
+  },
+
+  getAllPosts: (cb, errCb) => {
+    const queryString = "Call pull_shoes;";
+    connection.query(queryString, (err, result) => {
       if (err) {
         return errCb(err);
       } else {
         return cb(result);
       }
-    })
-  },
-
-  getAllPosts: (cb, errCb) => {
-    const queryString = 'Call pull_shoes;'
-    connection.query(queryString, (err, result) => {
-      if (err) {
-        return errCb(err)
-      } else {
-        return cb(result);
-      }
-    })
+    });
   },
 
   getUserShoes: (web_id, cb, errCb) => {
-    const queryString = 'Call pull_user_shoes (?);';
+    const queryString = "Call pull_user_shoes (?);";
     connection.query(queryString, [web_id], (err, result) => {
       if (err) {
         return errCb(err);
       } else {
         return cb(result);
       }
-    })
+    });
   },
 
   getFeedShoes: (web_id, cb, errCb) => {
@@ -76,12 +113,9 @@ const orm = {
       } else {
         return cb(result);
       }
-    })
-  }
+    });
+  },
 };
-
-
-
 
 /* image: fileUpload,
           shoeBrand,

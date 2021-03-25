@@ -20,6 +20,7 @@ const FileUpload = (props) => {
         multiple
         type="file"
         onChange={props.handleFileUpload}
+        required
       />
       <label htmlFor="contained-button-file">
         <Button variant="contained" color="primary" component="span">

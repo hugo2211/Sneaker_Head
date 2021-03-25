@@ -45,6 +45,7 @@ const MultiSelect = ({ selectValue, handleMultiSelect }) => {
     <FormControl variant="outlined" fullWidth>
       <InputLabel id="shoe-color-label">Color</InputLabel>
       <Select
+        required
         labelId="shoe-color-label"
         id="shoe-color-select"
         multiple

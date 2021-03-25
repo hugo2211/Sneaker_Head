@@ -23,6 +23,9 @@ status_name VARCHAR(25) NOT NULL,
 postdte TIMESTAMP NOT NULL,
 web_id INT NOT NULL,
 shoe_likes INT DEFAULT 0 ,
+price DECIMAL(5,2),
+shoe_condition VARCHAR(35),
+description VARCHAR(255),
 PRIMARY KEY (shoe_id),
 FOREIGN KEY (web_id) REFERENCES webusers (web_id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1000;

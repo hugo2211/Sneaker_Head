@@ -30,25 +30,11 @@ const User = {
     );
   },
 
-  createPost: (
-    brand_name,
-    shoe_model,
-    color,
-    year,
-    status_name,
-    web_id,
-    url,
+  createPost: (postInfoObj,
     cb,
     errCb
   ) => {
-    orm.createPost(
-      brand_name,
-      shoe_model,
-      color,
-      year,
-      status_name,
-      web_id,
-      url,
+    orm.createPost(postInfoObj,
       (response) => cb(response),
       (err) => errCb(err)
     );

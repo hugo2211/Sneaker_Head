@@ -19,7 +19,7 @@ exports.getChatProjectId = (req, res, next) => {
 exports.createPost = async (req, res) => {
   // Get info from create post from
   let imageStringFormatted = req.body.image.split(",")[1];
-  let { web_id, brand_name, shoe_model, color, year, post_action } = req.body;
+  let { web_id, brand_name, shoe_model, color, year, post_action, price, condition, description } = req.body;
 
   // Format incoming form data for database
   web_id = Number(web_id);
@@ -27,12 +27,9 @@ exports.createPost = async (req, res) => {
   color = JSON.stringify(color);
   let status_name = post_action;
 
-  console.log("web_id", web_id, typeof web_id); //Need to be Number
-  console.log("brand_name:", brand_name, typeof brand_name); //Need to be String
-  console.log("shoe_model", shoe_model, typeof shoe_model); //Need to be String
-  console.log("color", color, typeof color); //Need to be Stringd
-  console.log("year", year, typeof year); //Need to be Number
-  console.log("status_name", status_name, typeof status_name); //Need to be String
+  if (post_action === "Sell") {
+    price = Number(req.body.price);
+  }
 
   var form = new FormData();
   form.append("image", imageStringFormatted);
@@ -44,18 +41,24 @@ exports.createPost = async (req, res) => {
       { headers: form.getHeaders() }
     );
 
-    console.log("api response", response.data);
-    console.log("image url", response.data.data.display_url);
     const url = response.data.data.display_url;
 
-    User.createPost(
+    const CreatePostObj = {
       brand_name,
       shoe_model,
-      color,
-      year,
+      color, 
+      year, 
       status_name,
       web_id,
       url,
+      price,
+      condition,
+      description
+    }
+
+    console.log(CreatePostObj);
+
+    User.createPost(CreatePostObj,
       (data) => {
         res.status(200).json({ success: true, data: data });
       },
@@ -70,15 +73,15 @@ exports.createPost = async (req, res) => {
           res.status(500).json({ success: false, error: err });
         }
       }
-    );
+    );  
 
   } catch (error) {
     console.log(error.response.data);
     console.log(error.response.status);
     console.log(error.response.config);
     res.status(500).json({ success: false, error: error });
-  }
-};
+  } 
+}; 
 
 exports.getUserShoes = (req, res, next) => {
   const web_id = req.query.userid;
