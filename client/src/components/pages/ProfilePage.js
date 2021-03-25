@@ -91,8 +91,8 @@ const ProfilePage = ({ history }) => {
                   <div className={classes.usernameAndIcons}>
                     <div>{shoe.username}</div>
                     <div className="text-right">
-                      <i class="far fa-edit mr-4" onClick={() => handleEditClick(shoe.shoe_id, history)}></i>
-                      <i class="fas fa-trash-alt"></i>
+                      <i className="far fa-edit mr-4" onClick={() => handleEditClick(shoe.shoe_id, history)}></i>
+                      <i className="fas fa-trash-alt"></i>
                     </div>
                   </div>
                   <img

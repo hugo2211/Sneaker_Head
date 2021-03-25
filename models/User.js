@@ -30,11 +30,17 @@ const User = {
     );
   },
 
-  createPost: (postInfoObj,
-    cb,
-    errCb
-  ) => {
-    orm.createPost(postInfoObj,
+  createPost: (postInfoObj, cb, errCb) => {
+    orm.createPost(
+      postInfoObj,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
+
+  getSingleShoe: (shoe_id, cb, errCb) => {
+    orm.getSingleShoe(
+      shoe_id,
       (response) => cb(response),
       (err) => errCb(err)
     );
@@ -49,7 +55,11 @@ const User = {
   },
 
   getFeed: (web_id, cb, errCb) => {
-    orm.getFeedShoes(web_id, (response) => cb(response), (err) => errCb(err));
+    orm.getFeedShoes(
+      web_id,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
   },
 };
 

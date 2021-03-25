@@ -94,6 +94,17 @@ const orm = {
     });
   },
 
+  getSingleShoe: (shoe_id, cb, errCb) => {
+    const queryString = `Call pull_shoe (?);`;
+    connection.query(queryString, [shoe_id], (err, result ) => {
+      if (err) {
+        return errCb(err);
+      } else {
+        return cb(result);
+      }
+    })
+  },
+
   getUserShoes: (web_id, cb, errCb) => {
     const queryString = "Call pull_user_shoes (?);";
     connection.query(queryString, [web_id], (err, result) => {
