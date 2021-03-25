@@ -12,6 +12,7 @@ import Cancel from "./components/pages/Cancel";
 import UserUploadPage from "./components/pages/UserUploadPage";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
+import './App.css';
 
 
 const theme = createMuiTheme({

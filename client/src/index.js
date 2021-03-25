@@ -4,9 +4,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-document.body.style.backgroundColor = "rgb(20,20,20)";
-document.body.style.color = "rgb(215, 215, 215)";
-
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
