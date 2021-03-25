@@ -92,7 +92,7 @@ const createUser = (username, password, email, first_name, last_name, response) 
           .status(500)
           .json({ success: false, error: "Username already exsists." });
       } else {
-        response.status(500).json({ success: false, error: err });
+        response.status(500).json({ success: false, error: "Error Creating User" });
       }
     }
   );

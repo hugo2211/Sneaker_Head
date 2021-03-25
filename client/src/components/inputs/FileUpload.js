@@ -1,14 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { getThemeProps } from '@material-ui/styles';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
   input: {
     display: 'none',
   },
@@ -18,7 +12,7 @@ const FileUpload = (props) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div>
       <input
         accept="image/*"
         className={classes.input}
@@ -26,10 +20,11 @@ const FileUpload = (props) => {
         multiple
         type="file"
         onChange={props.handleFileUpload}
+        required
       />
       <label htmlFor="contained-button-file">
         <Button variant="contained" color="primary" component="span">
-          Upload
+          Upload Photo
         </Button>
       </label>
     </div>

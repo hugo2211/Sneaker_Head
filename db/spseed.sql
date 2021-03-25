@@ -19,3 +19,32 @@ VALUES (p_brand_name, p_shoe_model, p_color, p_year, p_status_name, NOW(), p_web
 
 CALL add_image(p_url);
 END
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `feed_shoes`(
+p_web_id INT
+)
+BEGIN
+SELECT a.shoe_id, c.username, brand_name, shoe_model, color, year, status_name, postdte, a.web_id, url as image_url
+FROM myshoes a 
+JOIN shoeimage b on a.shoe_id
+JOIN webusers c on a.web_id
+where a.web_id <> p_web_id AND a.shoe_id = b.shoe_id and c.web_id = a.web_id;
+END
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pull_shoes`()
+BEGIN
+SELECT * FROM myshoes;
+END
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pull_user_shoes`(
+p_web_id INT)
+BEGIN
+SELECT a.shoe_id, c.username, brand_name, shoe_model, color, year, status_name, postdte, a.web_id, url as image_url
+FROM myshoes a 
+JOIN shoeimage b on a.shoe_id
+JOIN webusers c on a.web_id
+where a.web_id = p_web_id AND a.shoe_id = b.shoe_id and c.web_id = a.web_id;
+END

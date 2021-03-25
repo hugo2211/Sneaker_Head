@@ -1,0 +1,8 @@
+.page-cover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(5, 5, 5, 0.6);
+  overflow: scroll;
+  color: rgb(220, 220, 220);
+}

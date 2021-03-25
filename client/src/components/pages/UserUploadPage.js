@@ -1,64 +1,18 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   FormControl,
   TextField,
   InputLabel,
   Select,
   MenuItem,
-  Input,
-  Chip,
+  OutlinedInput,
+  InputAdornment,
 } from "@material-ui/core";
 import axios from "axios";
 
-import CheckboxesGroup from "../inputs/CheckBoxesGroup";
 import FileUpload from "../inputs/FileUpload";
-
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  chips: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  chip: {
-    margin: 2,
-  },
-  noLabel: {
-    marginTop: theme.spacing(2),
-  },
-}));
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-const shoeColorList = [
-  "Red",
-  "Orange",
-  "Yellow",
-  "Green",
-  "Blue",
-  "Purple",
-  "Black",
-  "Brown",
-  "Silver",
-  "White",
-  "Gold",
-  "Mutlicolor",
-];
+import RadioButtons from "../inputs/RadioButtons";
+import MultiSelect from "../inputs/MultiSelect";
 
 const toBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -69,7 +23,6 @@ const toBase64 = (file) =>
   });
 
 const UserUploadPage = () => {
-  const classes = useStyles();
   const [error, setError] = useState("");
   const [brand_name, set_brand_name] = useState("");
   const [shoe_model, set_shoe_model] = useState("");
@@ -77,14 +30,17 @@ const UserUploadPage = () => {
   const [year, set_year] = useState("");
   const [fileUpload, set_file_upload] = useState("");
   const [picture_info, set_picture_info] = useState([]);
-  const [post_action, set_post_action] = useState({
-    trade: false,
-    sell: false,
-    view: false,
-  });
+  const [post_action, set_post_action] = useState();
+  const [price, set_price] = useState('');
+  const [condition, set_condition] = useState("");
+  const [description, setDescription] = useState("");
 
-  const handleCheckboxSelect = (event) => {
-    set_post_action({ ...post_action, [event.target.name]: event.target.checked });
+  const handleRadioSelect = (event) => {
+    set_post_action(event.target.value);
+  };
+
+  const handleMultiSelect = (event) => {
+    set_color(event.target.value);
   };
 
   const handleFileUpload = async (event) => {
@@ -95,6 +51,13 @@ const UserUploadPage = () => {
 
   const handleUploadSubmit = (event) => {
     event.preventDefault();
+    console.log(brand_name,
+      shoe_model,
+      color,
+      year,
+      post_action,
+      price,
+      condition);
     uploadPostInfo();
   };
 
@@ -117,6 +80,9 @@ const UserUploadPage = () => {
           color,
           year,
           post_action,
+          price,
+          condition,
+          description
         },
         config
       );
@@ -131,21 +97,89 @@ const UserUploadPage = () => {
     }
   };
 
+  const renderAskingPrice = () => {
+    if (post_action === "Sell") {
+      return (
+        <div className="col-lg-4 col-md-6 col-12 mb-5">
+          <FormControl fullWidth variant="outlined">
+            <InputLabel htmlFor="outlined-adornment-price">
+              Asking Price
+            </InputLabel>
+            <OutlinedInput
+              required
+              type="number"
+              id="outlined-adornment-price"
+              value={price}
+              onChange={(e) => set_price(e.target.value)}
+              startAdornment={
+                <InputAdornment position="start">$</InputAdornment>
+              }
+              labelWidth={90}
+            />
+          </FormControl>
+        </div>
+      );
+    }
+  };
+
+  const renderShoeCondition = () => {
+    if (post_action === "Sell" || post_action === "Trade") {
+      return (
+        <div className="col-lg-4 col-md-6 col-12 mb-5">
+          <FormControl fullWidth variant="outlined">
+            <InputLabel id="shoe-condition-label">Condition</InputLabel>
+            <Select
+              required
+              labelId="shoe-condition-label"
+              id="shoe-condition-select"
+              value={condition}
+              onChange={(e) => set_condition(e.target.value)}
+              label="Condition"
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={"New"}>New</MenuItem>
+              <MenuItem value={"Like New"}>Like New</MenuItem>
+              <MenuItem value={"Used"}>Used</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+      );
+    }
+  };
+
   return (
     <div>
       <div className="mt-4">
-        <h2 className="text-center">Upload</h2>
+        <h2 className="text-center">New Post</h2>
         <form onSubmit={handleUploadSubmit}>
-          <div className="container">
+          <div className="container mt-5">
             <div className="row">
-              <div className="col-lg-4 col-md-6 col-12 mb-4">
-                <FormControl
-                  fullWidth
-                  variant="outlined"
-                  className={classes.formControl}
-                >
+              <div className="col-lg-4 col-md-6 col-12 mb-3">
+                <RadioButtons
+                  handleRadioSelect={handleRadioSelect}
+                  postAction={post_action}
+                />
+              </div>
+              <div className="col-lg-4 col-md-6 col-12 mb-3">
+                <div>
+                  <FileUpload handleFileUpload={handleFileUpload} />
+                  <p>File: {picture_info.name}</p>
+                  <p>Type: {picture_info.type}</p>
+                </div>
+              </div>
+              <div className="col-lg-4 col-md-6 col-12 mb-5">
+                <MultiSelect
+                  selectValue={color}
+                  handleMultiSelect={handleMultiSelect}
+                />
+              </div>
+              <div className="col-lg-4 col-md-6 col-12 mb-5">
+                <FormControl fullWidth variant="outlined">
                   <InputLabel id="shoe-brand-label">Brand</InputLabel>
                   <Select
+                    required
                     labelId="shoe-brand-label"
                     id="shoe-brand-select"
                     value={brand_name}
@@ -155,15 +189,15 @@ const UserUploadPage = () => {
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    <MenuItem value={'nike'}>Nike</MenuItem>
-                    <MenuItem value={'adiddas'}>Adiddas</MenuItem>
-                    <MenuItem value={'jordan'}>Jordan</MenuItem>
+                    <MenuItem value={"Nike"}>Nike</MenuItem>
+                    <MenuItem value={"Adiddas"}>Adiddas</MenuItem>
+                    <MenuItem value={"Jordan"}>Jordan</MenuItem>
                   </Select>
                 </FormControl>
               </div>
-              <div className="col-lg-4 col-md-6 col-12 mb-4">
+              <div className="col-lg-4 col-md-6 col-12 mb-5">
                 <TextField
-                  className={classes.formControl}
+                  required
                   fullWidth
                   id="shoe-model-input"
                   label="Model"
@@ -172,9 +206,9 @@ const UserUploadPage = () => {
                   onChange={(e) => set_shoe_model(e.target.value)}
                 />
               </div>
-              <div className="col-lg-4 col-md-6 col-12 mb-4">
+              <div className="col-lg-4 col-md-6 col-12 mb-5">
                 <TextField
-                  className={classes.formControl}
+                  required
                   fullWidth
                   type="number"
                   id="shoe-year-input"
@@ -184,61 +218,35 @@ const UserUploadPage = () => {
                   onChange={(e) => set_year(e.target.value)}
                 />
               </div>
-              <div className="col-lg-4 col-md-6 col-12 mb-4">
-                <FormControl
+              {renderAskingPrice()}
+              {renderShoeCondition()}
+            </div>
+
+            <div className="row justify-content-md-center">
+              <div className="col-lg-6 col-md-8 col-12 mb-5">
+                <TextField
+                  value={description}
+                  onChange={e => setDescription(e.target.value)}
+                  required
                   variant="outlined"
-                  className={classes.formControl}
+                  id="post-input"
+                  label="Description/Status"
                   fullWidth
-                >
-                  <InputLabel id="shoe-color-label">Color</InputLabel>
-                  <Select
-                    labelId="shoe-color-label"
-                    id="shoe-color-select"
-                    multiple
-                    value={color}
-                    onChange={(e) => set_color(e.target.value)}
-                    input={<Input id="shoe-color-chip" />}
-                    renderValue={(selected) => (
-                      <div className={classes.chips}>
-                        {selected.map((value) => (
-                          <Chip
-                            key={value}
-                            label={value}
-                            className={classes.chip}
-                          />
-                        ))}
-                      </div>
-                    )}
-                    MenuProps={MenuProps}
-                  >
-                    {shoeColorList.map((color) => (
-                      <MenuItem key={color} value={color}>
-                        {color}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </div>
-              <div className="col-lg-4 col-md-6 col-12 mb-4">
-                <FileUpload handleFileUpload={handleFileUpload} />
-                <p>File: {picture_info.name}</p>
-                <p>Type: {picture_info.type}</p>
-                {fileUpload && <img src={fileUpload} style={{ height: 200, width: 200 }} />}
-              </div>
-              <div className="col-lg-4 col-md-6 col-12 mb-4">
-                <CheckboxesGroup
-                  handleCheckboxSelect={handleCheckboxSelect}
-                  postAction={post_action}
+                  placeholder="Write status here"
+                  multiline
+                  rows={2}
+                  rowsMax={4}
                 />
               </div>
-              <div className="container-fluid text-center">
-                <button type="submit" className="btn btn-light">
-                  Create Post
-                </button>
-              </div>
-
-              {error && <span className="error-message">{error}</span>}
             </div>
+
+            <div className="container-fluid text-center">
+              <button type="submit" className="btn btn-light">
+                Create Post
+              </button>
+            </div>
+
+            {error && <span className="error-message">{error}</span>}
           </div>
         </form>
       </div>
