@@ -10,6 +10,7 @@ import Checkout from "./components/pages/Checkout";
 import Success from "./components/pages/Success";
 import Cancel from "./components/pages/Cancel";
 import UserUploadPage from "./components/pages/UserUploadPage";
+import EditPostPage from "./components/pages/EditPostPage";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
 import './App.css';
@@ -35,6 +36,7 @@ function App() {
           <PrivateRoute exact path="/checkout" component={Checkout} />
           <PrivateRoute exact path="/success" component={Success} />
           <PrivateRoute exact path="/cancel" component={Cancel} />
+          <PrivateRoute exact path="/post/edit/:id" component={EditPostPage} />
         </Switch>
       </Router>
     </ThemeProvider>

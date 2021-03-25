@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const ProfilePage = () => {
+const ProfilePage = ({ history }) => {
   const classes = useStyles();
 
   const [error, setError] = useState("");
@@ -68,6 +68,10 @@ const ProfilePage = () => {
     getShoes();
   }, []);
 
+  const handleEditClick = (shoe_id, history) => {
+    history.push(`/post/edit/${shoe_id}`)
+  }
+
   return (
     <div>
       <div>
@@ -81,12 +85,13 @@ const ProfilePage = () => {
             return (
               <div
                 className={`col-lg-4 col-md-6 col-12 d-flex justify-content-center mb-4`}
+                key={shoe.shoe_id}
               >
                 <div className={classes.shoePost}>
                   <div className={classes.usernameAndIcons}>
                     <div>{shoe.username}</div>
                     <div className="text-right">
-                      <i class="far fa-edit mr-4"></i>
+                      <i class="far fa-edit mr-4" onClick={() => handleEditClick(shoe.shoe_id, history)}></i>
                       <i class="fas fa-trash-alt"></i>
                     </div>
                   </div>
