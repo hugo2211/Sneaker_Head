@@ -22,7 +22,7 @@ const toBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-const UserUploadPage = () => {
+const UserUploadPage = ({ history }) => {
   const [error, setError] = useState("");
   const [brand_name, set_brand_name] = useState("");
   const [shoe_model, set_shoe_model] = useState("");
@@ -87,7 +87,7 @@ const UserUploadPage = () => {
         config
       );
 
-      console.log(data);
+      history.push("/profile");
     } catch (error) {
       console.log(error);
       setError(error.response.data.error);
