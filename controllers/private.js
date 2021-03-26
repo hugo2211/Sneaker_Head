@@ -123,7 +123,9 @@ exports.deleteShoe = (req, res) => {
   const shoe_id = req.query.shoeid;
   console.log(shoe_id);
 
-  User.getSingleShoe(shoe_id, data => {
+  console.log('delete request called');
+
+  User.deleteShoe(shoe_id, data => {
     res.status(200).json({ success: true, data: data });
   }, err => {
     console.log("get feed shoes", err);
