@@ -1,16 +1,12 @@
 .trending-page {
-  background-color: rgb(5, 5, 5);
   min-height: 300vh;
-  color: rgb(245, 245, 245);
 }
-
 
 .shoe-carosel {
   display: flex;
   flex-direction: row;
   overflow: scroll;
 }
-
 
 .shoe-carosel::-webkit-scrollbar {
    width: 2px; 

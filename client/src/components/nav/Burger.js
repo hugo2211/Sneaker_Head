@@ -37,6 +37,12 @@ const StyledBurger = styled.div`
 
 const Burger = ({ history }) => {
   const [open, setOpen] = useState(false)
+
+  const handleNavClick = () => {
+    if(open) {
+      setOpen(false);
+    }
+  }
   
   return (
     <>
@@ -45,7 +51,7 @@ const Burger = ({ history }) => {
         <div />
         <div />
       </StyledBurger>
-      <RightNav history={history} open={open}/>
+      <RightNav history={history} open={open} handleNavClick={handleNavClick}/>
     </>
   )
 }

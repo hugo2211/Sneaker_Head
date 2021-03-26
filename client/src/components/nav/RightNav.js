@@ -39,19 +39,24 @@ const Ul = styled.ul`
   }
 `;
 
-const RightNav = ({ open, history }) => {
+const RightNav = ({ open, history, handleNavClick }) => {
   const logoutUser = () => {
     localStorage.clear();
     history.push("/");
   }
 
+  const navClick = (targetUrl) => {
+    history.push(`${targetUrl}`);
+    handleNavClick();
+  }
+
   return (
     <Ul open={open}>
-      <li><span onClick={() => history.push("/profile")}>Profile</span></li>
-      <li><span onClick={() => history.push("/feed")}>Feed</span></li>
-      <li><span onClick={() => history.push("/trending")}>Trending</span></li>
-      <li><span onClick={() => history.push("/chat")}>Chat</span></li>
-      <li><span onClick={() => history.push("/upload")}>Upload</span></li>
+      <li><span onClick={() => navClick("/profile")}>Profile</span></li>
+      <li><span onClick={() => navClick("/feed")}>Feed</span></li>
+      <li><span onClick={() => navClick("/trending")}>Trending</span></li>
+      <li><span onClick={() => navClick("/chat")}>Chat</span></li>
+      <li><span onClick={() => navClick("/upload")}>Upload</span></li>
       <li><span onClick={logoutUser}>Logout</span></li>
     </Ul>
   )

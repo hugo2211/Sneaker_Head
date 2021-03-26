@@ -9,10 +9,12 @@ import ChatPage from "./components/pages/ChatPage";
 import CheckoutPage from "./components/pages/CheckoutPage";
 import Success from "./components/pages/Success";
 import UserUploadPage from "./components/pages/UserUploadPage";
+import EditPostPage from "./components/pages/EditPostPage";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import './App.css';
 
 const stripePromise = loadStripe(`pk_test_51IX6VIAfExOBYstVZkqhs76wY1xMrZ5Hwh0SgLZDOvYwDgFHRrnMKh8cNfRVtNVIounGjq9Wejc5oGj23B9IKw5m00hbsBcph6`); 
 
@@ -36,6 +38,7 @@ function App() {
           <PrivateRoute exact path="/trending" component={Trending} />
           <PrivateRoute exact path="/checkout" component={CheckoutPage} />
           <PrivateRoute exact path="/success" component={Success} />
+          <PrivateRoute exact path="/post/edit/:id" component={EditPostPage} />
         </Switch>
       </Router>
     </ThemeProvider>

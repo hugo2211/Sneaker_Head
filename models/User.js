@@ -30,25 +30,25 @@ const User = {
     );
   },
 
-  createPost: (
-    brand_name,
-    shoe_model,
-    color,
-    year,
-    status_name,
-    web_id,
-    url,
-    cb,
-    errCb
-  ) => {
+  createPost: (postInfoObj, cb, errCb) => {
     orm.createPost(
-      brand_name,
-      shoe_model,
-      color,
-      year,
-      status_name,
-      web_id,
-      url,
+      postInfoObj,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
+
+  getSingleShoe: (shoe_id, cb, errCb) => {
+    orm.getSingleShoe(
+      shoe_id,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
+
+  deleteShoe: (shoe_id, cb, errCb) => {
+    orm.deleteShoe(
+      shoe_id,
       (response) => cb(response),
       (err) => errCb(err)
     );
@@ -56,6 +56,14 @@ const User = {
 
   getShoes: (web_id, cb, errCb) => {
     orm.getUserShoes(
+      web_id,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
+
+  getFeed: (web_id, cb, errCb) => {
+    orm.getFeedShoes(
       web_id,
       (response) => cb(response),
       (err) => errCb(err)

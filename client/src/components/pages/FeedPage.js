@@ -1,65 +1,92 @@
-import { faBlackTie } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./FeedPage.css";
+import { makeStyles } from "@material-ui/core/styles";
 
-const feed = [
-  {
-    id: 1,
-    shoe: "adidas",
-    image:
-      "https://vignette.wikia.nocookie.net/spongebobgalaxy/images/0/07/SpongeBob_SquarePants.png/revision/latest?cb=20171228024014",
-    likes: 1110,
-    comment: "Check out my new retro kicks",
+const useStyles = makeStyles(() => ({
+  shoePost: {
+    maxWidth: 300,
   },
-  {
-    id: 2,
-    shoe: "Reebok",
-    image:
-      "https://vignette3.wikia.nocookie.net/vsbattles/images/8/80/Mr._Krabs.png/revision/latest?cb=20150919162131",
-    likes: 700,
-    comment: "Found these classics in the back of my closet!",
+  username: {
+    marginBottom: "3px",
   },
-  {
-    id: 3,
-    shoe: "Air Jordans",
-    image:
-      "https://vignette2.wikia.nocookie.net/fictionalcharacters/images/a/ac/Squidward.png/revision/latest?cb=20131121012626",
-    likes: 1200,
-    comment: "Finally checking these off my wishlist",
+  seperator: {
+    backgroundColor: "white",
   },
-];
+  italic: {
+    fontStyle: 'italic'
+  }
+}));
 
-const style = {
-    card: {
-        margin: 50,
-        color: "black"
-    },
-    img: {
-        marginLeft: 200
-    },
-    h5: {
-        textAlign: "left"
-    }
-}
+const FeedPage = () => {
+  const classes = useStyles();
+  const [feedData, setFeedData] = useState([]);
 
-const FeedPage = ({ history }) => {
-  console.log(history);
+  const getFeedData = () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    };
+
+    const userId = localStorage.getItem("web_id");
+
+    axios
+      .get(`/api/private/feed?userid=${userId}`, config)
+      .then(function (response) {
+        console.log("feed data:", response.data.data[0]);
+        setFeedData(response.data.data[0]);
+      });
+  };
+
+  useEffect(() => {
+    getFeedData();
+  }, []);
 
   return (
     <div className="feed-page">
       <h2>Feed</h2>
-
-      {feed.map((post) => (
-        <div className="card mb-5" style={style.card} >
-          <div className="img-container">
-           <h2>{post.comment}</h2> 
-            <img alt={post.shoe} src={post.image} style= {style.img} />
-          </div>
-          <div className="content">
-              <h5>Likes: {post.likes} </h5>
-          </div>
+      <div className="container feed-container">
+        <div className="row">
+          {feedData && feedData.length > 0 ? (
+            feedData.map((post) => {
+              return (
+                <div
+                  className={`col-lg-4 col-md-6 col-12 d-flex justify-content-center mb-4`}
+                >
+                  <div className={classes.shoePost}>
+                    <div className={classes.username}>{post.username}</div>
+                    <img
+                      alt={`${post.brand_name} ${post.shoe_model} ${post.year}`}
+                      style={{ height: "200px", width: "300px" }}
+                      src={post.image_url}
+                    />
+                    <div>Likes: 0</div>
+                    <div className={classes.italic}>
+                      {post.description}
+                    </div>
+                    <hr className={classes.seperator} />
+                    {post.status_name === "Trade" ||
+                    post.status_name === "Sell" ? (
+                      <div>Status: For {post.status_name}</div>
+                    ) : null}
+                    <div>Brand: {post.brand_name}</div>
+                    <div>Model: {post.shoe_model}</div>
+                    <div>Year: {post.year}</div>
+                    {post.shoe_condition && (
+                      <div>Condition: {post.shoe_condition}</div>
+                    )}
+                    {post.price && <div>Price: ${post.price}</div>}
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <div>No Feed data</div>
+          )}
         </div>
-      ))}
+      </div>
     </div>
   );
 };

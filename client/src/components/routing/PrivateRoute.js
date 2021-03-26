@@ -7,11 +7,12 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={(props) =>
         localStorage.getItem("authToken") ? (
-          <div>
-            <Navbar {...props} />
-            <Component {...props} />
+          <div className="landing-page-background">
+            <div className="page-cover">
+              <Navbar {...props} />
+              <Component {...props} />
+            </div>
           </div>
-          
         ) : (
           <Redirect to="/" />
         )
