@@ -6,13 +6,15 @@ import ProfilePage from "./components/pages/ProfilePage";
 import Trending from './components/pages/Trending';
 import FeedPage from "./components/pages/FeedPage";
 import ChatPage from "./components/pages/ChatPage";
-import Checkout from "./components/pages/Checkout";
+import CheckoutPage from "./components/pages/CheckoutPage";
 import Success from "./components/pages/Success";
-import Cancel from "./components/pages/Cancel";
 import UserUploadPage from "./components/pages/UserUploadPage";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
+const stripePromise = loadStripe(`pk_test_51IX6VIAfExOBYstVZkqhs76wY1xMrZ5Hwh0SgLZDOvYwDgFHRrnMKh8cNfRVtNVIounGjq9Wejc5oGj23B9IKw5m00hbsBcph6`); 
 
 const theme = createMuiTheme({
   palette: {
@@ -22,6 +24,7 @@ const theme = createMuiTheme({
 
 function App() {
   return (
+    <Elements stripe= { stripePromise } >
     <ThemeProvider theme={theme}>
       <Router>
         <Switch>
@@ -31,12 +34,12 @@ function App() {
           <PrivateRoute exact path="/chat" component={ChatPage} />
           <PrivateRoute exact path="/upload" component={UserUploadPage} />
           <PrivateRoute exact path="/trending" component={Trending} />
-          <PrivateRoute exact path="/checkout" component={Checkout} />
+          <PrivateRoute exact path="/checkout" component={CheckoutPage} />
           <PrivateRoute exact path="/success" component={Success} />
-          <PrivateRoute exact path="/cancel" component={Cancel} />
         </Switch>
       </Router>
     </ThemeProvider>
+    </Elements>
   );
 }
 
