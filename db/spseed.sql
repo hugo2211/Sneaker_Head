@@ -36,6 +36,17 @@ JOIN webusers c on a.web_id
 where a.web_id <> p_web_id AND a.shoe_id = b.shoe_id and c.web_id = a.web_id;
 END
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pull_user_shoes`(
+p_web_id INT)
+BEGIN
+SELECT a.shoe_id, c.username, brand_name, shoe_model, color, year, 
+status_name, postdte, a.web_id, url as image_url, price, shoe_condition, description
+FROM myshoes a
+JOIN shoeimage b on a.shoe_id
+JOIN webusers c on a.web_id
+where a.web_id = p_web_id AND a.shoe_id = b.shoe_id and c.web_id = a.web_id;
+END
+
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `pull_shoes`()
 BEGIN
@@ -53,14 +64,3 @@ JOIN webusers c on a.web_id
 where a.shoe_id = p_shoe_id AND a.shoe_id = b.shoe_id and c.web_id = a.web_id;
 END
 
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pull_shoe`(
-p_shoe_id INT)
-BEGIN
-SELECT a.shoe_id, c.username, brand_name, shoe_model, color, year, 
-status_name, postdte, a.web_id, url as image_url, price, shoe_condition, description
-FROM myshoes a 
-JOIN shoeimage b on a.shoe_id
-JOIN webusers c on a.web_id
-where a.shoe_id = p_shoe_id AND a.shoe_id = b.shoe_id and c.web_id = a.web_id;
-END
