@@ -46,6 +46,14 @@ const User = {
     );
   },
 
+  deleteShoe: (shoe_id, cb, errCb) => {
+    orm.deleteShoe(
+      shoe_id,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
+
   getShoes: (web_id, cb, errCb) => {
     orm.getUserShoes(
       web_id,

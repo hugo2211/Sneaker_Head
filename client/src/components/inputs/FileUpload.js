@@ -13,7 +13,7 @@ const FileUpload = (props) => {
 
   return (
     <div>
-      <input
+      {props.imageRequired ? <input
         accept="image/*"
         className={classes.input}
         id="contained-button-file"
@@ -21,7 +21,15 @@ const FileUpload = (props) => {
         type="file"
         onChange={props.handleFileUpload}
         required
-      />
+      /> : <input
+        accept="image/*"
+        className={classes.input}
+        id="contained-button-file"
+        multiple
+        type="file"
+        onChange={props.handleFileUpload}
+      />}
+      
       <label htmlFor="contained-button-file">
         <Button variant="contained" color="primary" component="span">
           Upload Photo
