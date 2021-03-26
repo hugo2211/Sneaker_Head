@@ -27,8 +27,8 @@ const useStyles = makeStyles(() => ({
     backgroundColor: "white",
   },
   italic: {
-    fontStyle: 'italic'
-  }
+    fontStyle: "italic",
+  },
 }));
 
 const toBase64 = (file) =>
@@ -106,8 +106,37 @@ const EditPostPage = () => {
 
   const handleUpdatePost = (event) => {
     event.preventDefault();
-    console.log('post updated');
-  }
+    updateShoe();
+  };
+
+  const updateShoe = async () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    };
+
+    const updateObj = {
+      shoe_id: id,
+      brand_name,
+      shoe_model,
+      color,
+      year,
+      post_action,
+      price,
+      condition,
+      description,
+    };
+
+    try {
+      const { data } = await axios.put(`/api/private/shoe`, updateObj, config);
+      console.log(data.data[0][0]);
+      console.log("post updated");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const renderAskingPrice = () => {
     if (post_action === "Sell") {
@@ -257,9 +286,7 @@ const EditPostPage = () => {
         </div>
 
         <div className="col-md-6 col-12">
-          <div
-            className={`d-flex justify-content-center mb-4`}
-          >
+          <div className={`d-flex justify-content-center mb-4`}>
             <div className={classes.shoePost}>
               <div className={classes.username}>{username}</div>
               <img
@@ -276,9 +303,7 @@ const EditPostPage = () => {
               <div>Brand: {brand_name}</div>
               <div>Model: {shoe_model}</div>
               <div>Year: {year}</div>
-              {condition && (
-                <div>Condition: {condition}</div>
-              )}
+              {condition && <div>Condition: {condition}</div>}
               {price && <div>Price: ${price}</div>}
             </div>
           </div>

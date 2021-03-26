@@ -19,7 +19,17 @@ exports.getChatProjectId = (req, res, next) => {
 exports.createPost = async (req, res) => {
   // Get info from create post from
   let imageStringFormatted = req.body.image.split(",")[1];
-  let { web_id, brand_name, shoe_model, color, year, post_action, price, condition, description } = req.body;
+  let {
+    web_id,
+    brand_name,
+    shoe_model,
+    color,
+    year,
+    post_action,
+    price,
+    condition,
+    description,
+  } = req.body;
 
   // Format incoming form data for database
   web_id = Number(web_id);
@@ -46,19 +56,20 @@ exports.createPost = async (req, res) => {
     const CreatePostObj = {
       brand_name,
       shoe_model,
-      color, 
-      year, 
+      color,
+      year,
       status_name,
       web_id,
       url,
       price,
       condition,
-      description
-    }
+      description,
+    };
 
     console.log(CreatePostObj);
 
-    User.createPost(CreatePostObj,
+    User.createPost(
+      CreatePostObj,
       (data) => {
         res.status(200).json({ success: true, data: data });
       },
@@ -73,63 +84,121 @@ exports.createPost = async (req, res) => {
           res.status(500).json({ success: false, error: err });
         }
       }
-    );  
-
+    );
   } catch (error) {
     console.log(error.response.data);
     console.log(error.response.status);
     console.log(error.response.config);
     res.status(500).json({ success: false, error: error });
-  } 
-}; 
+  }
+};
+
+exports.updateShoe = (req, res) => {
+  let {
+    shoe_id,
+    brand_name,
+    shoe_model,
+    color,
+    year,
+    post_action,
+    price,
+    condition,
+    description,
+  } = req.body;
+
+  shoe_id = Number(shoe_id);
+  year = Number(year);
+  color = JSON.stringify(color);
+  let status_name = post_action;
+
+  const shoeInfoObj = {
+    shoe_id,
+    brand_name,
+    shoe_model,
+    color,
+    year,
+    status_name,
+    price,
+    condition,
+    description,
+  };
+
+  console.log(shoeInfoObj);
+
+  User.updateShoe(
+    shoeInfoObj,
+    (data) => {
+      res.status(200).json({ success: true, data: data });
+    },
+    (err) => {
+      console.log("controller error: ", err);
+      res.status(500).json({ success: false, error: 'There was an error updating the shoe' });
+    }
+  );
+};
 
 exports.getUserShoes = (req, res, next) => {
   const web_id = req.query.userid;
   console.log(web_id);
 
-  User.getShoes(web_id, data => {
-    res.status(200).json({ success: true, data: data });
-  }, err => {
-    console.log("get user shoes", err);
-    res.status(500).json({ success: false, error: err });
-  })
+  User.getShoes(
+    web_id,
+    (data) => {
+      res.status(200).json({ success: true, data: data });
+    },
+    (err) => {
+      console.log("get user shoes", err);
+      res.status(500).json({ success: false, error: 'There was an error udpating the shoe' });
+    }
+  );
 };
 
 exports.getFeedShoes = (req, res) => {
   const web_id = req.query.userid;
   console.log(web_id);
 
-  User.getFeed(web_id, data => {
-    res.status(200).json({ success: true, data: data });
-  }, err => {
-    console.log("get feed shoes", err);
-    res.status(500).json({ success: false, error: err });
-  })
+  User.getFeed(
+    web_id,
+    (data) => {
+      res.status(200).json({ success: true, data: data });
+    },
+    (err) => {
+      console.log("get feed shoes", err);
+      res.status(500).json({ success: false, error: err });
+    }
+  );
 };
 
 exports.getSingleShoe = (req, res) => {
   const shoe_id = req.query.shoeid;
   console.log(shoe_id);
 
-  User.getSingleShoe(shoe_id, data => {
-    res.status(200).json({ success: true, data: data });
-  }, err => {
-    console.log("get feed shoes", err);
-    res.status(500).json({ success: false, error: err });
-  })
-}
+  User.getSingleShoe(
+    shoe_id,
+    (data) => {
+      res.status(200).json({ success: true, data: data });
+    },
+    (err) => {
+      console.log("get feed shoes", err);
+      res.status(500).json({ success: false, error: err });
+    }
+  );
+};
 
 exports.deleteShoe = (req, res) => {
   const shoe_id = req.query.shoeid;
   console.log(shoe_id);
 
-  console.log('delete request called');
+  console.log("delete request called");
 
-  User.deleteShoe(shoe_id, data => {
-    res.status(200).json({ success: true, data: data });
-  }, err => {
-    console.log("get feed shoes", err);
-    res.status(500).json({ success: false, error: err });
-  })
-}
-
+  User.deleteShoe(
+    shoe_id,
+    (data) => {
+      res.status(200).json({ success: true, data: data });
+    },
+    (err) => {
+      console.log("get feed shoes", err);
+      res.status(500).json({ success: false, error: err });
+    }
+  );
+};
