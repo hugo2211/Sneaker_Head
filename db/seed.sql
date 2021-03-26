@@ -37,3 +37,23 @@ url VARCHAR(255) NOT NULL,
 PRIMARY KEY (id),
 FOREIGN KEY (shoe_id) REFERENCES myshoes (shoe_id) ON DELETE CASCADE
 );
+
+CREATE TABLE shoelikes (
+like_id INT AUTO_INCREMENT,
+web_id INT NOT NULL,
+shoe_id INT NOT NULL,
+PRIMARY KEY (like_id),
+FOREIGN KEY (web_id) REFERENCES webusers (web_id) ON DELETE CASCADE,
+FOREIGN KEY (shoe_id) REFERENCES myshoes (shoe_id) ON DELETE CASCADE
+);
+
+CREATE TABLE shoecomments (
+comment_id INT AUTO_INCREMENT,
+shoe_id INT NOT NULL,
+web_id INT NOT NULL,
+username VARCHAR(30),
+shoe_comment VARCHAR(255),
+PRIMARY KEY (comment_id),
+FOREIGN KEY (shoe_id) REFERENCES myshoes (shoe_id) ON DELETE CASCADE,
+FOREIGN KEY (web_id) REFERENCES webusers (web_id) ON DELETE CASCADE
+);
