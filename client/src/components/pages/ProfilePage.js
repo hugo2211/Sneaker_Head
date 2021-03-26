@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
+import DeleteModal from "../modals/DeleteModal";
 
 const useStyles = makeStyles(() => ({
   shoePost: {
@@ -9,14 +10,14 @@ const useStyles = makeStyles(() => ({
   usernameAndIcons: {
     display: "grid",
     gridTemplateColumns: "auto auto",
-    marginBottom: "3px"
+    marginBottom: "3px",
   },
   seperator: {
-    backgroundColor: 'white'
+    backgroundColor: "white",
   },
   italic: {
-    fontStyle: 'italic'
-  }
+    fontStyle: "italic",
+  },
 }));
 
 const ProfilePage = ({ history }) => {
@@ -69,8 +70,31 @@ const ProfilePage = ({ history }) => {
   }, []);
 
   const handleEditClick = (shoe_id, history) => {
-    history.push(`/post/edit/${shoe_id}`)
-  }
+    history.push(`/post/edit/${shoe_id}`);
+  };
+
+  const handleDeleteClick = async (shoe_id) => {
+    console.log("shoe deleted", shoe_id);
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    };
+
+    try {
+      const { data } = await axios.delete(
+        `/api/private/shoe?shoeid=${shoe_id}`,
+        config
+      );
+      console.log(data);
+      console.log("shoe deleted");
+    } catch (error) {
+      console.log(error);
+      setError("There was an error deleteing the shoe.");
+    }
+  };
 
   return (
     <div>
@@ -91,8 +115,15 @@ const ProfilePage = ({ history }) => {
                   <div className={classes.usernameAndIcons}>
                     <div>{shoe.username}</div>
                     <div className="text-right">
-                      <i className="far fa-edit mr-4" onClick={() => handleEditClick(shoe.shoe_id, history)}></i>
-                      <i className="fas fa-trash-alt"></i>
+                      <i
+                        className="far fa-edit mr-4"
+                        onClick={() => handleEditClick(shoe.shoe_id, history)}
+                      ></i>
+                      <DeleteModal
+                        handleDeleteClick={() =>
+                          handleDeleteClick(shoe.shoe_id)
+                        }
+                      />
                     </div>
                   </div>
                   <img
@@ -101,15 +132,18 @@ const ProfilePage = ({ history }) => {
                     src={shoe.image_url}
                   />
                   <div>Likes: 0</div>
-                  <div className={classes.italic}>
-                    {shoe.description}
-                  </div>
-                  <hr className={classes.seperator}/>
-                  {shoe.status_name === "Trade" || shoe.status_name === "Sell" ? <div>Status: For {shoe.status_name}</div> : null}
+                  <div className={classes.italic}>{shoe.description}</div>
+                  <hr className={classes.seperator} />
+                  {shoe.status_name === "Trade" ||
+                  shoe.status_name === "Sell" ? (
+                    <div>Status: For {shoe.status_name}</div>
+                  ) : null}
                   <div>Brand: {shoe.brand_name}</div>
                   <div>Model: {shoe.shoe_model}</div>
                   <div>Year: {shoe.year}</div>
-                  {shoe.shoe_condition && <div>Condition: {shoe.shoe_condition}</div>}
+                  {shoe.shoe_condition && (
+                    <div>Condition: {shoe.shoe_condition}</div>
+                  )}
                   {shoe.price && <div>Price: ${shoe.price}</div>}
                 </div>
               </div>

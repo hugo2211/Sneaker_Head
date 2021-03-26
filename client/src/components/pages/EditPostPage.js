@@ -10,10 +10,26 @@ import {
   OutlinedInput,
   InputAdornment,
 } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 import FileUpload from "../inputs/FileUpload";
 import RadioButtons from "../inputs/RadioButtons";
 import MultiSelect from "../inputs/MultiSelect";
+
+const useStyles = makeStyles(() => ({
+  shoePost: {
+    maxWidth: 300,
+  },
+  username: {
+    marginBottom: "3px",
+  },
+  seperator: {
+    backgroundColor: "white",
+  },
+  italic: {
+    fontStyle: 'italic'
+  }
+}));
 
 const toBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -24,6 +40,10 @@ const toBase64 = (file) =>
   });
 
 const EditPostPage = () => {
+  const classes = useStyles();
+
+  const [username, setUsername] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [brand_name, set_brand_name] = useState("");
   const [shoe_model, set_shoe_model] = useState("");
   const [color, set_color] = useState([]);
@@ -52,14 +72,15 @@ const EditPostPage = () => {
       );
       console.log(data.data[0][0]);
       set_post_action(data.data[0][0].status_name);
-      set_color(JSON.parse(data.data[0][0].color)); 
-      set_brand_name(data.data[0][0].brand_name)
+      set_color(JSON.parse(data.data[0][0].color));
+      set_brand_name(data.data[0][0].brand_name);
       set_shoe_model(data.data[0][0].shoe_model);
       set_year(data.data[0][0].year);
       setDescription(data.data[0][0].description);
       set_price(data.data[0][0].price);
       set_condition(data.data[0][0].shoe_condition);
-
+      setUsername(data.data[0][0].username);
+      setImageUrl(data.data[0][0].image_url);
     } catch (error) {
       console.log(error);
     }
@@ -82,6 +103,11 @@ const EditPostPage = () => {
     set_file_upload(base64Img);
     set_picture_info(event.target.files[0]);
   };
+
+  const handleUpdatePost = (event) => {
+    event.preventDefault();
+    console.log('post updated');
+  }
 
   const renderAskingPrice = () => {
     if (post_action === "Sell") {
@@ -140,7 +166,7 @@ const EditPostPage = () => {
       {console.log(color)}
       <div className="row">
         <div className="col-md-6 col-12">
-          <form>
+          <form onSubmit={handleUpdatePost}>
             <div className="">
               <RadioButtons
                 handleRadioSelect={handleRadioSelect}
@@ -229,7 +255,34 @@ const EditPostPage = () => {
             </div>
           </form>
         </div>
-        <div className="col-md-6 col-12"></div>
+
+        <div className="col-md-6 col-12">
+          <div
+            className={`d-flex justify-content-center mb-4`}
+          >
+            <div className={classes.shoePost}>
+              <div className={classes.username}>{username}</div>
+              <img
+                alt={`${brand_name} ${shoe_model} ${year}`}
+                style={{ height: "200px", width: "300px" }}
+                src={imageUrl}
+              />
+              <div>Likes: 0</div>
+              <div className={classes.italic}>{description}</div>
+              <hr className={classes.seperator} />
+              {post_action === "Trade" || post_action === "Sell" ? (
+                <div>Status: For {post_action}</div>
+              ) : null}
+              <div>Brand: {brand_name}</div>
+              <div>Model: {shoe_model}</div>
+              <div>Year: {year}</div>
+              {condition && (
+                <div>Condition: {condition}</div>
+              )}
+              {price && <div>Price: ${price}</div>}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

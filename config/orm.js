@@ -126,6 +126,17 @@ const orm = {
       }
     });
   },
+
+  deleteShoe: (shoe_id, cb, errCb) => {
+    const queryString = `Call delete_shoe (?);`;
+    connection.query(queryString, [shoe_id], (err, result) => {
+      if (err) {
+        return errCb(err);
+      } else {
+        return cb(result);
+      }
+    })
+  }
 };
 
 /* image: fileUpload,

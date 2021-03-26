@@ -164,7 +164,7 @@ const UserUploadPage = ({ history }) => {
               </div>
               <div className="col-lg-4 col-md-6 col-12 mb-3">
                 <div>
-                  <FileUpload handleFileUpload={handleFileUpload} />
+                  <FileUpload imageRequired handleFileUpload={handleFileUpload} />
                   <p>File: {picture_info.name}</p>
                   <p>Type: {picture_info.type}</p>
                 </div>
