@@ -47,12 +47,13 @@ JOIN webusers c on a.web_id
 where a.web_id = p_web_id AND a.shoe_id = b.shoe_id and c.web_id = a.web_id;
 END
 
-
+                      
 CREATE DEFINER=`root`@`localhost` PROCEDURE `pull_shoes`()
 BEGIN
 SELECT * FROM myshoes;
 END
 
+                      
 CREATE DEFINER=`root`@`localhost` PROCEDURE `pull_shoe`(
 p_shoe_id INT)
 BEGIN
@@ -64,3 +65,30 @@ JOIN webusers c on a.web_id
 where a.shoe_id = p_shoe_id AND a.shoe_id = b.shoe_id and c.web_id = a.web_id;
 END
 
+                      
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_comments`(
+p_shoe_id INT,
+p_web_id INT,
+p_username varchar(30),
+p_shoe_comment varchar(255)
+)
+BEGIN
+INSERT INTO shoecomments (shoe_id, web_id, username, shoe_comment) VALUES (p_shoe_id, p_web_id, p_username, p_shoe_comment);
+END
+
+                                      
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_like`(
+p_web_id int,
+p_shoe_id int
+)
+BEGIN
+INSERT INTO shoelikes (web_id, shoe_id) VALUES (p_web_id, p_shoe_id);
+END
+ 
+                      
+CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_shoe`(
+p_shoe_id int
+)
+BEGIN
+DELETE FROM myshoes WHERE shoe_id = p_shoe_id;
+END
