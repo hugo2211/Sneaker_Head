@@ -88,8 +88,7 @@ const ProfilePage = ({ history }) => {
         `/api/private/shoe?shoeid=${shoe_id}`,
         config
       );
-      console.log(data);
-      console.log("shoe deleted");
+      getShoes();
     } catch (error) {
       console.log(error);
       setError("There was an error deleteing the shoe.");
