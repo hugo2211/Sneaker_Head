@@ -5,7 +5,7 @@ const SubmitButton = styled.button`
   height: 40px;
   width: 100%;
   font-size: inherit;
-  background-color: ${props => (props.disabled ? "#7795f8" : "#f6a4eb")};
+  background-color: ${props => (props.disabled ? "#000000" : "#D3D3D3")};
   box-shadow: ${props =>
     props.disabled
       ? "none"

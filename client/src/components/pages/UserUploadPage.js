@@ -44,9 +44,11 @@ const UserUploadPage = ({ history }) => {
   };
 
   const handleFileUpload = async (event) => {
-    const base64Img = await toBase64(event.target.files[0]);
+    const file = event.target.files[0]; 
+    console.log("this is it", file)
+    const base64Img = await toBase64(file);
     set_file_upload(base64Img);
-    set_picture_info(event.target.files[0]);
+    set_picture_info(file);
   };
 
   const handleUploadSubmit = (event) => {

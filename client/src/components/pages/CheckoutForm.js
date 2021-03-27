@@ -108,6 +108,14 @@ const CheckoutForm = ({ price, onSuccessfulCheckout }) => {
   // nothing within the card element seems to change. The reason for this is that
   // the card element is housed within an iframe and:
   // > styles do not cascade from a parent window down into its iframes
+const bgstyle = {
+  bg: {
+    backgroundColor: "black", 
+    marginLeft: 650, 
+    marginRight: 650,
+    height: 490
+  }
+}
 
   const iframeStyles = {
     base: {
@@ -134,7 +142,9 @@ const CheckoutForm = ({ price, onSuccessfulCheckout }) => {
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
+    <form 
+    style={bgstyle.bg}
+    onSubmit={handleFormSubmit}>
       <Row>
         <BillingDetailsFields />
       </Row>

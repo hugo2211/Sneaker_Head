@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
+import axios from "axios";
+import {useState} from "react";
+import Donut from "../../images/donut.png"
 
 import Image from "./Image";
-import DonutQuantity from "./DonutQuantity";
 
 const Shop = styled.div`
   padding: 10px 20px 40px 20px;
@@ -24,17 +26,20 @@ const Controls = styled.div`
   margin-top: 40px;
 `;
 
-const DonutShop = ({ onAddDonut, onRemoveDonut, numDonuts }) => {
-  return (
+const DonutShop = ({}) => {
+
+  const [feedData, setFeedData] = useState([]);
+
+  // useEffect(() => {
+  //   getFeedData();
+  // }, []);
+
+  return (  
     <Shop>
       <ShopName>Sneakerheads</ShopName>
-      <Image src="./donut.png" width="100px"></Image>
+      <Image src={Donut} width="100px"></Image>
       <Controls>
-        <DonutQuantity
-          onAdd={onAddDonut}
-          onRemove={onRemoveDonut}
-          quantity={numDonuts}
-        />
+        
       </Controls>
     </Shop>
   );
