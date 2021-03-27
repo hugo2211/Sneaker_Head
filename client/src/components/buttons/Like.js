@@ -16,8 +16,8 @@ const LikeButton = () => {
 
     return (
         <div>
-            <button onClick={addLike}>
-                <i className="fas fa-heart" style={{ color: "Blue" }}></i>
+            <button className="Likes" onClick={addLike}>
+                <i className="fas fa-heart" style={{ color: "Crimson" }}></i>
                 {likes} Likes! </button>
         </div>
     )

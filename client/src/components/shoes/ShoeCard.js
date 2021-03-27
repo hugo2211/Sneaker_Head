@@ -1,6 +1,6 @@
 import React from "react";
 import LikeButton from "../buttons/Like";
-import CommentBox from "../comment/CommentBox";
+// import CommentBox from "../comment/CommentBox";
 import "./ShoeCard.css";
 const ShoeCard = ({ userName, product, price, image}) => {
     return (
@@ -10,7 +10,7 @@ const ShoeCard = ({ userName, product, price, image}) => {
         <div> <LikeButton/> </div>
         <div className="mt-2">{product}</div>
         <div>{price}</div>
-        <div><CommentBox/></div>
+        {/* <div><CommentBox/></div> */}
       </div>
     );
   };

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import DeleteModal from "../modals/DeleteModal";
-
+import LikeButton from "../buttons/Like";
+import Likes from "../buttons/Like.css";
 const useStyles = makeStyles(() => ({
   shoePost: {
     maxWidth: 300,
@@ -130,7 +131,7 @@ const ProfilePage = ({ history }) => {
                     style={{ height: "200px", width: "300px" }}
                     src={shoe.image_url}
                   />
-                  <div>Likes: 0</div>
+                  <div><LikeButton/></div>
                   <div className={classes.italic}>{shoe.description}</div>
                   <hr className={classes.seperator} />
                   {shoe.status_name === "Trade" ||
