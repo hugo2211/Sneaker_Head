@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
+
 import DeleteModal from "../modals/DeleteModal";
+import CommentBox from "../general/CommentBox";
+import "./ProfilePage.css";
 
 const useStyles = makeStyles(() => ({
   shoePost: {
@@ -23,6 +26,7 @@ const useStyles = makeStyles(() => ({
 const ProfilePage = ({ history }) => {
   const classes = useStyles();
 
+  const [comment, setComment] = useState("");
   const [error, setError] = useState("");
   const [userInfo, setUserInfo] = useState("");
   const [userShoeCollection, setUserShoeCollecton] = useState([]);
@@ -132,6 +136,12 @@ const ProfilePage = ({ history }) => {
                   />
                   <div>Likes: 0</div>
                   <div className={classes.italic}>{shoe.description}</div>
+
+                  <CommentBox
+                    shoeId={shoe.shoe_id}
+                    webId={localStorage.getItem("web_id")}
+                  />
+
                   <hr className={classes.seperator} />
                   {shoe.status_name === "Trade" ||
                   shoe.status_name === "Sell" ? (

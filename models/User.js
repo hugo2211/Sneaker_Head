@@ -38,6 +38,24 @@ const User = {
     );
   },
 
+  addComment: (shoe_id, web_id, shoe_comment, cb, errCb) => {
+    orm.addComment(
+      shoe_id,
+      web_id,
+      shoe_comment,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
+
+  getComments: (shoe_id, cb, errCb) => {
+    orm.getComments(
+      shoe_id,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
+
   updateShoe: (shoeInfoObj, cb, errCb) => {
     orm.updateShoe(
       shoeInfoObj,
