@@ -29,7 +29,7 @@ p_web_id INT
 )
 BEGIN
 SELECT a.shoe_id, c.username, brand_name, shoe_model, color, year, 
-status_name, postdte, a.web_id, url as image_url, price, shoe_condition, description
+status_name, postdte, a.web_id, url as image_url, price, shoe_condition, description, (select count(shoe_id) from shoelikes d where d.shoe_id = a.shoe_id ) as likes
 FROM myshoes a 
 JOIN shoeimage b on a.shoe_id
 JOIN webusers c on a.web_id
@@ -40,7 +40,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `pull_user_shoes`(
 p_web_id INT)
 BEGIN
 SELECT a.shoe_id, c.username, brand_name, shoe_model, color, year, 
-status_name, postdte, a.web_id, url as image_url, price, shoe_condition, description
+status_name, postdte, a.web_id, url as image_url, price, shoe_condition, description, (select count(shoe_id) from shoelikes d where d.shoe_id = a.shoe_id ) as likes
 FROM myshoes a
 JOIN shoeimage b on a.shoe_id
 JOIN webusers c on a.web_id
@@ -58,7 +58,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `pull_shoe`(
 p_shoe_id INT)
 BEGIN
 SELECT a.shoe_id, c.username, brand_name, shoe_model, color, year, 
-status_name, postdte, a.web_id, url as image_url, price, shoe_condition, description
+status_name, postdte, a.web_id, url as image_url, price, shoe_condition, description, (select count(shoe_id) from shoelikes d where d.shoe_id = a.shoe_id ) as likes
 FROM myshoes a 
 JOIN shoeimage b on a.shoe_id
 JOIN webusers c on a.web_id
@@ -69,11 +69,10 @@ END
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_comments`(
 p_shoe_id INT,
 p_web_id INT,
-p_username varchar(30),
 p_shoe_comment varchar(255)
 )
 BEGIN
-INSERT INTO shoecomments (shoe_id, web_id, username, shoe_comment) VALUES (p_shoe_id, p_web_id, p_username, p_shoe_comment);
+INSERT INTO shoecomments (shoe_id, web_id, username, shoe_comment) VALUES (p_shoe_id, p_web_id, (select username from webusers where web_id = p_web_id), p_shoe_comment);
 END
 
                                       
