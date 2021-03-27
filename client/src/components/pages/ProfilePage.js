@@ -99,7 +99,7 @@ const ProfilePage = ({ history }) => {
   return (
     <div>
       <div>
-        <h2 className="text-center mt-4">My Posts</h2>
+        <h2 className="text-center mt-4">My Kicks</h2>
         {error && <span className="error-message">{error}</span>}
       </div>
 
