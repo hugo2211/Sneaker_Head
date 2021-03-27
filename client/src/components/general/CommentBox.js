@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Divider, Avatar, Grid, TextField } from "@material-ui/core";
 import axios from "axios";
 import "./CommentBox.css";
@@ -16,7 +16,7 @@ const CommentBox = (props) => {
     getComments(props.shoeId);
   };
 
-  const handleCommentSubmit = (event) => {
+  const handleCommentSubmit = async (event) => {
     event.preventDefault();
     console.log("comment submmitted");
     sendCommentToDB(props.shoeId, props.webId, comment);
@@ -63,38 +63,59 @@ const CommentBox = (props) => {
       );
 
       console.log(data);
+      getComments(props.shoeId);
     } catch (error) {
       console.log(error);
     }
   };
 
+  function useOutsideAlerter(ref) {
+    useEffect(() => {
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setIsOpen(false);
+        }
+      }
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
+
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef);
+
   return (
     <div>
-     {console.log(shoeComments)}
       {isOpen ? (
-        <div>
+        <div ref={wrapperRef}>
           <div className="border comment-container">
             {shoeComments.length > 0 &&
               shoeComments.map((comment) => {
-                return <div>
-                  <Grid container wrap="nowrap" spacing={2}>
-                    <Grid item>
-                      <Avatar alt="Remy Sharp" src={imgLink} />
+                return (
+                  <div>
+                    <Grid container wrap="nowrap" spacing={2}>
+                      <Grid item>
+                        <Avatar alt="Remy Sharp" src={imgLink} />
+                      </Grid>
+                      <Grid justifyContent="left" item xs zeroMinWidth>
+                        <h4 style={{ margin: 0, textAlign: "left" }}>
+                          {comment.username}
+                        </h4>
+                        <p style={{ textAlign: "left" }}>
+                          {comment.shoe_comment}{" "}
+                        </p>
+                        <p style={{ textAlign: "left", color: "gray" }}>
+                          {comment.comment_date}
+                        </p>
+                      </Grid>
                     </Grid>
-                    <Grid justifyContent="left" item xs zeroMinWidth>
-                      <h4 style={{ margin: 0, textAlign: "left" }}>
-                        {comment.username}
-                      </h4>
-                      <p style={{ textAlign: "left" }}>
-                        {comment.shoe_comment}{" "}
-                      </p>
-                      <p style={{ textAlign: "left", color: "gray" }}>
-                        posted 1 minute ago
-                      </p>
-                    </Grid>
-                  </Grid>
-                  <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
-                </div>;
+                    <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
+                  </div>
+                );
               })}
           </div>
           <form onSubmit={handleCommentSubmit}>
@@ -117,7 +138,7 @@ const CommentBox = (props) => {
           </form>
         </div>
       ) : (
-        <div onClick={handleOpenClick}>Comments...</div>
+        <div className="comment-count" onClick={handleOpenClick}>{props.commentNumber} Comments</div>
       )}
     </div>
   );

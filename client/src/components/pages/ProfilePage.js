@@ -134,12 +134,13 @@ const ProfilePage = ({ history }) => {
                     style={{ height: "200px", width: "300px" }}
                     src={shoe.image_url}
                   />
-                  <div>Likes: 0</div>
+                  <div>Likes: {shoe.likes}</div>
                   <div className={classes.italic}>{shoe.description}</div>
 
                   <CommentBox
                     shoeId={shoe.shoe_id}
                     webId={localStorage.getItem("web_id")}
+                    commentNumber={shoe.comments}
                   />
 
                   <hr className={classes.seperator} />

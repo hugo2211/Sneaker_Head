@@ -2,3 +2,7 @@
   height: 200px;
   overflow: scroll;
 }
+
+.comment-count:hover {
+  cursor: pointer;
+}
