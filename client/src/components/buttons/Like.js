@@ -1,26 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import axios from 'axios';
+import './Like.css';
 
-const LikeButton = () => {
-    const [likes, setLike] = useState(0);
-    const [update, setUpdated] = useState(false);
+const LikeButton = (props) => {
+  const [likes, setLikes] = useState(props.numLikes);
+  const [userHasLiked, setUserHasLiked] = useState(false);
 
-    const addLike = () => {
-        if (!update) {
-            setLike(likes + 1);
-            setUpdated(true);
-        } else {
-            setLike(likes - 1);
-            setUpdated(false);
-        }
+  const sendLikeToDB = async () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    };
+
+    try {
+      const { data } = await axios.post(
+        "/api/private/likes",
+        {
+          shoe_id: props.shoeId,
+          web_id: props.webId
+        },
+        config
+      );
+      console.log(data);
+    } catch (error) {
+      console.log(error);
     }
+  }
 
-    return (
-        <div>
-            <button onClick={addLike}>
-                <i className="fas fa-heart" style={{ color: "Blue" }}></i>
-                {likes} Likes! </button>
-        </div>
-    )
-}
+
+  const addLike = () => {
+    if (!userHasLiked) {
+      setLikes(likes + 1);
+      setUserHasLiked(true);
+      sendLikeToDB();
+    } else {
+      setLikes(likes - 1);
+      setUserHasLiked(false);
+    }
+  };
+
+  return (
+    <div>
+      <button onClick={addLike} className="Likes">
+        <i className="fas fa-thumbs-up" style={{ color: `${userHasLiked ? 'skyblue' : 'white'}` }}></i>
+        {likes} Likes!{" "}
+      </button>
+    </div>
+  );
+};
 
 export default LikeButton;

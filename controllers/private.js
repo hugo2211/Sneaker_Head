@@ -132,12 +132,10 @@ exports.updateShoe = (req, res) => {
     },
     (err) => {
       console.log("controller error: ", err);
-      res
-        .status(500)
-        .json({
-          success: false,
-          error: "There was an error updating the shoe",
-        });
+      res.status(500).json({
+        success: false,
+        error: "There was an error updating the shoe",
+      });
     }
   );
 };
@@ -153,12 +151,10 @@ exports.getUserShoes = (req, res, next) => {
     },
     (err) => {
       console.log("get user shoes", err);
-      res
-        .status(500)
-        .json({
-          success: false,
-          error: "There was an error udpating the shoe",
-        });
+      res.status(500).json({
+        success: false,
+        error: "There was an error udpating the shoe",
+      });
     }
   );
 };
@@ -234,6 +230,22 @@ exports.deleteShoe = (req, res) => {
   console.log("delete request called");
 
   User.deleteShoe(
+    shoe_id,
+    (data) => {
+      res.status(200).json({ success: true, data: data });
+    },
+    (err) => {
+      console.log("get feed shoes", err);
+      res.status(500).json({ success: false, error: err });
+    }
+  );
+};
+
+exports.addLike = (req, res) => {
+  const { web_id, shoe_id } = req.body;
+
+  User.addLike(
+    web_id,
     shoe_id,
     (data) => {
       res.status(200).json({ success: true, data: data });

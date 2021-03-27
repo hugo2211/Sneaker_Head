@@ -95,6 +95,15 @@ const User = {
       (err) => errCb(err)
     );
   },
+
+  addLike: (web_id, shoe_id, cb, errCb) => {
+    orm.addLike(
+      web_id,
+      shoe_id,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
 };
 
 module.exports = User;

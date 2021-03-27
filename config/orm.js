@@ -199,6 +199,17 @@ const orm = {
       }
     );
   },
+
+  addLike: (web_id, shoe_id, cb, errCb) => {
+    const queryString = `Call add_like (?, ?);`;
+    connection.query(queryString, [web_id, shoe_id], (err, result) => {
+      if (err) {
+        return errCb(err);
+      } else {
+        return cb(result);
+      }
+    });
+  }
 };
 
 /* image: fileUpload,

@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import DeleteModal from "../modals/DeleteModal";
 import CommentBox from "../general/CommentBox";
 import "./ProfilePage.css";
+import LikeButton from "../buttons/Like";
 
 const useStyles = makeStyles(() => ({
   shoePost: {
@@ -134,7 +135,13 @@ const ProfilePage = ({ history }) => {
                     style={{ height: "200px", width: "300px" }}
                     src={shoe.image_url}
                   />
-                  <div>Likes: {shoe.likes}</div>
+                  <div>
+                    <LikeButton
+                      numLikes={shoe.likes}
+                      shoeId={shoe.shoe_id}
+                      webId={localStorage.getItem("web_id")}
+                    />
+                  </div>
                   <div className={classes.italic}>{shoe.description}</div>
 
                   <CommentBox
