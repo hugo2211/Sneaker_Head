@@ -30,7 +30,7 @@ const UserUploadPage = ({ history }) => {
   const [year, set_year] = useState("");
   const [fileUpload, set_file_upload] = useState("");
   const [picture_info, set_picture_info] = useState([]);
-  const [post_action, set_post_action] = useState();
+  const [post_action, set_post_action] = useState("Trade");
   const [price, set_price] = useState('');
   const [condition, set_condition] = useState("");
   const [description, setDescription] = useState("");
