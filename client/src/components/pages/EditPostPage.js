@@ -192,7 +192,6 @@ const EditPostPage = () => {
 
   return (
     <div className="container">
-      {console.log(color)}
       <div className="row">
         <div className="col-md-6 col-12">
           <form onSubmit={handleUpdatePost}>
