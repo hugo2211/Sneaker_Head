@@ -38,6 +38,14 @@ const User = {
     );
   },
 
+  updateShoe: (shoeInfoObj, cb, errCb) => {
+    orm.updateShoe(
+      shoeInfoObj,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
+
   getSingleShoe: (shoe_id, cb, errCb) => {
     orm.getSingleShoe(
       shoe_id,

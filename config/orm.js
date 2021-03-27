@@ -54,7 +54,7 @@ const orm = {
       description,
     } = postInfoObj;
 
-    if (price === '') {
+    if (price === "") {
       price = 0;
     }
 
@@ -96,13 +96,13 @@ const orm = {
 
   getSingleShoe: (shoe_id, cb, errCb) => {
     const queryString = `Call pull_shoe (?);`;
-    connection.query(queryString, [shoe_id], (err, result ) => {
+    connection.query(queryString, [shoe_id], (err, result) => {
       if (err) {
         return errCb(err);
       } else {
         return cb(result);
       }
-    })
+    });
   },
 
   getUserShoes: (web_id, cb, errCb) => {
@@ -135,8 +135,46 @@ const orm = {
       } else {
         return cb(result);
       }
-    })
-  }
+    });
+  },
+
+  updateShoe: (shoeInfoObj, cb, errCb) => {
+    console.log("shoeInfoObj", shoeInfoObj);
+    let {
+      shoe_id,
+      brand_name,
+      shoe_model,
+      color,
+      year,
+      status_name,
+      price,
+      condition,
+      description,
+    } = shoeInfoObj;
+
+    const queryString = `Call update_myshoes (?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+    connection.query(
+      queryString,
+      [
+        shoe_id,
+        brand_name,
+        shoe_model,
+        color,
+        year,
+        status_name,
+        price,
+        condition,
+        description,
+      ],
+      (err, result) => {
+        if (err) {
+          return errCb(err);
+        } else {
+          return cb(result);
+        }
+      }
+    );
+  },
 };
 
 /* image: fileUpload,
