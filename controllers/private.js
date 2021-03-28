@@ -123,8 +123,6 @@ exports.updateShoe = (req, res) => {
     description,
   };
 
-  console.log(shoeInfoObj);
-
   User.updateShoe(
     shoeInfoObj,
     (data) => {
@@ -256,3 +254,37 @@ exports.addLike = (req, res) => {
     }
   );
 };
+
+exports.removeLike = (req, res) => {
+  let web_id = req.query.webid;
+  let shoe_id = req.query.shoeid;
+
+  User.removeLike(
+    web_id,
+    shoe_id,
+    (data) => {
+      res.status(200).json({ success: true, data: data });
+    },
+    (err) => {
+      console.log("get feed shoes", err);
+      res.status(500).json({ success: false, error: err });
+    }
+  );
+};
+
+exports.checkIfLiked = (req, res) => {
+  let web_id = req.query.webid;
+  let shoe_id = req.query.shoeid;
+
+  User.checkIfLiked(
+    web_id,
+    shoe_id,
+    (data) => {
+      res.status(200).json({ success: true, data: data });
+    },
+    (err) => {
+      console.log("get feed shoes", err);
+      res.status(500).json({ success: false, error: err });
+    }
+  );
+}

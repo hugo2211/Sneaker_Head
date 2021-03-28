@@ -54,7 +54,6 @@ const RightNav = ({ open, history, handleNavClick }) => {
     <Ul open={open}>
       <li><span onClick={() => navClick("/profile")}>Profile</span></li>
       <li><span onClick={() => navClick("/feed")}>Feed</span></li>
-      <li><span onClick={() => navClick("/trending")}>Trending</span></li>
       <li><span onClick={() => navClick("/chat")}>Chat</span></li>
       <li><span onClick={() => navClick("/upload")}>Upload</span></li>
       <li><span onClick={logoutUser}>Logout</span></li>

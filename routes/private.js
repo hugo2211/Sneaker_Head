@@ -12,6 +12,8 @@ const {
   addComment,
   getComments,
   addLike,
+  removeLike,
+  checkIfLiked
 } = require("../controllers/private");
 
 router.route("/").get(protect, getChatProjectId);
@@ -24,5 +26,7 @@ router.route("/post").post(protect, createPost);
 router.route("/comments").post(protect, addComment);
 router.route("/comments").get(protect, getComments);
 router.route("/likes").post(protect, addLike);
+router.route("/likes").delete(protect, removeLike);
+router.route("/likes").get(protect, checkIfLiked);
 
 module.exports = router;

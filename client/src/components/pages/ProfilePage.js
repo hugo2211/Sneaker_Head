@@ -26,12 +26,10 @@ const useStyles = makeStyles(() => ({
 
 const ProfilePage = ({ history }) => {
   const classes = useStyles();
-
-  const [comment, setComment] = useState("");
   const [error, setError] = useState("");
-  const [userInfo, setUserInfo] = useState("");
   const [userShoeCollection, setUserShoeCollecton] = useState([]);
-  const fetchUserData = async () => {
+
+  /* const fetchUserData = async () => {
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +47,7 @@ const ProfilePage = ({ history }) => {
       localStorage.removeItem("authToken");
       setError("You are not authorized please login");
     }
-  };
+  }; */
 
   const getShoes = () => {
     const config = {
@@ -70,7 +68,7 @@ const ProfilePage = ({ history }) => {
   };
 
   useEffect(() => {
-    fetchUserData();
+    //fetchUserData();
     getShoes();
   }, []);
 

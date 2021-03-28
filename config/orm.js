@@ -176,6 +176,9 @@ const orm = {
       description,
     } = shoeInfoObj;
 
+    console.log('orm level shoeInfoObj');
+    console.log(shoeInfoObj);
+
     const queryString = `Call update_myshoes (?, ?, ?, ?, ?, ?, ?, ?, ?);`;
     connection.query(
       queryString,
@@ -209,7 +212,29 @@ const orm = {
         return cb(result);
       }
     });
-  }
+  },
+
+  removeLike: (web_id, shoe_id, cb, errCb) => {
+    const queryString = `Call remove_like (?, ?);`;
+    connection.query(queryString, [web_id, shoe_id], (err, result) => {
+      if (err) {
+        return errCb(err);
+      } else {
+        return cb(result);
+      }
+    });
+  },
+
+  checkIfUserHasLiked: (web_id, shoe_id, cb, errCb) => {
+    const queryString = `Call pull_user_shoe_like (?, ?);`;
+    connection.query(queryString, [web_id, shoe_id], (err, result) => {
+      if (err) {
+        return errCb(err);
+      } else {
+        return cb(result);
+      }
+    });
+  },
 };
 
 /* image: fileUpload,

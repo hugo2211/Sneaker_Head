@@ -18,7 +18,6 @@ const CommentBox = (props) => {
 
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
-    console.log("comment submmitted");
     sendCommentToDB(props.shoeId, props.webId, comment);
   };
 
@@ -36,7 +35,6 @@ const CommentBox = (props) => {
         config
       );
 
-      console.log(data.data[0]);
       setShoeComments(data.data[0]);
     } catch (error) {
       console.log(error);
@@ -94,9 +92,9 @@ const CommentBox = (props) => {
         <div ref={wrapperRef}>
           <div className="border comment-container">
             {shoeComments.length > 0 &&
-              shoeComments.map((comment) => {
+              shoeComments.map((comment, index) => {
                 return (
-                  <div>
+                  <div key={`${comment.username}-${index}`}>
                     <Grid container wrap="nowrap" spacing={2}>
                       <Grid item>
                         <Avatar alt="Remy Sharp" src={imgLink} />

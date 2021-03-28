@@ -9,11 +9,12 @@ import {
   MenuItem,
   OutlinedInput,
   InputAdornment,
+  FormLabel,
+  RadioGroup,
+  Radio,
+  FormControlLabel
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
-import FileUpload from "../inputs/FileUpload";
-import RadioButtons from "../inputs/RadioButtons";
 import MultiSelect from "../inputs/MultiSelect";
 
 const useStyles = makeStyles(() => ({
@@ -31,15 +32,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const toBase64 = (file) =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
-
-const EditPostPage = () => {
+const EditPostPage = ({ history }) => {
   const classes = useStyles();
 
   const [username, setUsername] = useState("");
@@ -48,9 +41,7 @@ const EditPostPage = () => {
   const [shoe_model, set_shoe_model] = useState("");
   const [color, set_color] = useState([]);
   const [year, set_year] = useState("");
-  const [fileUpload, set_file_upload] = useState("");
-  const [picture_info, set_picture_info] = useState([]);
-  const [post_action, set_post_action] = useState();
+  const [post_action, set_post_action] = useState("Trade");
   const [price, set_price] = useState("");
   const [condition, set_condition] = useState("");
   const [description, setDescription] = useState("");
@@ -70,7 +61,7 @@ const EditPostPage = () => {
         `/api/private/shoe?shoeid=${id}`,
         config
       );
-      console.log(data.data[0][0]);
+
       set_post_action(data.data[0][0].status_name);
       set_color(JSON.parse(data.data[0][0].color));
       set_brand_name(data.data[0][0].brand_name);
@@ -96,12 +87,6 @@ const EditPostPage = () => {
 
   const handleMultiSelect = (event) => {
     set_color(event.target.value);
-  };
-
-  const handleFileUpload = async (event) => {
-    const base64Img = await toBase64(event.target.files[0]);
-    set_file_upload(base64Img);
-    set_picture_info(event.target.files[0]);
   };
 
   const handleUpdatePost = (event) => {
@@ -131,8 +116,9 @@ const EditPostPage = () => {
 
     try {
       const { data } = await axios.put(`/api/private/shoe`, updateObj, config);
-      console.log(data.data[0][0]);
-      console.log("post updated");
+      if (data.success === true) {
+        history.push("/profile")
+      }
     } catch (error) {
       console.log(error);
     }
@@ -196,17 +182,31 @@ const EditPostPage = () => {
         <div className="col-md-6 col-12">
           <form onSubmit={handleUpdatePost}>
             <div className="">
-              <RadioButtons
-                handleRadioSelect={handleRadioSelect}
-                postAction={post_action}
-              />
-            </div>
-            <div className="mb-3">
-              <div>
-                <FileUpload handleFileUpload={handleFileUpload} />
-                <p>File: {picture_info.name}</p>
-                <p>Type: {picture_info.type}</p>
-              </div>
+            <FormControl component="fieldset">
+                  <FormLabel component="legend">Are you looking to: </FormLabel>
+                  <RadioGroup
+                    aria-label="gender"
+                    name="gender1"
+                    value={post_action}
+                    onChange={handleRadioSelect}
+                  >
+                    <FormControlLabel
+                      value="Trade"
+                      control={<Radio color="default" />}
+                      label="Trade"
+                    />
+                    <FormControlLabel
+                      value="Sell"
+                      control={<Radio color="default" />}
+                      label="Sell"
+                    />
+                    <FormControlLabel
+                      value="Share"
+                      control={<Radio color="default" />}
+                      label="Share Only"
+                    />
+                  </RadioGroup>
+                </FormControl>
             </div>
             <div className="mb-3">
               <MultiSelect
@@ -260,7 +260,7 @@ const EditPostPage = () => {
             {renderAskingPrice()}
             {renderShoeCondition()}
 
-            <div className="mb-5">
+            <div className="mb-4">
               <TextField
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
@@ -276,8 +276,8 @@ const EditPostPage = () => {
               />
             </div>
 
-            <div className="container-fluid text-center">
-              <button type="submit" className="btn btn-light">
+            <div className="text-center" style={{ marginBottom: '60px' }}>
+              <button type="submit" className="btn btn-light btn-block">
                 Update Post
               </button>
             </div>

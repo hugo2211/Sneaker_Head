@@ -104,6 +104,24 @@ const User = {
       (err) => errCb(err)
     );
   },
+
+  removeLike: (web_id, shoe_id, cb, errCb) => {
+    orm.removeLike(
+      web_id,
+      shoe_id,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
+
+  checkIfLiked: (web_id, shoe_id, cb, errCb) => {
+    orm.checkIfUserHasLiked(
+      web_id,
+      shoe_id,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
 };
 
 module.exports = User;

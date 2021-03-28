@@ -7,11 +7,14 @@ import {
   MenuItem,
   OutlinedInput,
   InputAdornment,
+  FormControlLabel,
+  FormLabel,
+  RadioGroup,
+  Radio
 } from "@material-ui/core";
 import axios from "axios";
 
 import FileUpload from "../inputs/FileUpload";
-import RadioButtons from "../inputs/RadioButtons";
 import MultiSelect from "../inputs/MultiSelect";
 
 const toBase64 = (file) =>
@@ -31,7 +34,7 @@ const UserUploadPage = ({ history }) => {
   const [fileUpload, set_file_upload] = useState("");
   const [picture_info, set_picture_info] = useState([]);
   const [post_action, set_post_action] = useState("Trade");
-  const [price, set_price] = useState('');
+  const [price, set_price] = useState("");
   const [condition, set_condition] = useState("");
   const [description, setDescription] = useState("");
 
@@ -51,13 +54,15 @@ const UserUploadPage = ({ history }) => {
 
   const handleUploadSubmit = (event) => {
     event.preventDefault();
-    console.log(brand_name,
+    console.log(
+      brand_name,
       shoe_model,
       color,
       year,
       post_action,
       price,
-      condition);
+      condition
+    );
     uploadPostInfo();
   };
 
@@ -82,12 +87,14 @@ const UserUploadPage = ({ history }) => {
           post_action,
           price,
           condition,
-          description
+          description,
         },
         config
       );
 
-      history.push("/profile");
+      if (data.success === true) {
+        history.push("/profile");
+      }
     } catch (error) {
       console.log(error);
       setError(error.response.data.error);
@@ -156,15 +163,39 @@ const UserUploadPage = ({ history }) => {
         <form onSubmit={handleUploadSubmit}>
           <div className="container mt-5">
             <div className="row">
-              <div className="col-lg-4 col-md-6 col-12 mb-3">
-                <RadioButtons
-                  handleRadioSelect={handleRadioSelect}
-                  postAction={post_action}
-                />
+              <div className="col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
+                <FormControl component="fieldset">
+                  <FormLabel component="legend">Are you looking to: </FormLabel>
+                  <RadioGroup
+                    aria-label="gender"
+                    name="gender1"
+                    value={post_action}
+                    onChange={handleRadioSelect}
+                  >
+                    <FormControlLabel
+                      value="Trade"
+                      control={<Radio color="default"/>}
+                      label="Trade"
+                    />
+                    <FormControlLabel
+                      value="Sell"
+                      control={<Radio color="default" />}
+                      label="Sell"
+                    />
+                    <FormControlLabel
+                      value="Share"
+                      control={<Radio color="default" />}
+                      label="Share Only"
+                    />
+                  </RadioGroup>
+                </FormControl>
               </div>
-              <div className="col-lg-4 col-md-6 col-12 mb-3">
+              <div className="col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
                 <div>
-                  <FileUpload imageRequired handleFileUpload={handleFileUpload} />
+                  <FileUpload
+                    imageRequired
+                    handleFileUpload={handleFileUpload}
+                  />
                   <p>File: {picture_info.name}</p>
                   <p>Type: {picture_info.type}</p>
                 </div>
@@ -226,7 +257,7 @@ const UserUploadPage = ({ history }) => {
               <div className="col-lg-6 col-md-8 col-12 mb-5">
                 <TextField
                   value={description}
-                  onChange={e => setDescription(e.target.value)}
+                  onChange={(e) => setDescription(e.target.value)}
                   required
                   variant="outlined"
                   id="post-input"
