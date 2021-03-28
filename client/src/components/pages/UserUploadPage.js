@@ -233,8 +233,12 @@ const UserUploadPage = ({ history }) => {
                       <em>None</em>
                     </MenuItem>
                     <MenuItem value={"Nike"}>Nike</MenuItem>
-                    <MenuItem value={"Adiddas"}>Adiddas</MenuItem>
+                    <MenuItem value={"Adidas"}>Adidas</MenuItem>
                     <MenuItem value={"Jordan"}>Jordan</MenuItem>
+                    <MenuItem value={"Vans"}>Vans</MenuItem>
+                    <MenuItem value={"Under Armour"}>Under Armour</MenuItem>
+                    <MenuItem value={"Converse"}>Converse</MenuItem>
+                    <MenuItem value={"Others"}>Others</MenuItem>
                   </Select>
                 </FormControl>
               </div>
