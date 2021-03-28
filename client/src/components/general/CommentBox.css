@@ -3,6 +3,10 @@
   overflow: scroll;
 }
 
+.comment-input-container {
+  padding: 10px 0px;
+}
+
 .comment-count:hover {
   cursor: pointer;
 }

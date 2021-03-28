@@ -30,6 +30,9 @@ const useStyles = makeStyles(() => ({
   italic: {
     fontStyle: "italic",
   },
+  radioGroup: {
+    flexDirection: "row"
+  }
 }));
 
 const EditPostPage = ({ history }) => {
@@ -185,6 +188,7 @@ const EditPostPage = ({ history }) => {
             <FormControl component="fieldset">
                   <FormLabel component="legend">Are you looking to: </FormLabel>
                   <RadioGroup
+                    className={classes.radioGroup}
                     aria-label="gender"
                     name="gender1"
                     value={post_action}
@@ -192,17 +196,17 @@ const EditPostPage = ({ history }) => {
                   >
                     <FormControlLabel
                       value="Trade"
-                      control={<Radio color="default" />}
+                      control={<Radio size="small" color="default" />}
                       label="Trade"
                     />
                     <FormControlLabel
                       value="Sell"
-                      control={<Radio color="default" />}
+                      control={<Radio size="small" color="default" />}
                       label="Sell"
                     />
                     <FormControlLabel
                       value="Share"
-                      control={<Radio color="default" />}
+                      control={<Radio size="small" color="default" />}
                       label="Share Only"
                     />
                   </RadioGroup>

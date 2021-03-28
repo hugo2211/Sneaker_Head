@@ -10,6 +10,7 @@ const CommentBox = (props) => {
   const [comment, setComment] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [shoeComments, setShoeComments] = useState([]);
+  const [commentNumber, setCommentNumber] = useState(props.commentNumber);
 
   const handleOpenClick = () => {
     setIsOpen(true);
@@ -18,7 +19,8 @@ const CommentBox = (props) => {
 
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
-    sendCommentToDB(props.shoeId, props.webId, comment);
+    await sendCommentToDB(props.shoeId, props.webId, comment);
+    setComment('');
   };
 
   const getComments = async (shoe_id) => {
@@ -36,6 +38,7 @@ const CommentBox = (props) => {
       );
 
       setShoeComments(data.data[0]);
+      setCommentNumber(data.data[0].length)
     } catch (error) {
       console.log(error);
     }
@@ -117,26 +120,31 @@ const CommentBox = (props) => {
               })}
           </div>
           <form onSubmit={handleCommentSubmit}>
-            <TextField
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              required
-              variant="outlined"
-              id="post-input"
-              label="Comment"
-              fullWidth
-              placeholder="Write comment here"
-              multiline
-              rows={2}
-              rowsMax={4}
-            />
+            <div className="comment-input-container">
+              <TextField
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                required
+                variant="outlined"
+                id="post-input"
+                label="Comment"
+                fullWidth
+                placeholder="Write comment here"
+                multiline
+                rows={2}
+                rowsMax={2}
+              />
+            </div>
+
             <button className="btn btn-block btn-dark" type="submit">
               Add Comment
             </button>
           </form>
         </div>
       ) : (
-        <div className="comment-count" onClick={handleOpenClick}>{props.commentNumber} Comments</div>
+        <div className="comment-count" onClick={handleOpenClick}>
+          {commentNumber} Comments
+        </div>
       )}
     </div>
   );

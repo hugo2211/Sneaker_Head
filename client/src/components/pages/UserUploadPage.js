@@ -13,9 +13,16 @@ import {
   Radio
 } from "@material-ui/core";
 import axios from "axios";
+import { makeStyles } from "@material-ui/core/styles";
 
 import FileUpload from "../inputs/FileUpload";
 import MultiSelect from "../inputs/MultiSelect";
+
+const useStyles = makeStyles(() => ({
+  radioGroup: {
+    flexDirection: "row"
+  }
+}));
 
 const toBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -26,6 +33,8 @@ const toBase64 = (file) =>
   });
 
 const UserUploadPage = ({ history }) => {
+  const classes = useStyles();
+
   const [error, setError] = useState("");
   const [brand_name, set_brand_name] = useState("");
   const [shoe_model, set_shoe_model] = useState("");
@@ -107,7 +116,7 @@ const UserUploadPage = ({ history }) => {
   const renderAskingPrice = () => {
     if (post_action === "Sell") {
       return (
-        <div className="col-lg-4 col-md-6 col-12 mb-5">
+        <div className="col-lg-4 col-md-6 col-12 mb-4">
           <FormControl fullWidth variant="outlined">
             <InputLabel htmlFor="outlined-adornment-price">
               Asking Price
@@ -132,7 +141,7 @@ const UserUploadPage = ({ history }) => {
   const renderShoeCondition = () => {
     if (post_action === "Sell" || post_action === "Trade") {
       return (
-        <div className="col-lg-4 col-md-6 col-12 mb-5">
+        <div className="col-lg-4 col-md-6 col-12 mb-4">
           <FormControl fullWidth variant="outlined">
             <InputLabel id="shoe-condition-label">Condition</InputLabel>
             <Select
@@ -163,10 +172,11 @@ const UserUploadPage = ({ history }) => {
         <form onSubmit={handleUploadSubmit}>
           <div className="container mt-5">
             <div className="row">
-              <div className="col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
+              <div className="col-lg-4 col-md-6 col-sm-6 col-12 mb-2">
                 <FormControl component="fieldset">
                   <FormLabel component="legend">Are you looking to: </FormLabel>
                   <RadioGroup
+                    className={classes.radioGroup}
                     aria-label="gender"
                     name="gender1"
                     value={post_action}
@@ -174,23 +184,23 @@ const UserUploadPage = ({ history }) => {
                   >
                     <FormControlLabel
                       value="Trade"
-                      control={<Radio color="default"/>}
+                      control={<Radio size="small" color="default"/>}
                       label="Trade"
                     />
                     <FormControlLabel
                       value="Sell"
-                      control={<Radio color="default" />}
+                      control={<Radio size="small" color="default" />}
                       label="Sell"
                     />
                     <FormControlLabel
                       value="Share"
-                      control={<Radio color="default" />}
+                      control={<Radio size="small" color="default" />}
                       label="Share Only"
                     />
                   </RadioGroup>
                 </FormControl>
               </div>
-              <div className="col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
+              <div className="col-lg-4 col-md-6 col-sm-6 col-12 mb-2">
                 <div>
                   <FileUpload
                     imageRequired
@@ -200,13 +210,13 @@ const UserUploadPage = ({ history }) => {
                   <p>Type: {picture_info.type}</p>
                 </div>
               </div>
-              <div className="col-lg-4 col-md-6 col-12 mb-5">
+              <div className="col-lg-4 col-md-6 col-12 mb-4">
                 <MultiSelect
                   selectValue={color}
                   handleMultiSelect={handleMultiSelect}
                 />
               </div>
-              <div className="col-lg-4 col-md-6 col-12 mb-5">
+              <div className="col-lg-4 col-md-6 col-12 mb-4">
                 <FormControl fullWidth variant="outlined">
                   <InputLabel id="shoe-brand-label">Brand</InputLabel>
                   <Select
@@ -226,7 +236,7 @@ const UserUploadPage = ({ history }) => {
                   </Select>
                 </FormControl>
               </div>
-              <div className="col-lg-4 col-md-6 col-12 mb-5">
+              <div className="col-lg-4 col-md-6 col-12 mb-4">
                 <TextField
                   required
                   fullWidth
@@ -237,7 +247,7 @@ const UserUploadPage = ({ history }) => {
                   onChange={(e) => set_shoe_model(e.target.value)}
                 />
               </div>
-              <div className="col-lg-4 col-md-6 col-12 mb-5">
+              <div className="col-lg-4 col-md-6 col-12 mb-4">
                 <TextField
                   required
                   fullWidth
@@ -254,7 +264,7 @@ const UserUploadPage = ({ history }) => {
             </div>
 
             <div className="row justify-content-md-center">
-              <div className="col-lg-6 col-md-8 col-12 mb-5">
+              <div className="col-lg-6 col-md-8 col-12 mb-4">
                 <TextField
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
@@ -265,8 +275,8 @@ const UserUploadPage = ({ history }) => {
                   fullWidth
                   placeholder="Write status here"
                   multiline
-                  rows={2}
-                  rowsMax={4}
+                  rows={1}
+                  rowsMax={2}
                 />
               </div>
             </div>
