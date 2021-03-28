@@ -9,11 +9,8 @@ import UserUploadPage from "./components/pages/UserUploadPage";
 import EditPostPage from "./components/pages/EditPostPage";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 import './App.css';
 
-const stripePromise = loadStripe(`pk_test_51IX6VIAfExOBYstVZkqhs76wY1xMrZ5Hwh0SgLZDOvYwDgFHRrnMKh8cNfRVtNVIounGjq9Wejc5oGj23B9IKw5m00hbsBcph6`); 
 
 const theme = createMuiTheme({
   palette: {
@@ -23,7 +20,6 @@ const theme = createMuiTheme({
 
 function App() {
   return (
-    <Elements stripe= { stripePromise } >
     <ThemeProvider theme={theme}>
       <Router>
         <Switch>
@@ -36,7 +32,6 @@ function App() {
         </Switch>
       </Router>
     </ThemeProvider>
-    </Elements>
   );
 }
 

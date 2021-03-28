@@ -65,10 +65,7 @@ const ProfilePage = ({ history }) => {
     };
 
     try {
-      await axios.delete(
-        `/api/private/shoe?shoeid=${shoe_id}`,
-        config
-      );
+      await axios.delete(`/api/private/shoe?shoeid=${shoe_id}`, config);
       getShoes();
     } catch (error) {
       console.log(error);
@@ -111,7 +108,13 @@ const ProfilePage = ({ history }) => {
                     style={{ height: "200px", width: "300px" }}
                     src={shoe.image_url}
                   />
-                  <div><LikeButton/></div>
+                  <div>
+                    <LikeButton
+                      numLikes={shoe.likes}
+                      shoeId={shoe.shoe_id}
+                      webId={localStorage.getItem("web_id")}
+                    />
+                  </div>
                   <div className={classes.italic}>{shoe.description}</div>
 
                   <CommentBox
