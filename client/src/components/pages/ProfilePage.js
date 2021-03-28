@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import DeleteModal from "../modals/DeleteModal";
 import CommentBox from "../general/CommentBox";
 import "./ProfilePage.css";
-import LikeButton from "../buttons/Like";
+import LikeButton from "../buttons/LikeButton";
 
 const useStyles = makeStyles(() => ({
   shoePost: {
@@ -28,26 +28,6 @@ const ProfilePage = ({ history }) => {
   const classes = useStyles();
   const [error, setError] = useState("");
   const [userShoeCollection, setUserShoeCollecton] = useState([]);
-
-  /* const fetchUserData = async () => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-      },
-    };
-
-    try {
-      const { data } = await axios.get(`/api/private`, config);
-
-      console.log(data);
-      setUserInfo(data.data);
-    } catch (error) {
-      console.log(error);
-      localStorage.removeItem("authToken");
-      setError("You are not authorized please login");
-    }
-  }; */
 
   const getShoes = () => {
     const config = {
