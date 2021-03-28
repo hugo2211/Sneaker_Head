@@ -3,11 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import LandingPage from "./components/pages/LandingPage";
 import ProfilePage from "./components/pages/ProfilePage";
-import Trending from './components/pages/Trending';
 import FeedPage from "./components/pages/FeedPage";
 import ChatPage from "./components/pages/ChatPage";
-import CheckoutPage from "./components/pages/CheckoutPage";
-import Success from "./components/pages/Success";
 import UserUploadPage from "./components/pages/UserUploadPage";
 import EditPostPage from "./components/pages/EditPostPage";
 import { ThemeProvider } from "@material-ui/styles";
@@ -35,9 +32,6 @@ function App() {
           <PrivateRoute exact path="/feed" component={FeedPage} />
           <PrivateRoute exact path="/chat" component={ChatPage} />
           <PrivateRoute exact path="/upload" component={UserUploadPage} />
-          <PrivateRoute exact path="/trending" component={Trending} />
-          <PrivateRoute exact path="/checkout" component={CheckoutPage} />
-          <PrivateRoute exact path="/success" component={Success} />
           <PrivateRoute exact path="/post/edit/:id" component={EditPostPage} />
         </Switch>
       </Router>

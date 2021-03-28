@@ -123,8 +123,6 @@ exports.updateShoe = (req, res) => {
     description,
   };
 
-  console.log(shoeInfoObj);
-
   User.updateShoe(
     shoeInfoObj,
     (data) => {
@@ -132,7 +130,10 @@ exports.updateShoe = (req, res) => {
     },
     (err) => {
       console.log("controller error: ", err);
-      res.status(500).json({ success: false, error: 'There was an error updating the shoe' });
+      res.status(500).json({
+        success: false,
+        error: "There was an error updating the shoe",
+      });
     }
   );
 };
@@ -148,7 +149,42 @@ exports.getUserShoes = (req, res, next) => {
     },
     (err) => {
       console.log("get user shoes", err);
-      res.status(500).json({ success: false, error: 'There was an error udpating the shoe' });
+      res.status(500).json({
+        success: false,
+        error: "There was an error udpating the shoe",
+      });
+    }
+  );
+};
+
+exports.addComment = (req, res) => {
+  const { shoe_id, web_id, shoe_comment } = req.body;
+
+  User.addComment(
+    shoe_id,
+    web_id,
+    shoe_comment,
+    (data) => {
+      res.status(200).json({ success: true, data: data });
+    },
+    (err) => {
+      console.log("add comment error", err);
+      res.status(500).json({ success: false, error: err });
+    }
+  );
+};
+
+exports.getComments = (req, res) => {
+  const shoe_id = req.query.shoeid;
+
+  User.getComments(
+    shoe_id,
+    (data) => {
+      res.status(200).json({ success: true, data: data });
+    },
+    (err) => {
+      console.log("add comment error", err);
+      res.status(500).json({ success: false, error: err });
     }
   );
 };
@@ -202,3 +238,53 @@ exports.deleteShoe = (req, res) => {
     }
   );
 };
+
+exports.addLike = (req, res) => {
+  const { web_id, shoe_id } = req.body;
+
+  User.addLike(
+    web_id,
+    shoe_id,
+    (data) => {
+      res.status(200).json({ success: true, data: data });
+    },
+    (err) => {
+      console.log("get feed shoes", err);
+      res.status(500).json({ success: false, error: err });
+    }
+  );
+};
+
+exports.removeLike = (req, res) => {
+  let web_id = req.query.webid;
+  let shoe_id = req.query.shoeid;
+
+  User.removeLike(
+    web_id,
+    shoe_id,
+    (data) => {
+      res.status(200).json({ success: true, data: data });
+    },
+    (err) => {
+      console.log("get feed shoes", err);
+      res.status(500).json({ success: false, error: err });
+    }
+  );
+};
+
+exports.checkIfLiked = (req, res) => {
+  let web_id = req.query.webid;
+  let shoe_id = req.query.shoeid;
+
+  User.checkIfLiked(
+    web_id,
+    shoe_id,
+    (data) => {
+      res.status(200).json({ success: true, data: data });
+    },
+    (err) => {
+      console.log("get feed shoes", err);
+      res.status(500).json({ success: false, error: err });
+    }
+  );
+}

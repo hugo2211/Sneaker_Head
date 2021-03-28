@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
+import CommentBox from "../general/CommentBox";
+
 import DeleteModal from "../modals/DeleteModal";
-import LikeButton from "../buttons/Like";
-import Likes from "../buttons/Like.css";
+import LikeButton from "../buttons/LikeButton";
 const useStyles = makeStyles(() => ({
   shoePost: {
     maxWidth: 300,
@@ -23,29 +24,8 @@ const useStyles = makeStyles(() => ({
 
 const ProfilePage = ({ history }) => {
   const classes = useStyles();
-
   const [error, setError] = useState("");
-  const [userInfo, setUserInfo] = useState("");
   const [userShoeCollection, setUserShoeCollecton] = useState([]);
-  const fetchUserData = async () => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-      },
-    };
-
-    try {
-      const { data } = await axios.get(`/api/private`, config);
-
-      console.log(data);
-      setUserInfo(data.data);
-    } catch (error) {
-      console.log(error);
-      localStorage.removeItem("authToken");
-      setError("You are not authorized please login");
-    }
-  };
 
   const getShoes = () => {
     const config = {
@@ -66,7 +46,7 @@ const ProfilePage = ({ history }) => {
   };
 
   useEffect(() => {
-    fetchUserData();
+    //fetchUserData();
     getShoes();
   }, []);
 
@@ -85,7 +65,7 @@ const ProfilePage = ({ history }) => {
     };
 
     try {
-      const { data } = await axios.delete(
+      await axios.delete(
         `/api/private/shoe?shoeid=${shoe_id}`,
         config
       );
@@ -133,6 +113,13 @@ const ProfilePage = ({ history }) => {
                   />
                   <div><LikeButton/></div>
                   <div className={classes.italic}>{shoe.description}</div>
+
+                  <CommentBox
+                    shoeId={shoe.shoe_id}
+                    webId={localStorage.getItem("web_id")}
+                    commentNumber={shoe.comments}
+                  />
+
                   <hr className={classes.seperator} />
                   {shoe.status_name === "Trade" ||
                   shoe.status_name === "Sell" ? (

@@ -17,6 +17,30 @@ const orm = {
     );
   },
 
+  addComment: (shoe_id, web_id, shoe_comment, cb, errCb) => {
+    const queryString = `Call add_comments (?, ?, ?);`;
+    connection.query(queryString, [shoe_id, web_id, shoe_comment], (err, result) => {
+      if (err) {
+        return errCb(err);
+      } else {
+        return cb(result);
+      }
+    });  
+  },
+
+  getComments: (shoe_id, cb, errCb) => {
+    console.log('shoe_id', shoe_id)
+
+    const queryString = `Call pull_shoe_comments (?);`;
+    connection.query(queryString, [shoe_id], (err, result) => {
+      if (err) {
+        return errCb(err);
+      } else {
+        return cb(result);
+      }
+    });
+  },
+
   loginUser: (username, password, cb, errCb) => {
     const queryString = `Select * from webusers where username = ? AND userpws = (SHA1(?));`;
     connection.query(queryString, [username, password], (err, result) => {
@@ -152,6 +176,9 @@ const orm = {
       description,
     } = shoeInfoObj;
 
+    console.log('orm level shoeInfoObj');
+    console.log(shoeInfoObj);
+
     const queryString = `Call update_myshoes (?, ?, ?, ?, ?, ?, ?, ?, ?);`;
     connection.query(
       queryString,
@@ -174,6 +201,39 @@ const orm = {
         }
       }
     );
+  },
+
+  addLike: (web_id, shoe_id, cb, errCb) => {
+    const queryString = `Call add_like (?, ?);`;
+    connection.query(queryString, [web_id, shoe_id], (err, result) => {
+      if (err) {
+        return errCb(err);
+      } else {
+        return cb(result);
+      }
+    });
+  },
+
+  removeLike: (web_id, shoe_id, cb, errCb) => {
+    const queryString = `Call remove_like (?, ?);`;
+    connection.query(queryString, [web_id, shoe_id], (err, result) => {
+      if (err) {
+        return errCb(err);
+      } else {
+        return cb(result);
+      }
+    });
+  },
+
+  checkIfUserHasLiked: (web_id, shoe_id, cb, errCb) => {
+    const queryString = `Call pull_user_shoe_like (?, ?);`;
+    connection.query(queryString, [web_id, shoe_id], (err, result) => {
+      if (err) {
+        return errCb(err);
+      } else {
+        return cb(result);
+      }
+    });
   },
 };
 

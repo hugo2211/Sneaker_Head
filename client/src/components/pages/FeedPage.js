@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./FeedPage.css";
 import { makeStyles } from "@material-ui/core/styles";
+import LikeButton from "../buttons/LikeButton";
+import CommentBox from "../general/CommentBox";
 
 const useStyles = makeStyles(() => ({
   shoePost: {
@@ -14,8 +16,8 @@ const useStyles = makeStyles(() => ({
     backgroundColor: "white",
   },
   italic: {
-    fontStyle: 'italic'
-  }
+    fontStyle: "italic",
+  },
 }));
 
 const FeedPage = () => {
@@ -62,10 +64,19 @@ const FeedPage = () => {
                       style={{ height: "200px", width: "300px" }}
                       src={post.image_url}
                     />
-                    <div>Likes: 0</div>
-                    <div className={classes.italic}>
-                      {post.description}
-                    </div>
+                    <LikeButton
+                      numLikes={post.likes}
+                      shoeId={post.shoe_id}
+                      webId={localStorage.getItem("web_id")}
+                    />
+                    <div className={classes.italic}>{post.description}</div>
+
+                    <CommentBox
+                      shoeId={post.shoe_id}
+                      webId={localStorage.getItem("web_id")}
+                      commentNumber={post.comments}
+                    />
+
                     <hr className={classes.seperator} />
                     {post.status_name === "Trade" ||
                     post.status_name === "Sell" ? (

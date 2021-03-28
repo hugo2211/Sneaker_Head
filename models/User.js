@@ -38,6 +38,24 @@ const User = {
     );
   },
 
+  addComment: (shoe_id, web_id, shoe_comment, cb, errCb) => {
+    orm.addComment(
+      shoe_id,
+      web_id,
+      shoe_comment,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
+
+  getComments: (shoe_id, cb, errCb) => {
+    orm.getComments(
+      shoe_id,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
+
   updateShoe: (shoeInfoObj, cb, errCb) => {
     orm.updateShoe(
       shoeInfoObj,
@@ -73,6 +91,33 @@ const User = {
   getFeed: (web_id, cb, errCb) => {
     orm.getFeedShoes(
       web_id,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
+
+  addLike: (web_id, shoe_id, cb, errCb) => {
+    orm.addLike(
+      web_id,
+      shoe_id,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
+
+  removeLike: (web_id, shoe_id, cb, errCb) => {
+    orm.removeLike(
+      web_id,
+      shoe_id,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
+
+  checkIfLiked: (web_id, shoe_id, cb, errCb) => {
+    orm.checkIfUserHasLiked(
+      web_id,
+      shoe_id,
       (response) => cb(response),
       (err) => errCb(err)
     );
