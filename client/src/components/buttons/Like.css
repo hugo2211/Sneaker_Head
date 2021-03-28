@@ -1,8 +1,9 @@
 .Likes {
-  background: black;
-  color: white;
-  border-color: black;
+    background: black;
+    color: white;
+    border-color: black;
+   
 }
-.fa-thumbs-up {
-  margin-right: 6px;
+.fa-heart {
+    margin-right: 6px;
 }

@@ -1,13 +1,44 @@
-const Success = () => {
-    return ( 
-        <section>
-        <h1>Thank you for your order!</h1>
-    <p>
-      We appreciate your business! If you have any questions, please email
-      <a href="mailto:orders@example.com">orders@example.com</a>.
-    </p>
-  </section>
-     );
-}
- 
-export default Success;
+import styled from "@emotion/styled";
+import Confetti from "react-confetti";
+import { useState, useEffect } from "react";
+
+import Layout from "./Layout";
+import Row from "./Row";
+
+const Container = styled.div`
+  width: 475px;
+  margin: 30px auto 0 auto;
+  text-align: center;
+  color: #fff;
+`;
+
+const Title = styled.div`
+  font-size: 58px;
+`;
+
+const Message = styled.div`
+  margin-top: 40px;
+`;
+
+export default () => {
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setWidth(window.innerWidth);
+      setHeight(window.innerHeight);
+    }, 100);
+  });
+
+  return (
+    <Layout title="Success!">
+      <Container>
+        <Confetti width={width} height={height} numberOfPieces={450} />
+        <Title>Congrats!</Title>
+        <Message>Your payment has been processed.</Message>
+        {/* add link to profile page */}
+      </Container>
+    </Layout>
+  );
+};

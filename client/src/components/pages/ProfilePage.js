@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
+import CommentBox from "../general/CommentBox";
 
 import DeleteModal from "../modals/DeleteModal";
-import CommentBox from "../general/CommentBox";
-import "./ProfilePage.css";
 import LikeButton from "../buttons/LikeButton";
-
 const useStyles = makeStyles(() => ({
   shoePost: {
     maxWidth: 300,
@@ -67,7 +65,7 @@ const ProfilePage = ({ history }) => {
     };
 
     try {
-      const { data } = await axios.delete(
+      await axios.delete(
         `/api/private/shoe?shoeid=${shoe_id}`,
         config
       );
@@ -81,7 +79,7 @@ const ProfilePage = ({ history }) => {
   return (
     <div>
       <div>
-        <h2 className="text-center mt-4">My Posts</h2>
+        <h2 className="text-center mt-4">My Kicks</h2>
         {error && <span className="error-message">{error}</span>}
       </div>
 
@@ -113,13 +111,7 @@ const ProfilePage = ({ history }) => {
                     style={{ height: "200px", width: "300px" }}
                     src={shoe.image_url}
                   />
-                  <div>
-                    <LikeButton
-                      numLikes={shoe.likes}
-                      shoeId={shoe.shoe_id}
-                      webId={localStorage.getItem("web_id")}
-                    />
-                  </div>
+                  <div><LikeButton/></div>
                   <div className={classes.italic}>{shoe.description}</div>
 
                   <CommentBox
