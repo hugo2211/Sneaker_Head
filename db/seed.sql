@@ -53,6 +53,7 @@ shoe_id INT NOT NULL,
 web_id INT NOT NULL,
 username VARCHAR(30),
 shoe_comment VARCHAR(255),
+comment_date DATETIME,
 PRIMARY KEY (comment_id),
 FOREIGN KEY (shoe_id) REFERENCES myshoes (shoe_id) ON DELETE CASCADE,
 FOREIGN KEY (web_id) REFERENCES webusers (web_id) ON DELETE CASCADE
