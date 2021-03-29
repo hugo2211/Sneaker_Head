@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const FeedPage = () => {
+const FeedPage = ({ history }) => {
   const classes = useStyles();
   const [feedData, setFeedData] = useState([]);
 
@@ -42,13 +42,17 @@ const FeedPage = () => {
       });
   };
 
+  const handleUsernameClick = (userId) => {
+    history.push(`/profile/${userId}`);
+  }
+
   useEffect(() => {
     getFeedData();
   }, []);
 
   return (
     <div className="feed-page">
-      <h2>Feed</h2>
+      <h2 className="centered-text">Feed</h2>
       <div className="container feed-container">
         <div className="row">
           {feedData && feedData.length > 0 ? (
@@ -58,7 +62,7 @@ const FeedPage = () => {
                   className={`col-lg-4 col-md-6 col-12 d-flex justify-content-center mb-4`}
                 >
                   <div className={classes.shoePost}>
-                    <div className={classes.username}>{post.username}</div>
+                    <div className={classes.username} onClick={() => handleUsernameClick(post.web_id)}>{post.username}</div>
                     <img
                       alt={`${post.brand_name} ${post.shoe_model} ${post.year}`}
                       style={{ height: "200px", width: "300px" }}

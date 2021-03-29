@@ -7,6 +7,7 @@ import FeedPage from "./components/pages/FeedPage";
 import ChatPage from "./components/pages/ChatPage";
 import UserUploadPage from "./components/pages/UserUploadPage";
 import EditPostPage from "./components/pages/EditPostPage";
+import OtherUserPage from "./components/pages/OtherUserPage";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
 import './App.css';
@@ -29,6 +30,7 @@ function App() {
           <PrivateRoute exact path="/chat" component={ChatPage} />
           <PrivateRoute exact path="/upload" component={UserUploadPage} />
           <PrivateRoute exact path="/post/edit/:id" component={EditPostPage} />
+          <PrivateRoute exact path="/profile/:userId" component={OtherUserPage} />
         </Switch>
       </Router>
     </ThemeProvider>

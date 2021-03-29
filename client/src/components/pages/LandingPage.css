@@ -19,19 +19,20 @@
 }
 
 .landing-page-sneaker {
-  width: 350px;
+  width: 320px;
 }
 
 .landing-page-head {
-  width: 210px;
+  width: 236px;
+  padding-bottom: 2px;
 }
 
 @media (max-width: 380px) {
   .landing-page-sneaker {
-    width: 280px;
+    width: 270px;
   }
   
   .landing-page-head {
-    width: 168px;
+    width: 185px;
   }
 }
