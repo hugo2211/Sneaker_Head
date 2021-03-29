@@ -59,10 +59,11 @@ const FeedPage = ({ history }) => {
             feedData.map((post) => {
               return (
                 <div
+                  key={post.shoe_id}
                   className={`col-lg-4 col-md-6 col-12 d-flex justify-content-center mb-4`}
                 >
                   <div className={classes.shoePost}>
-                    <div className={classes.username} onClick={() => handleUsernameClick(post.web_id)}>{post.username}</div>
+                    <div className={`${classes.username} username`} onClick={() => handleUsernameClick(post.web_id)}>{post.username}</div>
                     <img
                       alt={`${post.brand_name} ${post.shoe_model} ${post.year}`}
                       style={{ height: "200px", width: "300px" }}
