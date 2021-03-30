@@ -1,15 +1,10 @@
-body {
-    background-color: black;
-    text-align: center; 
-}
-
-h2 {
-    text-align: center;
-}
-
 .feed-img {
   height: 200px;
   width: 200px;
+}
+
+.username:hover {
+  cursor: pointer;
 }
 
 

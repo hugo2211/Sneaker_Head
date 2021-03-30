@@ -49,7 +49,7 @@ const RegisterForm = ({
 
       console.log(data);
       closeRegisterForm();
-      handleSuccess("User Create! Please Login in.");
+      handleSuccess("User Created! Please Login in.");
       goToLogin();
     } catch (error) {
       console.log(error.response);

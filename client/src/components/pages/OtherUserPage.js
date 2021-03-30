@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./FeedPage.css";
+import { useParams } from "react-router";
+
 import { makeStyles } from "@material-ui/core/styles";
 import LikeButton from "../buttons/LikeButton";
 import CommentBox from "../general/CommentBox";
+import "./FeedPage.css";
 
 const useStyles = makeStyles(() => ({
   shoePost: {
@@ -20,9 +22,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const FeedPage = ({ history }) => {
+const OtherUserPage = () => {
   const classes = useStyles();
   const [feedData, setFeedData] = useState([]);
+
+  const { userId } = useParams();
 
   const getFeedData = () => {
     const config = {
@@ -32,19 +36,13 @@ const FeedPage = ({ history }) => {
       },
     };
 
-    const userId = localStorage.getItem("web_id");
-
     axios
-      .get(`/api/private/feed?userid=${userId}`, config)
+      .get(`/api/private/shoes?userid=${userId}`, config)
       .then(function (response) {
-        console.log("feed data:", response.data.data[0]);
+        console.log("shoes form backedn!!", response.data.data[0]);
         setFeedData(response.data.data[0]);
       });
   };
-
-  const handleUsernameClick = (userId) => {
-    history.push(`/profile/${userId}`);
-  }
 
   useEffect(() => {
     getFeedData();
@@ -52,7 +50,7 @@ const FeedPage = ({ history }) => {
 
   return (
     <div className="feed-page">
-      <h2 className="centered-text">Feed</h2>
+      <h2 className="centered-text">{feedData.length > 0 && feedData[0].username}</h2>
       <div className="container feed-container">
         <div className="row">
           {feedData && feedData.length > 0 ? (
@@ -63,7 +61,7 @@ const FeedPage = ({ history }) => {
                   className={`col-lg-4 col-md-6 col-12 d-flex justify-content-center mb-4`}
                 >
                   <div className={classes.shoePost}>
-                    <div className={`${classes.username} username`} onClick={() => handleUsernameClick(post.web_id)}>{post.username}</div>
+                    <div className={classes.username}>{post.username}</div>
                     <img
                       alt={`${post.brand_name} ${post.shoe_model} ${post.year}`}
                       style={{ height: "200px", width: "300px" }}
@@ -99,7 +97,7 @@ const FeedPage = ({ history }) => {
               );
             })
           ) : (
-            <div>No Feed data</div>
+            <div>This user has no posts.</div>
           )}
         </div>
       </div>
@@ -107,4 +105,4 @@ const FeedPage = ({ history }) => {
   );
 };
 
-export default FeedPage;
+export default OtherUserPage;

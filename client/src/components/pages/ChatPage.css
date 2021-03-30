@@ -1,5 +1,59 @@
+.chat-page+div+div {
+  background-color: rgb(20, 20, 20) !important;
+}
+
+.chat-page > div {
+  background-color: rgb(20, 20, 20) !important;
+}
+
+.ce-chat-title {
+  background-color: rgb(20, 20, 20) !important;
+}
+
+.ce-autocomplete-option > div {
+  background-color: rgba(50, 50, 50) !important;
+}
+
+.ce-autocomplete-option:hover {
+  background-color: rgba(5, 5, 5) !important;;
+}
+
+.ce-autocomplete-close {
+  border-radius: 0 !important;
+}
+
+.ce-chat-settings-mobile-option {
+  background-color: rgb(20, 20, 20) !important;
+}
+
+.anticon-close {
+  color: rgb(220, 220, 220) !important;
+}
+
+
+.ce-chat-list-mobile-option {
+  background-color: rgb(20, 20, 20) !important;
+}
+
+.ce-chat-list-mobile-option > div > div {
+  background-color: rgb(20, 20, 20) !important;
+}
+
+.ce-chat-list-mobile-option > div > div > div {
+  color: rgb(220, 220, 220) !important;
+}
+
+.anticon-menu {
+  color: rgb(220, 220, 220) !important;
+}
+
+.anticon-setting {
+  color: rgb(220, 220, 220) !important;
+}
+
 .ce-chat-list {
   background-color: rgb(20, 20, 20) !important;
+  height: calc(100vh - 58px) !important;
 }
 
 .ce-chats-container {

@@ -17,10 +17,15 @@ const CommentBox = (props) => {
     getComments(props.shoeId);
   };
 
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" }
+    return new Date(dateString).toLocaleDateString(undefined, options)
+  }
+
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
     await sendCommentToDB(props.shoeId, props.webId, comment);
-    setComment('');
+    setComment("");
   };
 
   const getComments = async (shoe_id) => {
@@ -38,7 +43,7 @@ const CommentBox = (props) => {
       );
 
       setShoeComments(data.data[0]);
-      setCommentNumber(data.data[0].length)
+      setCommentNumber(data.data[0].length);
     } catch (error) {
       console.log(error);
     }
@@ -110,7 +115,7 @@ const CommentBox = (props) => {
                           {comment.shoe_comment}{" "}
                         </p>
                         <p style={{ textAlign: "left", color: "gray" }}>
-                          {comment.comment_date}
+                          {`${formatDate(comment.comment_date)} ${new Date(comment.comment_date).toLocaleTimeString()}`}
                         </p>
                       </Grid>
                     </Grid>

@@ -6,3 +6,7 @@
   overflow: scroll;
   color: rgb(220, 220, 220);
 }
+
+.centered-text {
+  text-align: center;
+}

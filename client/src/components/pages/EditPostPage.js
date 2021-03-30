@@ -12,7 +12,7 @@ import {
   FormLabel,
   RadioGroup,
   Radio,
-  FormControlLabel
+  FormControlLabel,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import MultiSelect from "../inputs/MultiSelect";
@@ -31,8 +31,8 @@ const useStyles = makeStyles(() => ({
     fontStyle: "italic",
   },
   radioGroup: {
-    flexDirection: "row"
-  }
+    flexDirection: "row",
+  },
 }));
 
 const EditPostPage = ({ history }) => {
@@ -120,7 +120,7 @@ const EditPostPage = ({ history }) => {
     try {
       const { data } = await axios.put(`/api/private/shoe`, updateObj, config);
       if (data.success === true) {
-        history.push("/profile")
+        history.push("/profile");
       }
     } catch (error) {
       console.log(error);
@@ -185,32 +185,32 @@ const EditPostPage = ({ history }) => {
         <div className="col-md-6 col-12">
           <form onSubmit={handleUpdatePost}>
             <div className="">
-            <FormControl component="fieldset">
-                  <FormLabel component="legend">Are you looking to: </FormLabel>
-                  <RadioGroup
-                    className={classes.radioGroup}
-                    aria-label="gender"
-                    name="gender1"
-                    value={post_action}
-                    onChange={handleRadioSelect}
-                  >
-                    <FormControlLabel
-                      value="Trade"
-                      control={<Radio size="small" color="default" />}
-                      label="Trade"
-                    />
-                    <FormControlLabel
-                      value="Sell"
-                      control={<Radio size="small" color="default" />}
-                      label="Sell"
-                    />
-                    <FormControlLabel
-                      value="Share"
-                      control={<Radio size="small" color="default" />}
-                      label="Share Only"
-                    />
-                  </RadioGroup>
-                </FormControl>
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Are you looking to: </FormLabel>
+                <RadioGroup
+                  className={classes.radioGroup}
+                  aria-label="gender"
+                  name="gender1"
+                  value={post_action}
+                  onChange={handleRadioSelect}
+                >
+                  <FormControlLabel
+                    value="Trade"
+                    control={<Radio size="small" color="default" />}
+                    label="Trade"
+                  />
+                  <FormControlLabel
+                    value="Sell"
+                    control={<Radio size="small" color="default" />}
+                    label="Sell"
+                  />
+                  <FormControlLabel
+                    value="Share"
+                    control={<Radio size="small" color="default" />}
+                    label="Share Only"
+                  />
+                </RadioGroup>
+              </FormControl>
             </div>
             <div className="mb-3">
               <MultiSelect
@@ -233,8 +233,12 @@ const EditPostPage = ({ history }) => {
                     <em>None</em>
                   </MenuItem>
                   <MenuItem value={"Nike"}>Nike</MenuItem>
-                  <MenuItem value={"Adiddas"}>Adiddas</MenuItem>
+                  <MenuItem value={"Adidas"}>Adidas</MenuItem>
                   <MenuItem value={"Jordan"}>Jordan</MenuItem>
+                  <MenuItem value={"Vans"}>Vans</MenuItem>
+                  <MenuItem value={"Under Armour"}>Under Armour</MenuItem>
+                  <MenuItem value={"Converse"}>Converse</MenuItem>
+                  <MenuItem value={"Other"}>Other</MenuItem>
                 </Select>
               </FormControl>
             </div>
@@ -280,7 +284,7 @@ const EditPostPage = ({ history }) => {
               />
             </div>
 
-            <div className="text-center" style={{ marginBottom: '60px' }}>
+            <div className="text-center" style={{ marginBottom: "60px" }}>
               <button type="submit" className="btn btn-light btn-block">
                 Update Post
               </button>

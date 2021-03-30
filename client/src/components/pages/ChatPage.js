@@ -41,7 +41,6 @@ const ChatPage = () => {
           projectID={projectId}
           userName={localStorage.getItem("username")}
           userSecret={localStorage.getItem("password")}
-          height="100vh"
         />
       ) : (
         <h2>Loading...</h2>
