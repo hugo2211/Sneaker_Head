@@ -26,8 +26,21 @@
   background-color: rgb(20, 20, 20) !important;
 }
 
+.anticon-close {
+  color: rgb(220, 220, 220) !important;
+}
+
+
 .ce-chat-list-mobile-option {
   background-color: rgb(20, 20, 20) !important;
+}
+
+.ce-chat-list-mobile-option > div > div {
+  background-color: rgb(20, 20, 20) !important;
+}
+
+.ce-chat-list-mobile-option > div > div > div {
+  color: rgb(220, 220, 220) !important;
 }
 
 .anticon-menu {
