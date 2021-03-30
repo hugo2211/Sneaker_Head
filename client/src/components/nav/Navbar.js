@@ -20,7 +20,7 @@ const Nav = styled.nav`
 const Navbar = ({ history }) => {
   return (
     <Nav>
-      <Link to="/">
+      <Link to="/profile">
         <div className="logo">
           <img src={sneaker} alt="website-logo" className="navbar-brand-sneaker img-fluid" />
           <img src={head} alt="website-logo" className="navbar-brand-head img-fluid" />
