@@ -44,7 +44,7 @@ const FeedPage = ({ history }) => {
 
   const handleUsernameClick = (userId) => {
     history.push(`/profile/${userId}`);
-  }
+  };
 
   useEffect(() => {
     getFeedData();
@@ -63,7 +63,12 @@ const FeedPage = ({ history }) => {
                   className={`col-lg-4 col-md-6 col-12 d-flex justify-content-center mb-4`}
                 >
                   <div className={classes.shoePost}>
-                    <div className={`${classes.username} username`} onClick={() => handleUsernameClick(post.web_id)}>{post.username}</div>
+                    <div
+                      className={`${classes.username} username`}
+                      onClick={() => handleUsernameClick(post.web_id)}
+                    >
+                      {post.username}
+                    </div>
                     <img
                       alt={`${post.brand_name} ${post.shoe_model} ${post.year}`}
                       style={{ height: "200px", width: "300px" }}
@@ -90,6 +95,7 @@ const FeedPage = ({ history }) => {
                     <div>Brand: {post.brand_name}</div>
                     <div>Model: {post.shoe_model}</div>
                     <div>Year: {post.year}</div>
+                    {post.size && <div>Size: {post.size}</div>}
                     {post.shoe_condition && (
                       <div>Condition: {post.shoe_condition}</div>
                     )}

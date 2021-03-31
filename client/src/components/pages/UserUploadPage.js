@@ -46,6 +46,7 @@ const UserUploadPage = ({ history }) => {
   const [price, set_price] = useState("");
   const [condition, set_condition] = useState("");
   const [description, setDescription] = useState("");
+  const [size, set_size] = useState("");
 
   const handleRadioSelect = (event) => {
     set_post_action(event.target.value);
@@ -98,7 +99,8 @@ const UserUploadPage = ({ history }) => {
           post_action,
           price,
           condition,
-          description,
+          size,
+          description
         },
         config
       );
@@ -114,6 +116,46 @@ const UserUploadPage = ({ history }) => {
       }, 5000);
     }
   };
+
+  const renderShoeSize = () => {
+    if (post_action === "Sell" || post_action === "Trade") {
+      return (
+        <div className="col-lg-4 col-md-6 col-12 mb-4">
+          <FormControl fullWidth variant="outlined">
+            <InputLabel id="shoe-size-label">Shoe Size (US Men's)</InputLabel>
+            <Select
+              required
+              labelId="shoe-size-label"
+              id="shoe-size-select"
+              value={size}
+              onChange={(e) => set_size(e.target.value)}
+              label="Condition"
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={"6"}>6</MenuItem>
+              <MenuItem value={"6.5"}>6.5</MenuItem>
+              <MenuItem value={"7"}>7</MenuItem>
+              <MenuItem value={"7.5"}>7.5</MenuItem>
+              <MenuItem value={"8"}>8</MenuItem>
+              <MenuItem value={"8.5"}>8.5</MenuItem>
+              <MenuItem value={"9"}>9</MenuItem>
+              <MenuItem value={"9.5"}>9.5</MenuItem>
+              <MenuItem value={"10"}>10</MenuItem>
+              <MenuItem value={"10.5"}>10.5</MenuItem>
+              <MenuItem value={"11"}>11</MenuItem>
+              <MenuItem value={"11.5"}>11.5</MenuItem>
+              <MenuItem value={"12"}>12</MenuItem>
+              <MenuItem value={"13"}>13</MenuItem>
+              <MenuItem value={"14"}>14</MenuItem>
+              <MenuItem value={"15"}>15</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+      )
+    }
+  }
 
   const renderAskingPrice = () => {
     if (post_action === "Sell") {
@@ -267,6 +309,7 @@ const UserUploadPage = ({ history }) => {
               </div>
               {renderAskingPrice()}
               {renderShoeCondition()}
+              {renderShoeSize()}
             </div>
 
             <div className="row justify-content-md-center">

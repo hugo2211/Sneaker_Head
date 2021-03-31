@@ -75,6 +75,7 @@ const orm = {
       url,
       price,
       condition,
+      size,
       description,
     } = postInfoObj;
 
@@ -82,7 +83,7 @@ const orm = {
       price = 0;
     }
 
-    const queryString = `Call add_shoe (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+    const queryString = `Call add_shoe (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
     connection.query(
       queryString,
       [
@@ -95,7 +96,8 @@ const orm = {
         url,
         price,
         condition,
-        description,
+        size,
+        description
       ],
       (err, result) => {
         if (err) {
@@ -173,13 +175,14 @@ const orm = {
       status_name,
       price,
       condition,
+      size,
       description,
     } = shoeInfoObj;
 
     console.log('orm level shoeInfoObj');
     console.log(shoeInfoObj);
 
-    const queryString = `Call update_myshoes (?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+    const queryString = `Call update_myshoes (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
     connection.query(
       queryString,
       [
@@ -191,6 +194,7 @@ const orm = {
         status_name,
         price,
         condition,
+        size,
         description,
       ],
       (err, result) => {
