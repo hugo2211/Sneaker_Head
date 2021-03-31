@@ -147,28 +147,6 @@ exports.updateShoe = (req, res) => {
   );
 };
 
-exports.searchShoes = (req, res) => {
-  const search = req.query.search;
-  const web_id = req.query.userid;
-
-  User.searchShoes(
-    web_id,
-    search,
-    (data) => {
-      res.status(200).json({ success: true, data: data });
-    },
-    (err) => {
-      console.log("add comment error", err);
-      res
-        .status(500)
-        .json({
-          success: false,
-          error: "There was an error searching the database.",
-        });
-    }
-  );
-};
-
 exports.getUserShoes = (req, res, next) => {
   const web_id = req.query.userid;
   console.log(web_id);
