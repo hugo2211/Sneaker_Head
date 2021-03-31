@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./FeedPage.css";
+import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import LikeButton from "../buttons/LikeButton";
 import CommentBox from "../general/CommentBox";
@@ -23,6 +24,7 @@ const useStyles = makeStyles(() => ({
 const FeedPage = ({ history }) => {
   const classes = useStyles();
   const [feedData, setFeedData] = useState([]);
+  const [search, setSearch] = useState("");
 
   const getFeedData = () => {
     const config = {
@@ -42,6 +44,13 @@ const FeedPage = ({ history }) => {
       });
   };
 
+  const onSearchSubmit = async (event) => {
+    event.preventDefault();
+
+    console.log(feedData);
+    
+  }
+
   const handleUsernameClick = (userId) => {
     history.push(`/profile/${userId}`);
   };
@@ -53,6 +62,19 @@ const FeedPage = ({ history }) => {
   return (
     <div className="feed-page">
       <h2 className="centered-text">Feed</h2>
+
+      <form className="centered-text" onSubmit={onSearchSubmit}>
+        <TextField
+          required
+          id="search-input"
+          label="Search"
+          variant="outlined"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <button className="btn btn-light">Search</button>
+      </form>
+
       <div className="container feed-container">
         <div className="row">
           {feedData && feedData.length > 0 ? (

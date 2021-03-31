@@ -56,6 +56,15 @@ const User = {
     );
   },
 
+  searchShoes: (web_id, search, cb, errCb) => {
+    orm.searchShoes(
+      web_id,
+      search,
+      (response) => cb(response),
+      (err) => errCb(err)
+    );
+  },
+
   updateShoe: (shoeInfoObj, cb, errCb) => {
     orm.updateShoe(
       shoeInfoObj,

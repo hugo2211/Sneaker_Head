@@ -120,6 +120,17 @@ const orm = {
     });
   },
 
+  searchShoes: (web_id, search, cb, errCb) => {
+    const queryString = `Call search_shoes (?, ?);`;
+    connection.query(queryString, [web_id, search], (err, result) => {
+      if (err) {
+        return errCb(err);
+      } else {
+        return cb(result);
+      }
+    });
+  },
+
   getSingleShoe: (shoe_id, cb, errCb) => {
     const queryString = `Call pull_shoe (?);`;
     connection.query(queryString, [shoe_id], (err, result) => {

@@ -10,7 +10,7 @@ import {
   FormControlLabel,
   FormLabel,
   RadioGroup,
-  Radio
+  Radio,
 } from "@material-ui/core";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
@@ -20,8 +20,8 @@ import MultiSelect from "../inputs/MultiSelect";
 
 const useStyles = makeStyles(() => ({
   radioGroup: {
-    flexDirection: "row"
-  }
+    flexDirection: "row",
+  },
 }));
 
 const toBase64 = (file) =>
@@ -47,6 +47,16 @@ const UserUploadPage = ({ history }) => {
   const [condition, set_condition] = useState("");
   const [description, setDescription] = useState("");
   const [size, set_size] = useState("");
+  const [maxCharacter, setMaxCharacter] = useState(255);
+  const [characterCount, setCharacterCount] = useState(maxCharacter);
+
+  const countChars = (val) => {
+    let maxLength = 255;
+    let strLength = val.length;
+    let charRemain = (maxLength - strLength);
+    console.log(charRemain);
+    setCharacterCount(charRemain)
+  };
 
   const handleRadioSelect = (event) => {
     set_post_action(event.target.value);
@@ -57,8 +67,8 @@ const UserUploadPage = ({ history }) => {
   };
 
   const handleFileUpload = async (event) => {
-    const file = event.target.files[0]; 
-    console.log("this is it", file)
+    const file = event.target.files[0];
+    console.log("this is it", file);
     const base64Img = await toBase64(file);
     set_file_upload(base64Img);
     set_picture_info(file);
@@ -100,7 +110,7 @@ const UserUploadPage = ({ history }) => {
           price,
           condition,
           size,
-          description
+          description,
         },
         config
       );
@@ -153,9 +163,9 @@ const UserUploadPage = ({ history }) => {
             </Select>
           </FormControl>
         </div>
-      )
+      );
     }
-  }
+  };
 
   const renderAskingPrice = () => {
     if (post_action === "Sell") {
@@ -228,7 +238,7 @@ const UserUploadPage = ({ history }) => {
                   >
                     <FormControlLabel
                       value="Trade"
-                      control={<Radio size="small" color="default"/>}
+                      control={<Radio size="small" color="default" />}
                       label="Trade"
                     />
                     <FormControlLabel
@@ -326,8 +336,10 @@ const UserUploadPage = ({ history }) => {
                   multiline
                   rows={1}
                   rowsMax={2}
-                  inputProps={{ maxLength: 255 }}
+                  inputProps={{ maxLength: maxCharacter }}
+                  onKeyUp={(e) => countChars(e.target.value)}
                 />
+                <p id="charNum" className="centered-text"> {characterCount} characters remaining </p>
               </div>
             </div>
 
