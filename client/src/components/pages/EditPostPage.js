@@ -49,6 +49,14 @@ const EditPostPage = ({ history }) => {
   const [condition, set_condition] = useState("");
   const [description, setDescription] = useState("");
   const [size, set_size] = useState("");
+  const [characterCount, setCharacterCount] = useState(255);
+
+  const countChars = (val) => {
+    let maxLength = 255;
+    let strLength = val.length;
+    let charRemain = (maxLength - strLength);
+    setCharacterCount(charRemain)
+  };
 
   let { id } = useParams();
 
@@ -79,6 +87,7 @@ const EditPostPage = ({ history }) => {
       setUsername(data.data[0][0].username);
       setImageUrl(data.data[0][0].image_url);
       set_size(data.data[0][0].size);
+      setCharacterCount(255 - data.data[0][0].description.length);
     } catch (error) {
       console.log(error);
     }
@@ -328,7 +337,9 @@ const EditPostPage = ({ history }) => {
                 rows={2}
                 rowsMax={4}
                 inputProps={{ maxLength: 255 }}
+                onKeyUp={(e) => countChars(e.target.value)}
               />
+              <p id="charNum" className="centered-text"> {characterCount} characters remaining </p>
             </div>
 
             <div className="text-center" style={{ marginBottom: "60px" }}>

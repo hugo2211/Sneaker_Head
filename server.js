@@ -27,7 +27,6 @@ connection.connect(function(err) {
 
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/private", require("./routes/private"));
-app.use("/stripe", require("./routes/stripe"));
 app.use(routes);
 
 // Start the API server
