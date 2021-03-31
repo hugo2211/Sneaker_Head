@@ -46,8 +46,26 @@ const FeedPage = ({ history }) => {
 
   const onSearchSubmit = async (event) => {
     event.preventDefault();
+    const filteredResults = [];
+    let localSearch = search;
+    localSearch = localSearch.toLowerCase();
 
-    console.log(feedData);
+    feedData.forEach(shoe => {
+      if (shoe.brand_name.toLowerCase().includes(localSearch)) {
+        filteredResults.push(shoe);
+      } else if (shoe.color.toLowerCase().includes(localSearch)) {
+        filteredResults.push(shoe);
+      } else if (shoe.shoe_model.toLowerCase().includes(localSearch)) {
+        filteredResults.push(shoe);
+      } else if (shoe.username.toLowerCase().includes(localSearch)) {
+        filteredResults.push(shoe);
+      } else if (JSON.stringify(shoe.year).includes(localSearch)) {
+        filteredResults.push(shoe);
+      }
+    });
+
+    console.log(filteredResults);
+    setFeedData(filteredResults);
     
   }
 
