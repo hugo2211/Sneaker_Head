@@ -327,6 +327,7 @@ const EditPostPage = ({ history }) => {
                 multiline
                 rows={2}
                 rowsMax={4}
+                inputProps={{ maxLength: 255 }}
               />
             </div>
 

@@ -13,7 +13,8 @@ const {
   getComments,
   addLike,
   removeLike,
-  checkIfLiked
+  checkIfLiked,
+  searchShoes
 } = require("../controllers/private");
 
 router.route("/").get(protect, getChatProjectId);
@@ -28,5 +29,6 @@ router.route("/comments").get(protect, getComments);
 router.route("/likes").post(protect, addLike);
 router.route("/likes").delete(protect, removeLike);
 router.route("/likes").get(protect, checkIfLiked);
+router.route("/search").get(protect, searchShoes);
 
 module.exports = router;

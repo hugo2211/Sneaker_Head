@@ -29,7 +29,7 @@ exports.createPost = async (req, res) => {
     price,
     condition,
     size,
-    description
+    description,
   } = req.body;
 
   // Format incoming form data for database
@@ -65,7 +65,7 @@ exports.createPost = async (req, res) => {
       price,
       condition,
       size,
-      description
+      description,
     };
 
     console.log(CreatePostObj);
@@ -91,7 +91,12 @@ exports.createPost = async (req, res) => {
     console.log(error.response.data);
     console.log(error.response.status);
     console.log(error.response.config);
-    res.status(500).json({ success: false, error: "There was an error creating your post. Try Again." });
+    res
+      .status(500)
+      .json({
+        success: false,
+        error: "There was an error creating your post. Try Again.",
+      });
   }
 };
 
@@ -138,6 +143,28 @@ exports.updateShoe = (req, res) => {
         success: false,
         error: "There was an error updating the shoe",
       });
+    }
+  );
+};
+
+exports.searchShoes = (req, res) => {
+  const search = req.query.search;
+  const web_id = req.query.userid;
+
+  User.searchShoes(
+    web_id,
+    search,
+    (data) => {
+      res.status(200).json({ success: true, data: data });
+    },
+    (err) => {
+      console.log("add comment error", err);
+      res
+        .status(500)
+        .json({
+          success: false,
+          error: "There was an error searching the database.",
+        });
     }
   );
 };
@@ -291,4 +318,4 @@ exports.checkIfLiked = (req, res) => {
       res.status(500).json({ success: false, error: err });
     }
   );
-}
+};
