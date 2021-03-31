@@ -326,6 +326,7 @@ const UserUploadPage = ({ history }) => {
                   multiline
                   rows={1}
                   rowsMax={2}
+                  inputProps={{ maxLength: 255 }}
                 />
               </div>
             </div>
