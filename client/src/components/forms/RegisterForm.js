@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { TextField } from "@material-ui/core";
+import LoadingModal from "../modals/LoadingModal";
 
 const RegisterForm = ({
   handleCancelClick,
@@ -15,9 +16,11 @@ const RegisterForm = ({
   const [email, setEmail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [showLoadingScreen, setShowLoadingScreen] = useState(false);
 
   const handleRegisterFormSubmit = async (e) => {
     e.preventDefault();
+    setShowLoadingScreen(true);
 
     const config = {
       header: {
@@ -28,6 +31,7 @@ const RegisterForm = ({
     if (password !== confirmPassword) {
       setPassword("");
       setConfirmPassword("");
+      setShowLoadingScreen(false);
       setTimeout(() => {
         setError("");
       }, 5000);
@@ -48,12 +52,15 @@ const RegisterForm = ({
       );
 
       console.log(data);
-      closeRegisterForm();
-      handleSuccess("User Created! Please Login in.");
-      goToLogin();
+      setTimeout(() => {
+        setShowLoadingScreen(false);
+        closeRegisterForm();
+        handleSuccess("User Created! Please Login in.");
+        goToLogin();
+      }, 5000);
     } catch (error) {
       console.log(error.response);
-
+      setShowLoadingScreen(false);
       setError(error.response.data.error);
       setTimeout(() => {
         setError("");
@@ -64,6 +71,11 @@ const RegisterForm = ({
   return (
     <form className="mt-4" onSubmit={handleRegisterFormSubmit}>
       {error && <span className="error-message">{JSON.stringify(error)}</span>}
+      <LoadingModal
+        modalMessage="Please wait.  Your account is being created."
+        showLoadingScreen={showLoadingScreen}
+      />
+      <button onClick={() => setShowLoadingScreen(true)}>Show Modal</button>
       <div className="container-fluid mb-4">
         <div className="row">
           <div className="col">
