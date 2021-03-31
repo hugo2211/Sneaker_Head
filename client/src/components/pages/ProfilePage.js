@@ -131,6 +131,9 @@ const ProfilePage = ({ history }) => {
                   <div>Brand: {shoe.brand_name}</div>
                   <div>Model: {shoe.shoe_model}</div>
                   <div>Year: {shoe.year}</div>
+                  {shoe.size && (
+                    <div>Size: {shoe.size}</div>
+                  )}
                   {shoe.shoe_condition && (
                     <div>Condition: {shoe.shoe_condition}</div>
                   )}

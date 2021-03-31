@@ -50,7 +50,9 @@ const OtherUserPage = () => {
 
   return (
     <div className="feed-page">
-      <h2 className="centered-text">{feedData.length > 0 && feedData[0].username}</h2>
+      <h2 className="centered-text">
+        {feedData.length > 0 && feedData[0].username}
+      </h2>
       <div className="container feed-container">
         <div className="row">
           {feedData && feedData.length > 0 ? (
@@ -88,6 +90,7 @@ const OtherUserPage = () => {
                     <div>Brand: {post.brand_name}</div>
                     <div>Model: {post.shoe_model}</div>
                     <div>Year: {post.year}</div>
+                    {post.size && <div>Size: {post.size}</div>}
                     {post.shoe_condition && (
                       <div>Condition: {post.shoe_condition}</div>
                     )}

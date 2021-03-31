@@ -28,7 +28,8 @@ exports.createPost = async (req, res) => {
     post_action,
     price,
     condition,
-    description,
+    size,
+    description
   } = req.body;
 
   // Format incoming form data for database
@@ -63,7 +64,8 @@ exports.createPost = async (req, res) => {
       url,
       price,
       condition,
-      description,
+      size,
+      description
     };
 
     console.log(CreatePostObj);
@@ -89,7 +91,7 @@ exports.createPost = async (req, res) => {
     console.log(error.response.data);
     console.log(error.response.status);
     console.log(error.response.config);
-    res.status(500).json({ success: false, error: error });
+    res.status(500).json({ success: false, error: "There was an error creating your post. Try Again." });
   }
 };
 
@@ -103,6 +105,7 @@ exports.updateShoe = (req, res) => {
     post_action,
     price,
     condition,
+    size,
     description,
   } = req.body;
 
@@ -120,6 +123,7 @@ exports.updateShoe = (req, res) => {
     status_name,
     price,
     condition,
+    size,
     description,
   };
 

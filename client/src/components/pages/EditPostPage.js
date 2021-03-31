@@ -48,6 +48,7 @@ const EditPostPage = ({ history }) => {
   const [price, set_price] = useState("");
   const [condition, set_condition] = useState("");
   const [description, setDescription] = useState("");
+  const [size, set_size] = useState("");
 
   let { id } = useParams();
 
@@ -65,6 +66,8 @@ const EditPostPage = ({ history }) => {
         config
       );
 
+      console.log(data);
+
       set_post_action(data.data[0][0].status_name);
       set_color(JSON.parse(data.data[0][0].color));
       set_brand_name(data.data[0][0].brand_name);
@@ -75,6 +78,7 @@ const EditPostPage = ({ history }) => {
       set_condition(data.data[0][0].shoe_condition);
       setUsername(data.data[0][0].username);
       setImageUrl(data.data[0][0].image_url);
+      set_size(data.data[0][0].size);
     } catch (error) {
       console.log(error);
     }
@@ -114,6 +118,7 @@ const EditPostPage = ({ history }) => {
       post_action,
       price,
       condition,
+      size,
       description,
     };
 
@@ -126,6 +131,46 @@ const EditPostPage = ({ history }) => {
       console.log(error);
     }
   };
+
+  const renderShoeSize = () => {
+    if (post_action === "Sell" || post_action === "Trade") {
+      return (
+        <div className="mb-4">
+          <FormControl fullWidth variant="outlined">
+            <InputLabel id="shoe-size-label">Shoe Size (US Men's)</InputLabel>
+            <Select
+              required
+              labelId="shoe-size-label"
+              id="shoe-size-select"
+              value={size}
+              onChange={(e) => set_size(e.target.value)}
+              label="Condition"
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={"6"}>6</MenuItem>
+              <MenuItem value={"6.5"}>6.5</MenuItem>
+              <MenuItem value={"7"}>7</MenuItem>
+              <MenuItem value={"7.5"}>7.5</MenuItem>
+              <MenuItem value={"8"}>8</MenuItem>
+              <MenuItem value={"8.5"}>8.5</MenuItem>
+              <MenuItem value={"9"}>9</MenuItem>
+              <MenuItem value={"9.5"}>9.5</MenuItem>
+              <MenuItem value={"10"}>10</MenuItem>
+              <MenuItem value={"10.5"}>10.5</MenuItem>
+              <MenuItem value={"11"}>11</MenuItem>
+              <MenuItem value={"11.5"}>11.5</MenuItem>
+              <MenuItem value={"12"}>12</MenuItem>
+              <MenuItem value={"13"}>13</MenuItem>
+              <MenuItem value={"14"}>14</MenuItem>
+              <MenuItem value={"15"}>15</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+      )
+    }
+  }
 
   const renderAskingPrice = () => {
     if (post_action === "Sell") {
@@ -267,6 +312,7 @@ const EditPostPage = ({ history }) => {
             </div>
             {renderAskingPrice()}
             {renderShoeCondition()}
+            {renderShoeSize()}
 
             <div className="mb-4">
               <TextField
@@ -310,6 +356,7 @@ const EditPostPage = ({ history }) => {
               <div>Brand: {brand_name}</div>
               <div>Model: {shoe_model}</div>
               <div>Year: {year}</div>
+              {size && <div>Size: {size}</div>}
               {condition && <div>Condition: {condition}</div>}
               {price && <div>Price: ${price}</div>}
             </div>
