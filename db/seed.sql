@@ -25,6 +25,7 @@ web_id INT NOT NULL,
 price DECIMAL(5,2),
 shoe_condition VARCHAR(35),
 description VARCHAR(255),
+size VARCHAR(5),
 PRIMARY KEY (shoe_id),
 FOREIGN KEY (web_id) REFERENCES webusers (web_id) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1000;
