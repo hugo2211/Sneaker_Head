@@ -47,14 +47,12 @@ const UserUploadPage = ({ history }) => {
   const [condition, set_condition] = useState("");
   const [description, setDescription] = useState("");
   const [size, set_size] = useState("");
-  const [maxCharacter, setMaxCharacter] = useState(255);
-  const [characterCount, setCharacterCount] = useState(maxCharacter);
+  const [characterCount, setCharacterCount] = useState(255);
 
   const countChars = (val) => {
     let maxLength = 255;
     let strLength = val.length;
     let charRemain = (maxLength - strLength);
-    console.log(charRemain);
     setCharacterCount(charRemain)
   };
 
@@ -336,7 +334,7 @@ const UserUploadPage = ({ history }) => {
                   multiline
                   rows={1}
                   rowsMax={2}
-                  inputProps={{ maxLength: maxCharacter }}
+                  inputProps={{ maxLength: 255 }}
                   onKeyUp={(e) => countChars(e.target.value)}
                 />
                 <p id="charNum" className="centered-text"> {characterCount} characters remaining </p>

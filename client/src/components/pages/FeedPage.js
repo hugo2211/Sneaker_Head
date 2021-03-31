@@ -71,7 +71,6 @@ const FeedPage = ({ history }) => {
       }
     });
 
-    console.log(filteredResults);
     setFilteredFeedData(filteredResults);
   };
 
@@ -160,9 +159,8 @@ const FeedPage = ({ history }) => {
   return (
     <div className="feed-page">
       <h2 className="centered-text">Feed</h2>
-      <div className="centered-text">
+      <div className="centered-text mb-2">
         <TextField
-          required
           id="search-input"
           label="Search"
           variant="outlined"
