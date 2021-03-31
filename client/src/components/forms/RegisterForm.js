@@ -63,7 +63,7 @@ const RegisterForm = ({
 
   return (
     <form className="mt-4" onSubmit={handleRegisterFormSubmit}>
-      {error && <span className="error-message">{error}</span>}
+      {error && <span className="error-message">{JSON.stringify(error)}</span>}
       <div className="container-fluid mb-4">
         <div className="row">
           <div className="col">

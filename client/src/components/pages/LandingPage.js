@@ -5,11 +5,14 @@ import "./LandingPage.css";
 import sneaker from "../../images/SneakerLogoFinal.png";
 import head from "../../images/HeadLogoFinal.png";
 import TwoBlockButtonGroup from "../buttons/TwoBlockBtnGroup";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 const LandingPage = ({ history }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
   const [message, setMessage] = useState('');
+  
+
 
   return (
     <div className="landing-page-background">
