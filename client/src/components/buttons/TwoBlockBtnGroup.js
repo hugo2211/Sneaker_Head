@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
 const TwoBlockButtonGroup = (props) => {
+  const [isDisabled, setIsDisabled] = useState(false)
+  const handleClick = () => {
+    setIsDisabled(true);
+    props.handleBtnTwoClick();
+  }
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -14,8 +20,9 @@ const TwoBlockButtonGroup = (props) => {
         </div>
         <div className="col-md-6 col-12">
           <button
-            className="btn btn-outline-light btn-lg btn-block"
-            onClick={props.handleBtnTwoClick}
+            className= "btn btn-outline-light btn-lg btn-block"
+            disabled = {isDisabled}
+            onClick={handleClick}
           >
             {props.btnTwoName}
           </button>
