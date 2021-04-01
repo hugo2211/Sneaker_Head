@@ -6,8 +6,6 @@ const axios = require("axios");
 exports.register = async (req, res) => {
   const { username, password, email, firstName, lastName } = req.body;
 
-  console.log(req.body);
-
   const authObject = {
     "PRIVATE-KEY": process.env.CHAT_PRIVATE_KEY,
   };
@@ -31,10 +29,9 @@ exports.register = async (req, res) => {
     createUser(username, password, email, firstName, lastName, res);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, error: error });
+    res.status(500).json({ success: false, error: "An error occured while creating the user, please try again." });
   }
 
-  
 };
 
 exports.login = (req, res, next) => {
@@ -46,8 +43,6 @@ exports.login = (req, res, next) => {
       .json({ success: false, error: "Please provide an email and password" });
   }
 
-  //console.log(username, password);
-
   User.login(
     username,
     password,
@@ -58,11 +53,11 @@ exports.login = (req, res, next) => {
           .json({ success: false, error: "Invalid Credentials" });
       }
 
-      //res.status(200).json({ success: true, user: user});
       sendToken(user, 200, res);
     },
     (err) => {
-      res.status(500).json({ success: false, error: err });
+      console.log(err);
+      res.status(500).json({ success: false, error: 'An error occured while logging in.  Please Try Again' });
     }
   );
 };
