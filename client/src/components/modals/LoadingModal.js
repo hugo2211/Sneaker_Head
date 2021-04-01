@@ -19,7 +19,7 @@ const LoadingModal = ({ modalMessage, showLoadingScreen }) => {
   return (
     <>
       <Modal show={showLoadingScreen} backdrop="static" keyboard={false} className="my-modal">
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>{modalMessage}</Modal.Title>
         </Modal.Header>
         <Modal.Footer className="justify-content-center">

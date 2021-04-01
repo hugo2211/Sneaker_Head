@@ -17,6 +17,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import FileUpload from "../inputs/FileUpload";
 import MultiSelect from "../inputs/MultiSelect";
+import LoadingModal from "../modals/LoadingModal";
 
 const useStyles = makeStyles(() => ({
   radioGroup: {
@@ -48,6 +49,7 @@ const UserUploadPage = ({ history }) => {
   const [description, setDescription] = useState("");
   const [size, set_size] = useState("");
   const [characterCount, setCharacterCount] = useState(255);
+  const [showLoadingScreen, setShowLoadingScreen] = useState(false);
 
   const countChars = (val) => {
     let maxLength = 255;
@@ -74,15 +76,7 @@ const UserUploadPage = ({ history }) => {
 
   const handleUploadSubmit = (event) => {
     event.preventDefault();
-    console.log(
-      brand_name,
-      shoe_model,
-      color,
-      year,
-      post_action,
-      price,
-      condition
-    );
+    setShowLoadingScreen(true);
     uploadPostInfo();
   };
 
@@ -119,6 +113,7 @@ const UserUploadPage = ({ history }) => {
     } catch (error) {
       console.log(error);
       setError(error.response.data.error);
+      setShowLoadingScreen(false);
       setTimeout(() => {
         setError("");
       }, 5000);
@@ -220,6 +215,10 @@ const UserUploadPage = ({ history }) => {
   return (
     <div>
       <div className="mt-4">
+      <LoadingModal
+        modalMessage="Uploading your post"
+        showLoadingScreen={showLoadingScreen}
+      />
         <h2 className="text-center">New Post</h2>
         <form onSubmit={handleUploadSubmit}>
           <div className="container mt-5">

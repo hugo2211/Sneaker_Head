@@ -51,13 +51,10 @@ const RegisterForm = ({
         config
       );
 
-      console.log(data);
-      setTimeout(() => {
-        setShowLoadingScreen(false);
-        closeRegisterForm();
-        handleSuccess("User Created! Please Login in.");
-        goToLogin();
-      }, 5000);
+      setShowLoadingScreen(false);
+      closeRegisterForm();
+      handleSuccess("User Created! Please Login in.");
+      goToLogin();
     } catch (error) {
       console.log(error.response);
       setShowLoadingScreen(false);
@@ -72,10 +69,9 @@ const RegisterForm = ({
     <form className="mt-4" onSubmit={handleRegisterFormSubmit}>
       {error && <span className="error-message">{JSON.stringify(error)}</span>}
       <LoadingModal
-        modalMessage="Please wait.  Your account is being created."
+        modalMessage="Creating your account!"
         showLoadingScreen={showLoadingScreen}
       />
-      <button onClick={() => setShowLoadingScreen(true)}>Show Modal</button>
       <div className="container-fluid mb-4">
         <div className="row">
           <div className="col">

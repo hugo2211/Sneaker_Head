@@ -90,7 +90,7 @@ const ProfilePage = ({ history }) => {
               >
                 <div className={classes.shoePost}>
                   <div className={classes.usernameAndIcons}>
-                    <div>{shoe.username}</div>
+                    <div className="username">{shoe.username}</div>
                     <div className="text-right">
                       <i
                         className="far fa-edit mr-4"
