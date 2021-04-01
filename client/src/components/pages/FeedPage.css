@@ -7,4 +7,9 @@
   cursor: pointer;
 }
 
+.search-container {
+  width: 300px;
+  margin: auto;
+}
+
 

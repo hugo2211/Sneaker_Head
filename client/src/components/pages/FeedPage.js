@@ -159,13 +159,14 @@ const FeedPage = ({ history }) => {
   return (
     <div className="feed-page">
       <h2 className="centered-text">Feed</h2>
-      <div className="centered-text mb-2">
+      <div className="centered-text mb-2 search-container">
         <TextField
           id="search-input"
           label="Search"
           variant="outlined"
           value={search}
           onChange={onSearchChange}
+          fullWidth
         />
       </div>
 

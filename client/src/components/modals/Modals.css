@@ -1,0 +1,14 @@
+.my-modal .modal-content {
+  background-color: rgba(20, 20, 20);
+  color: rgba(220, 220, 220)
+}
+
+.my-modal .modal-header {
+  border: none;
+  justify-content: center;
+}
+
+.my-modal .modal-footer {
+  border: none;
+  padding-bottom: 30px;
+}

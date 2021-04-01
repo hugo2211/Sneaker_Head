@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { TextField } from "@material-ui/core";
+import showLoadingScreen from "../modals/LoadingModal";
 import './LoginForm.css';
 
 const LoginForm = ({ handleCancelClick, history, message }) => {
@@ -34,6 +35,7 @@ const LoginForm = ({ handleCancelClick, history, message }) => {
 
       console.log(data);
       //localStorage.setItem("authToken", data.token);
+      
       history.push("/profile");
     } catch (error) {
       console.log(error);
