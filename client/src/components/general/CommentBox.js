@@ -105,7 +105,7 @@ const CommentBox = (props) => {
                   <div key={`${comment.username}-${index}`}>
                     <Grid container wrap="nowrap" spacing={2}>
                       <Grid item>
-                        <Avatar alt="Remy Sharp" src={imgLink} />
+                        <Avatar>{comment.username[0]}</Avatar>
                       </Grid>
                       <Grid justifyContent="left" item xs zeroMinWidth>
                         <h4 style={{ margin: 0, textAlign: "left" }}>

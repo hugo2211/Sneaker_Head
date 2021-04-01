@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
+import { Avatar } from "@material-ui/core";
 import CommentBox from "../general/CommentBox";
 
 import DeleteModal from "../modals/DeleteModal";
@@ -11,8 +12,7 @@ const useStyles = makeStyles(() => ({
   },
   usernameAndIcons: {
     display: "grid",
-    gridTemplateColumns: "auto auto",
-    marginBottom: "3px",
+    gridTemplateColumns: "auto auto"
   },
   seperator: {
     backgroundColor: "white",
@@ -90,7 +90,9 @@ const ProfilePage = ({ history }) => {
               >
                 <div className={classes.shoePost}>
                   <div className={classes.usernameAndIcons}>
-                    <div className="username">{shoe.username}</div>
+                    <div className="username">
+                    {shoe.username}
+                    </div>
                     <div className="text-right">
                       <i
                         className="far fa-edit mr-4"
