@@ -6,16 +6,10 @@ Sneakerheads is an online forum for shoe collectors to share their collections o
 
 ## Built with: 
 Express, React JS, Node JS, Material UI, React Chat App, React-Bootstrap, MySQL (via MySQL Workbench), JAWSDB, JSON Webtoken
-
-## Table of Contents
-  
-* [Installation](#installation)
-* [Usage](#usage)
-* [Questions](#questions)
   
 ## Installation
 ### View the Project Live <br>
-https://github.com/hugo2211/Sneaker_Head
+https://sneaker-heads.herokuapp.com/
 
 ### Run the Project Locally
 
