@@ -74,8 +74,6 @@ const EditPostPage = ({ history }) => {
         config
       );
 
-      console.log(data);
-
       set_post_action(data.data[0][0].status_name);
       set_color(JSON.parse(data.data[0][0].color));
       set_brand_name(data.data[0][0].brand_name);

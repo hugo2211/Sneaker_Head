@@ -165,7 +165,6 @@ const orm = {
   },
 
   updateShoe: (shoeInfoObj, cb, errCb) => {
-    console.log("shoeInfoObj", shoeInfoObj);
     let {
       shoe_id,
       brand_name,
@@ -178,9 +177,6 @@ const orm = {
       size,
       description,
     } = shoeInfoObj;
-
-    console.log('orm level shoeInfoObj');
-    console.log(shoeInfoObj);
 
     const queryString = `Call update_myshoes (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
     connection.query(
@@ -240,12 +236,5 @@ const orm = {
     });
   },
 };
-
-/* image: fileUpload,
-          shoeBrand,
-          shoeModel,
-          shoeColorArr,
-          shoeYear,
-          postAction, */
 
 module.exports = orm;

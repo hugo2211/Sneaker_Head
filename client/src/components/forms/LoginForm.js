@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { TextField } from "@material-ui/core";
-import showLoadingScreen from "../modals/LoadingModal";
 import './LoginForm.css';
 
 const LoginForm = ({ handleCancelClick, history, message }) => {
@@ -48,8 +47,8 @@ const LoginForm = ({ handleCancelClick, history, message }) => {
 
   return (
     <form className="mt-4" onSubmit={handleLoginFormSubmit}>
-      {message && <span className="register-message">{message}</span>}
-      {error && <span className="error-message">{error}</span>}
+      {message && <div className="register-message">{message}</div>}
+      {error && <div className="error-message">{error}</div>}
       <div className="pl-3 pr-3 mb-4">
         <TextField
           required
