@@ -15,11 +15,13 @@ p_web_id INT,
 p_url varchar(255),
 p_price DECIMAL(5,2),
 p_shoe_condition VARCHAR(35),
-P_description VARCHAR(255))
+p_size VARCHAR(5),
+p_description VARCHAR(255)
+)
 BEGIN
 IF p_price = "" then set p_price = NULL; END IF;
-INSERT INTO myshoes (brand_name, shoe_model, color, year, status_name, postdte, web_id, price, shoe_condition, description)
-VALUES (p_brand_name, p_shoe_model, p_color, p_year, p_status_name, NOW(), p_web_id, p_price, p_shoe_condition, p_description);
+INSERT INTO myshoes (brand_name, shoe_model, color, year, status_name, postdte, web_id, price, shoe_condition, size, description )
+VALUES (p_brand_name, p_shoe_model, p_color, p_year, p_status_name, NOW(), p_web_id, p_price, p_shoe_condition, p_size, p_description);
 CALL add_image(p_url);
 END
 
@@ -27,7 +29,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_shoe`(
 p_shoe_id int
 )
 BEGIN
-	DELETE FROM myshoes WHERE shoe_id = p_shoe_id;
+DELETE FROM myshoes WHERE shoe_id = p_shoe_id;
 END
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `feed_shoes`(
@@ -42,7 +44,7 @@ JOIN shoeimage b on a.shoe_id
 JOIN webusers c on a.web_id
 where a.web_id <> p_web_id AND a.shoe_id = b.shoe_id and c.web_id = a.web_id;
 END
-
+	
 CREATE DEFINER=`root`@`localhost` PROCEDURE `pull_user_shoes`(
 p_web_id INT)
 BEGIN
